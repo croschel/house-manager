@@ -1,9 +1,12 @@
 import { Button } from "./components/ui/button";
+import { useAppDispatch } from "./reducers";
+import { increment } from "./reducers/app/actions";
 
 function App() {
+  const dispatch = useAppDispatch();
   return (
-    <div>
-      <Button>Buttton</Button>
+    <div className="flex bg-background">
+      <Button onClick={() => dispatch(increment())}>Buttton</Button>
     </div>
   );
 }
