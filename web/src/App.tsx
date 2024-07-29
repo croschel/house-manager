@@ -1,12 +1,10 @@
-import { Button } from "./components/ui/button";
-import { useAppDispatch } from "./reducers";
-import { increment } from "./reducers/app/actions";
+import { Login } from "./pages/login";
 
 function App() {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   return (
-    <div className="flex bg-background">
-      <Button onClick={() => dispatch(increment())}>Buttton</Button>
+    <div className="flex w-dvw h-dvh bg-zinc-800">
+      <Login />
     </div>
   );
 }
