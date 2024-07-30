@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -21,6 +22,7 @@ const formSchema = z.object({
 });
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,12 +32,17 @@ export const SignUp = () => {
       confirmPassword: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
     alert("Conta criada com sucesso");
-  }
+  };
+
+  const handleMoveBack = () => {
+    navigate("/");
+  };
+
   return (
     <UnloggedWrapper
       title="Criar Conta"
@@ -107,7 +114,12 @@ export const SignUp = () => {
           </Button>
         </form>
       </Form>
-      <Button className="w-full mt-2" variant="default" type="submit">
+      <Button
+        className="w-full mt-2"
+        variant="default"
+        type="submit"
+        onClick={handleMoveBack}
+      >
         Já possuo uma conta
       </Button>
       <div className="w-full flex align-center my-8">

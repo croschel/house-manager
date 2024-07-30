@@ -12,12 +12,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { UnloggedWrapper } from "@/components/generic/unlogged-wrapper";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   email: z.string().email("Email não é válido"),
   password: z.string().min(1, "Password é obrigatório"),
 });
 export const Login = () => {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -25,11 +27,16 @@ export const Login = () => {
       password: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-  }
+  };
+
+  const handleCreateAccount = () => {
+    navigate("/signup");
+  };
+
   return (
     <UnloggedWrapper
       title="Login"
@@ -73,7 +80,12 @@ export const Login = () => {
           </Button>
         </form>
       </Form>
-      <Button className="w-full mt-2" variant="default" type="submit">
+      <Button
+        className="w-full mt-2"
+        variant="default"
+        type="submit"
+        onClick={handleCreateAccount}
+      >
         Criar minha conta
       </Button>
       <div className="w-full flex align-center my-8">
