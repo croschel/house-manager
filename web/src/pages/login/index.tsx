@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { UnloggedWrapper } from "@/components/generic/unlogged-wrapper";
 import { useNavigate } from "react-router-dom";
+import { PageType } from "@/models/enums/pages";
 
 const formSchema = z.object({
   email: z.string().email("Email não é válido"),
@@ -31,10 +32,11 @@ export const Login = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    navigate(PageType.ExpenseControl);
   };
 
   const handleCreateAccount = () => {
-    navigate("/signup");
+    navigate(PageType.SignUp);
   };
 
   return (
