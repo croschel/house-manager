@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import bgHouse from "../../assets/big-logo.png";
+import bgHouse from "../../assets/small-logo.png";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { PageType } from "@/models/enums/pages";
