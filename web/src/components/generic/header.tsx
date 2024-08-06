@@ -19,7 +19,7 @@ export const Header = () => {
           alt="House Manager Logo"
           className="w-[76px] h-[72px]"
         />
-        <h1 className="text-[24px] text-white">House Manager</h1>
+        <h1 className="text-[24px] text-zinc-200">House Manager</h1>
         <nav className="ml-8 flex">
           <Button
             className={`text-[18px] ${
@@ -32,7 +32,7 @@ export const Header = () => {
             Controle de Gastos
           </Button>
           <Button
-            className={`text-white text-[18px] ${
+            className={`text-zinc-200 text-[18px] ${
               location.pathname.slice(0) === PageType.MarketControl
                 ? "underline"
                 : ""

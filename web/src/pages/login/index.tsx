@@ -92,7 +92,7 @@ export const Login = () => {
       </Button>
       <div className="w-full flex align-center my-8">
         <div className="flex flex-1 border border-1 h-0 mt-2" />
-        <Label className="flex flex-1 text-nowrap text-[12px] text-white px-2">
+        <Label className="flex flex-1 text-nowrap text-[12px] text-zinc-200 px-2">
           OU CONTINUE COM
         </Label>
         <div className="flex flex-1 border border-1 h-0 mt-2" />

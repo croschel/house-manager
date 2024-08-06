@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-zinc-700 text-white hover:bg-zinc-700/80",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        default: "bg-zinc-700 text-zinc-200 hover:bg-zinc-700/80",
+        destructive: "bg-destructive text-zinc-200 hover:bg-destructive/90",
+        creation: "bg-green-600 text-zinc-200 hover:bg-green-600/90",
         outline:
-          "border border-zinc-600 bg-transparent text-white hover:bg-accent hover:text-accent-foreground",
+          "border border-zinc-600 bg-transparent text-zinc-200 hover:opacity-90 hover:text-zinc-200/90",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        navMenu: "text-white underline-offset-4 hover:text-white/80",
+        navMenu: "text-zinc-200 underline-offset-4 hover:text-zinc-200/80",
       },
       size: {
         default: "h-10 px-4 py-2",

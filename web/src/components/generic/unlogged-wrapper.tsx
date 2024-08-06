@@ -29,8 +29,8 @@ export const UnloggedWrapper: FC<Props> = ({
       </div>
       <div className="min-w-[25%] p-[56px] flex flex-col justify-center">
         <div className="flex gap-1 flex-col mb-2">
-          <Label className="text-[32px] text-white">{title}</Label>
-          <Label className="text-[14px] text-white">{description}</Label>
+          <Label className="text-[32px] text-zinc-200">{title}</Label>
+          <Label className="text-[14px] text-zinc-200">{description}</Label>
         </div>
         {children}
       </div>
