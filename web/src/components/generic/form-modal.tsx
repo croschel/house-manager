@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import { FC } from "react";
 import { Button } from "../ui/button";
+import { Form } from "../ui/form";
+import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   children: React.ReactNode;
@@ -16,6 +18,8 @@ interface Props {
   title: string;
   description: string;
   buttonLabel: string;
+  form: UseFormReturn<any>;
+  onSubmit: (values: any) => void;
 }
 
 export const FormModal: FC<Props> = ({
@@ -25,6 +29,8 @@ export const FormModal: FC<Props> = ({
   title,
   description,
   buttonLabel,
+  form,
+  onSubmit,
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal={isOpen}>
@@ -37,12 +43,19 @@ export const FormModal: FC<Props> = ({
             {description}
           </DialogDescription>
         </DialogHeader>
-        {children}
-        <DialogFooter className="mt-8">
-          <Button variant="secondary" type="submit">
-            {buttonLabel}
-          </Button>
-        </DialogFooter>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-8"
+          >
+            {children}
+            <DialogFooter className="mt-8">
+              <Button variant="secondary" type="submit">
+                {buttonLabel}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

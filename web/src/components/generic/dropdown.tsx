@@ -32,13 +32,13 @@ export const Dropdown: FC<Props> = ({
 }) => {
   return (
     <div
-      className={
-        (cn(`flex flex-col ${!!label && "gap-2"} items-start w-full`),
-        boxStyles)
-      }
+      className={cn(
+        `flex flex-col ${!!label && "gap-0"} justify-self-start w-full`,
+        boxStyles
+      )}
     >
       <Conditional condition={!!label}>
-        <Label htmlFor={id} className="text-left text-zinc-200">
+        <Label htmlFor={id} className="text-left text-zinc-200 py-2">
           {label}
         </Label>
       </Conditional>

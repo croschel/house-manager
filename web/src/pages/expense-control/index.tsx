@@ -1,14 +1,12 @@
 import { DataBox } from "@/components/generic/data-box";
-import { DatePicker } from "@/components/generic/date-picker";
 import { DatePickerRange } from "@/components/generic/date-picker-range";
-import { Dropdown } from "@/components/generic/dropdown";
-import { FormModal } from "@/components/generic/form-modal";
 import { Header } from "@/components/generic/header";
-import { InputLabel } from "@/components/generic/input-label";
 import { Button } from "@/components/ui/button";
 import { addDays } from "date-fns";
 import React, { useState } from "react";
 import { DateRange } from "react-day-picker";
+import { FundModal } from "./fund-modal";
+import { ExpenseModal } from "./expense-modal";
 
 export const ExpenseControl = () => {
   const [date, setDate] = React.useState<DateRange | undefined>({
@@ -16,9 +14,13 @@ export const ExpenseControl = () => {
     to: addDays(new Date(2022, 0, 20), 20),
   });
   const [fundModal, setFundModal] = useState(false);
+  const [expenseModal, setExpenseModal] = useState(false);
+
   const handleOpenExpenseModal = (type: "expense" | "fund") => {
     if (type === "fund") {
       setFundModal(true);
+    } else {
+      setExpenseModal(true);
     }
   };
   return (
@@ -94,53 +96,8 @@ export const ExpenseControl = () => {
           />
         </div>
       </main>
-      <FormModal
-        isOpen={fundModal}
-        setIsOpen={() => setFundModal(false)}
-        title="Adicionar Fundo"
-        description="Adicionar um recebimento de proventos"
-        buttonLabel="Adicionar Fundo"
-      >
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-row gap-4 items-center">
-            <InputLabel
-              id="name"
-              label="Nome"
-              boxStyles="w-[60%]"
-              inputProps={{ placeholder: "Digite o nome do provento" }}
-            />
-            <Dropdown
-              id="category"
-              label="Categoria"
-              boxStyles="w-[40%]"
-              value=""
-              onChange={() => {}}
-              options={[
-                { label: "Receita", value: "1" },
-                { label: "Despesa", value: "2" },
-              ]}
-            />
-          </div>
-          <div className="flex flex-row gap-4">
-            <InputLabel
-              id="value"
-              label="Valor"
-              inputProps={{
-                type: "number",
-                placeholder: "Digite o valor",
-              }}
-              boxStyles="w-[60%]"
-            />
-            <DatePicker
-              id="date"
-              date={new Date()}
-              setDate={() => {}}
-              label="Data"
-              boxStyles="w-[40%] "
-            />
-          </div>
-        </div>
-      </FormModal>
+      <FundModal isOpen={fundModal} setIsOpen={setFundModal} />
+      <ExpenseModal isOpen={expenseModal} setIsOpen={setExpenseModal} />
     </div>
   );
 };
