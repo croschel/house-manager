@@ -8,6 +8,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -23,6 +24,8 @@ const formSchema = z.object({
   category: z.string().min(1, "Campo Obrigatório"),
   value: z.string().min(1, "Campo Obrigatório"),
   date: z.date(),
+  local: z.string(),
+  repeatedExpense: z.boolean(),
 });
 
 export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen }) => {
@@ -33,6 +36,8 @@ export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen }) => {
       category: "",
       value: "",
       date: new Date(),
+      local: "",
+      repeatedExpense: false,
     },
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -124,6 +129,43 @@ export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen }) => {
                   date={field.value}
                   setDate={field.onChange}
                   label="Data"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+      <div className="flex flex-row gap-4">
+        <FormField
+          control={form.control}
+          name="local"
+          render={({ field }) => (
+            <FormItem className="w-[60%]">
+              <FormControl>
+                <InputLabel
+                  id="local"
+                  label="Local"
+                  inputProps={{
+                    type: "text",
+                    placeholder: "Digite o local",
+                    ...field,
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="repeatedExpense"
+          render={({ field }) => (
+            <FormItem className="w-[40%]">
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />
