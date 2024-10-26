@@ -28,7 +28,8 @@ export const DataBox: FC<Props> = ({
   return (
     <div
       className={cn(
-        `flex flex-1 flex-col justify-between min-w-[300px] min-h-[160px] border rounded-xl border-zinc-700 px-[12px] py-[18px]`,
+        `flex flex-1 flex-col justify-between min-w-[300px] min-h-[160px] border
+        rounded-xl border-zinc-700 px-[12px] py-[18px]`,
         className
       )}
     >

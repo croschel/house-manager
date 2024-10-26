@@ -12,7 +12,10 @@ export const Header = () => {
   };
 
   return (
-    <header className="flex w-full items-center justify-between gap-4 px-6 py-4 border-b-[1px] border-zinc-700">
+    <header
+      className="flex w-full items-center justify-between gap-4 px-6 py-4 border-b-[1px]
+        border-zinc-700"
+    >
       <div className="flex flex-1 items-center gap-4">
         <img
           src={bgHouse}
@@ -26,7 +29,7 @@ export const Header = () => {
               location.pathname.slice(0) === PageType.ExpenseControl
                 ? 'underline'
                 : ''
-            }`}
+              }`}
             variant="navMenu"
           >
             Controle de Gastos
@@ -36,7 +39,7 @@ export const Header = () => {
               location.pathname.slice(0) === PageType.MarketControl
                 ? 'underline'
                 : ''
-            }`}
+              }`}
             variant="navMenu"
           >
             Controle de Compras
