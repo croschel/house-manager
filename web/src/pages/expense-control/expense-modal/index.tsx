@@ -2,13 +2,14 @@ import { DatePicker } from '@/components/generic/date-picker';
 import { Dropdown } from '@/components/generic/dropdown';
 import { FormModal } from '@/components/generic/form-modal';
 import { InputLabel } from '@/components/generic/input-label';
+import { SwitchLabel } from '@/components/generic/switch-label';
 import {
   FormControl,
   FormField,
   FormItem,
   FormMessage
 } from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
+import { errorMessages } from '@/models/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,18 +18,19 @@ import { z } from 'zod';
 interface Props {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  type: 'add' | 'edit';
 }
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Campo Obrigatório'),
-  category: z.string().min(1, 'Campo Obrigatório'),
-  value: z.string().min(1, 'Campo Obrigatório'),
+  name: z.string().min(1, errorMessages.requiredField),
+  category: z.string().min(1, errorMessages.requiredField),
+  value: z.string().min(1, errorMessages.requiredField),
   date: z.date(),
   local: z.string(),
   repeatedExpense: z.boolean()
 });
 
-export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen }) => {
+export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen, type }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,13 +47,21 @@ export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen }) => {
     // ✅ This will be type-safe and validated.
     console.log(values);
   };
+
+  const title = type === 'add' ? 'Adicionar Despesa' : 'Editar Despesa';
+  const description =
+    type === 'add'
+      ? 'Adicionar uma nova despesa realizada'
+      : 'Editar uma despesa realizada';
+  const titleButton = type === 'add' ? 'Adicionar' : 'Editar';
+
   return (
     <FormModal
       isOpen={isOpen}
       setIsOpen={() => setIsOpen(false)}
-      title="Adicionar Despesa"
-      description="Adicionar uma nova despesa realizada"
-      buttonLabel="Adicionar Despesa"
+      title={title}
+      description={description}
+      buttonLabel={`${titleButton} Despesa`}
       form={form}
       onSubmit={onSubmit}
     >
@@ -157,21 +167,25 @@ export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen }) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="repeatedExpense"
-          render={({ field }) => (
-            <FormItem className="w-[40%]">
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex w-[40%]">
+          <FormField
+            control={form.control}
+            name="repeatedExpense"
+            render={({ field }) => (
+              <FormItem className="w-full self-center">
+                <FormControl>
+                  <SwitchLabel
+                    label="Despesa Fixa"
+                    checked={field.value}
+                    onChange={field.onChange}
+                    labelPosition="right"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
       </div>
     </FormModal>
   );

@@ -59,6 +59,7 @@ export const DatePicker: React.FC<Props> = ({
             selected={date}
             onSelect={setDate}
             initialFocus
+            className="pointer-events-auto" // required to make calendar working with modal
           />
         </PopoverContent>
       </Popover>

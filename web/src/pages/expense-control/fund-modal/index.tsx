@@ -8,6 +8,7 @@ import {
   FormItem,
   FormMessage
 } from '@/components/ui/form';
+import { errorMessages } from '@/models/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -18,9 +19,9 @@ interface Props {
 }
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Campo Obrigatório'),
-  category: z.string().min(1, 'Campo Obrigatório'),
-  value: z.string().min(1, 'Campo Obrigatório'),
+  name: z.string().min(1, errorMessages.requiredField),
+  category: z.string().min(1, errorMessages.requiredField),
+  value: z.string().min(1, errorMessages.requiredField),
   date: z.date()
 });
 

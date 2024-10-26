@@ -2,17 +2,14 @@ import { DataBox } from '@/components/generic/data-box';
 import { DatePickerRange } from '@/components/generic/date-picker-range';
 import { Header } from '@/components/generic/header';
 import { Button } from '@/components/ui/button';
-import { addDays } from 'date-fns';
-import React, { useState } from 'react';
-import { DateRange } from 'react-day-picker';
 import { FundModal } from './fund-modal';
 import { ExpenseModal } from './expense-modal';
+import { useState } from 'react';
+import { MainFilterPage } from '@/components/generic/main-filter-page';
+import { DateRange } from 'react-day-picker';
+import { MainContainer } from '@/components/generic/main-container';
 
 export const ExpenseControl = () => {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20)
-  });
   const [fundModal, setFundModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
 
@@ -23,30 +20,24 @@ export const ExpenseControl = () => {
       setExpenseModal(true);
     }
   };
+  const handleFilter = (date: DateRange | undefined) => {
+    console.log(date);
+  };
+
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <main className="flex w-full h-full flex-col p-6 overflow-y-auto gap-4">
-        <div className="flex justify-between items-center">
-          <div className="flex gap-8 items-center">
-            <h1 className="text-[40px] text-zinc-200">Controle de Gastos</h1>
-            <DatePickerRange date={date} onChange={setDate} />
-          </div>
-          <div className="flex gap-4">
-            <Button
-              variant="destructive"
-              onClick={() => handleOpenExpenseModal('expense')}
-            >
-              Adicionar Despesa
-            </Button>
-            <Button
-              variant="creation"
-              onClick={() => handleOpenExpenseModal('fund')}
-            >
-              Adicionar Fundo
-            </Button>
-          </div>
-        </div>
+      <MainContainer>
+        <MainFilterPage
+          title="Controle de Gastos"
+          primaryBtnLabel="Adicionar Despesa"
+          secondaryBtnLabel="Adicionar Fundo"
+          handlePrimaryBtn={() => handleOpenExpenseModal('expense')}
+          handleSecondaryBtn={() => handleOpenExpenseModal('fund')}
+          onChange={(date) => handleFilter(date)}
+          primaryBtnVariant="creation"
+          secondaryBtnVariant="destructive"
+        />
         <div className="flex w-full mt-6 gap-4">
           <DataBox
             title="Saldo Total"
@@ -95,9 +86,13 @@ export const ExpenseControl = () => {
             className="h-[100%]"
           />
         </div>
-      </main>
+      </MainContainer>
       <FundModal isOpen={fundModal} setIsOpen={setFundModal} />
-      <ExpenseModal isOpen={expenseModal} setIsOpen={setExpenseModal} />
+      <ExpenseModal
+        isOpen={expenseModal}
+        setIsOpen={setExpenseModal}
+        type="add"
+      />
     </div>
   );
 };
