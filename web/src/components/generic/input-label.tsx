@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { cn } from "@/lib/utils";
-import { Conditional } from "./conditional";
+import React, { FC } from 'react';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { cn } from '@/lib/utils';
+import { Conditional } from './conditional';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -21,23 +21,23 @@ export const InputLabel: FC<Props> = ({
   boxStyles,
   inputProps,
   inputStyles,
-  labelStyles,
+  labelStyles
 }) => {
   return (
     <div
-      className={cn(`flex flex-col ${!!label && "gap-2"} w-full`, boxStyles)}
+      className={cn(`flex flex-col ${!!label && 'gap-2'} w-full`, boxStyles)}
     >
       <Conditional condition={!!label}>
         <Label
           htmlFor={id}
-          className={cn("text-left text-zinc-200", labelStyles)}
+          className={cn('text-left text-zinc-200', labelStyles)}
         >
           {label}
         </Label>
       </Conditional>
       <Input
         id={id}
-        className={cn("col-span-3", inputStyles)}
+        className={cn('col-span-3', inputStyles)}
         {...inputProps}
       />
     </div>

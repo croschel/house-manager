@@ -1,38 +1,38 @@
-import { DatePicker } from "@/components/generic/date-picker";
-import { Dropdown } from "@/components/generic/dropdown";
-import { FormModal } from "@/components/generic/form-modal";
-import { InputLabel } from "@/components/generic/input-label";
+import { DatePicker } from '@/components/generic/date-picker';
+import { Dropdown } from '@/components/generic/dropdown';
+import { FormModal } from '@/components/generic/form-modal';
+import { InputLabel } from '@/components/generic/input-label';
 import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FC } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+  FormMessage
+} from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 interface Props {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 }
 
 const formSchema = z.object({
-  name: z.string().min(1, "Campo Obrigatório"),
-  category: z.string().min(1, "Campo Obrigatório"),
-  value: z.string().min(1, "Campo Obrigatório"),
-  date: z.date(),
+  name: z.string().min(1, 'Campo Obrigatório'),
+  category: z.string().min(1, 'Campo Obrigatório'),
+  value: z.string().min(1, 'Campo Obrigatório'),
+  date: z.date()
 });
 
 export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      category: "",
-      value: "",
-      date: new Date(),
-    },
+      name: '',
+      category: '',
+      value: '',
+      date: new Date()
+    }
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
@@ -60,8 +60,8 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
                   id="name"
                   label="Nome"
                   inputProps={{
-                    placeholder: "Digite o nome do provento",
-                    ...field,
+                    placeholder: 'Digite o nome do provento',
+                    ...field
                   }}
                 />
               </FormControl>
@@ -81,8 +81,8 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
                   value={field.value}
                   onChange={field.onChange}
                   options={[
-                    { label: "Receita", value: "1" },
-                    { label: "Despesa", value: "2" },
+                    { label: 'Receita', value: '1' },
+                    { label: 'Despesa', value: '2' }
                   ]}
                 />
               </FormControl>
@@ -102,9 +102,9 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
                   id="value"
                   label="Valor"
                   inputProps={{
-                    type: "number",
-                    placeholder: "Digite o valor",
-                    ...field,
+                    type: 'number',
+                    placeholder: 'Digite o valor',
+                    ...field
                   }}
                 />
               </FormControl>

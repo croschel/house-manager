@@ -1,14 +1,14 @@
-import { useLocation } from "react-router-dom";
-import bgHouse from "../../assets/small-logo.png";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { PageType } from "@/models/enums/pages";
+import { useLocation } from 'react-router-dom';
+import bgHouse from '../../assets/small-logo.png';
+import { Avatar, AvatarImage } from '../ui/avatar';
+import { Button } from '../ui/button';
+import { PageType } from '@/models/enums/pages';
 
 export const Header = () => {
   const location = useLocation();
   const handleAvatarOptions = () => {
     // TODO - Implement Avatar Options
-    alert("Future Feature");
+    alert('Future Feature');
   };
 
   return (
@@ -24,8 +24,8 @@ export const Header = () => {
           <Button
             className={`text-[18px] ${
               location.pathname.slice(0) === PageType.ExpenseControl
-                ? "underline"
-                : ""
+                ? 'underline'
+                : ''
             }`}
             variant="navMenu"
           >
@@ -34,8 +34,8 @@ export const Header = () => {
           <Button
             className={`text-zinc-200 text-[18px] ${
               location.pathname.slice(0) === PageType.MarketControl
-                ? "underline"
-                : ""
+                ? 'underline'
+                : ''
             }`}
             variant="navMenu"
           >

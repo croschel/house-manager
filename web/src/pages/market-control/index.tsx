@@ -1,4 +1,4 @@
-import { Header } from "@/components/generic/header";
+import { Header } from '@/components/generic/header';
 
 export const MarketControl = () => {
   return (

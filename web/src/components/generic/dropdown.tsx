@@ -1,15 +1,15 @@
-import { FC } from "react";
-import { Label } from "../ui/label";
+import { FC } from 'react';
+import { Label } from '../ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Conditional } from "./conditional";
-import { cn } from "@/lib/utils";
-import { SelectField } from "@/models/interfaces";
+  SelectValue
+} from '../ui/select';
+import { Conditional } from './conditional';
+import { cn } from '@/lib/utils';
+import { SelectField } from '@/models/interfaces';
 
 interface Props {
   id: string;
@@ -28,12 +28,12 @@ export const Dropdown: FC<Props> = ({
   placeholder,
   options,
   value,
-  onChange,
+  onChange
 }) => {
   return (
     <div
       className={cn(
-        `flex flex-col ${!!label && "gap-0"} justify-self-start w-full`,
+        `flex flex-col ${!!label && 'gap-0'} justify-self-start w-full`,
         boxStyles
       )}
     >
@@ -44,7 +44,7 @@ export const Dropdown: FC<Props> = ({
       </Conditional>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger>
-          <SelectValue placeholder={placeholder ?? "Selecione uma categoria"} />
+          <SelectValue placeholder={placeholder ?? 'Selecione uma categoria'} />
         </SelectTrigger>
         <SelectContent>
           {options.map((option) => (

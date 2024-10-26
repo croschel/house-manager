@@ -1,32 +1,32 @@
-import { Label } from "@/components/ui/label";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Label } from '@/components/ui/label';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { UnloggedWrapper } from "@/components/generic/unlogged-wrapper";
-import { useNavigate } from "react-router-dom";
-import { PageType } from "@/models/enums/pages";
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { UnloggedWrapper } from '@/components/generic/unlogged-wrapper';
+import { useNavigate } from 'react-router-dom';
+import { PageType } from '@/models/enums/pages';
 
 const formSchema = z.object({
-  email: z.string().email("Email não é válido"),
-  password: z.string().min(1, "Password é obrigatório"),
+  email: z.string().email('Email não é válido'),
+  password: z.string().min(1, 'Password é obrigatório')
 });
 export const Login = () => {
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
-    },
+      email: '',
+      password: ''
+    }
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.

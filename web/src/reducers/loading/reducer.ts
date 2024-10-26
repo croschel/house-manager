@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AsyncThunk, createReducer } from "@reduxjs/toolkit";
-import { init } from "../app/actions";
+import { AsyncThunk, createReducer } from '@reduxjs/toolkit';
+import { init } from '../app/actions';
 // step 1: add state field and value
 interface LoadingState {
   init: number;
 }
 
 const initialState: LoadingState = {
-  init: 0,
+  init: 0
 };
 
 // step 2: add action to object
@@ -15,7 +15,7 @@ const asyncThunks: Record<
   keyof LoadingState,
   AsyncThunk<any, any, Record<string, unknown>>
 > = {
-  init,
+  init
 };
 
 export const loadingReducer = createReducer<LoadingState>(
@@ -28,15 +28,15 @@ export const loadingReducer = createReducer<LoadingState>(
       loading
         .addCase(thunk.pending, (state: LoadingState) => ({
           ...state,
-          [stateKey]: Math.max(state[stateKey], 0) + 1,
+          [stateKey]: Math.max(state[stateKey], 0) + 1
         }))
         .addCase(thunk.fulfilled, (state: LoadingState) => ({
           ...state,
-          [stateKey]: Math.max(state[stateKey], 1) - 1,
+          [stateKey]: Math.max(state[stateKey], 1) - 1
         }))
         .addCase(thunk.rejected, (state: LoadingState) => ({
           ...state,
-          [stateKey]: Math.max(state[stateKey], 1) - 1,
+          [stateKey]: Math.max(state[stateKey], 1) - 1
         }));
     }
   }

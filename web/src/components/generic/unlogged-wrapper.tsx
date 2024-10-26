@@ -1,7 +1,7 @@
-import { FC, ReactNode } from "react";
-import bigLogo from "../../assets/big-logo.png";
-import bgHouse from "../../assets/smart-home-bg-concept.png";
-import { Label } from "../ui/label";
+import { FC, ReactNode } from 'react';
+import bigLogo from '../../assets/big-logo.png';
+import bgHouse from '../../assets/smart-home-bg-concept.png';
+import { Label } from '../ui/label';
 
 interface Props {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface Props {
 export const UnloggedWrapper: FC<Props> = ({
   children,
   title,
-  description,
+  description
 }) => {
   return (
     <div className="flex flex-1 w-full">

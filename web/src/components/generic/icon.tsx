@@ -1,5 +1,5 @@
-import { icons } from "lucide-react";
-import { FC } from "react";
+import { icons } from 'lucide-react';
+import { FC } from 'react';
 
 interface Props {
   name: keyof typeof icons;

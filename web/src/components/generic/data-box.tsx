@@ -1,8 +1,8 @@
-import { icons } from "lucide-react";
-import { Icon } from "./icon";
-import { FC } from "react";
-import { Conditional } from "./conditional";
-import { cn } from "@/lib/utils";
+import { icons } from 'lucide-react';
+import { Icon } from './icon';
+import { FC } from 'react';
+import { Conditional } from './conditional';
+import { cn } from '@/lib/utils';
 
 interface Props {
   iconName?: keyof typeof icons;
@@ -23,7 +23,7 @@ export const DataBox: FC<Props> = ({
   iconName,
   iconColor,
   iconSize,
-  className = "unset",
+  className = 'unset'
 }) => {
   return (
     <div

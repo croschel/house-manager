@@ -1,23 +1,23 @@
-import { DataBox } from "@/components/generic/data-box";
-import { DatePickerRange } from "@/components/generic/date-picker-range";
-import { Header } from "@/components/generic/header";
-import { Button } from "@/components/ui/button";
-import { addDays } from "date-fns";
-import React, { useState } from "react";
-import { DateRange } from "react-day-picker";
-import { FundModal } from "./fund-modal";
-import { ExpenseModal } from "./expense-modal";
+import { DataBox } from '@/components/generic/data-box';
+import { DatePickerRange } from '@/components/generic/date-picker-range';
+import { Header } from '@/components/generic/header';
+import { Button } from '@/components/ui/button';
+import { addDays } from 'date-fns';
+import React, { useState } from 'react';
+import { DateRange } from 'react-day-picker';
+import { FundModal } from './fund-modal';
+import { ExpenseModal } from './expense-modal';
 
 export const ExpenseControl = () => {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
+    to: addDays(new Date(2022, 0, 20), 20)
   });
   const [fundModal, setFundModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
 
-  const handleOpenExpenseModal = (type: "expense" | "fund") => {
-    if (type === "fund") {
+  const handleOpenExpenseModal = (type: 'expense' | 'fund') => {
+    if (type === 'fund') {
       setFundModal(true);
     } else {
       setExpenseModal(true);
@@ -35,13 +35,13 @@ export const ExpenseControl = () => {
           <div className="flex gap-4">
             <Button
               variant="destructive"
-              onClick={() => handleOpenExpenseModal("expense")}
+              onClick={() => handleOpenExpenseModal('expense')}
             >
               Adicionar Despesa
             </Button>
             <Button
               variant="creation"
-              onClick={() => handleOpenExpenseModal("fund")}
+              onClick={() => handleOpenExpenseModal('fund')}
             >
               Adicionar Fundo
             </Button>

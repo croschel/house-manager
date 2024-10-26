@@ -1,16 +1,16 @@
-import * as React from "react";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
+import * as React from 'react';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { format } from 'date-fns';
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Label } from "../ui/label";
+  PopoverTrigger
+} from '@/components/ui/popover';
+import { Label } from '../ui/label';
 
 interface Props {
   id: string;
@@ -24,12 +24,12 @@ export const DatePicker: React.FC<Props> = ({
   date,
   setDate,
   label,
-  boxStyles,
+  boxStyles
 }) => {
   return (
     <div
       className={cn(
-        `flex flex-col ${!!label && "gap-2"} items-start w-full`,
+        `flex flex-col ${!!label && 'gap-2'} items-start w-full`,
         boxStyles
       )}
     >
@@ -39,15 +39,15 @@ export const DatePicker: React.FC<Props> = ({
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            variant={"outline"}
+            variant={'outline'}
             className={cn(
-              "w-full justify-start text-left font-normal border-zinc-500 text-zinc-200",
-              !date && "text-muted-foreground"
+              'w-full justify-start text-left font-normal border-zinc-500 text-zinc-200',
+              !date && 'text-muted-foreground'
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4 text-zinc-200" />
             {date ? (
-              format(date, "PPP")
+              format(date, 'PPP')
             ) : (
               <span className="text-zinc-200">Selecione uma data</span>
             )}

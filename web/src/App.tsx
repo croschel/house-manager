@@ -1,4 +1,4 @@
-import { RoutesComponent } from "./pages/routes";
+import { RoutesComponent } from './pages/routes';
 
 function App() {
   // const dispatch = useAppDispatch();

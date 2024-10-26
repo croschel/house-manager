@@ -4,12 +4,12 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { FC } from "react";
-import { Button } from "../ui/button";
-import { Form } from "../ui/form";
-import { UseFormReturn } from "react-hook-form";
+  DialogTitle
+} from '@/components/ui/dialog';
+import { FC } from 'react';
+import { Button } from '../ui/button';
+import { Form } from '../ui/form';
+import { UseFormReturn } from 'react-hook-form';
 
 interface Props {
   children: React.ReactNode;
@@ -30,7 +30,7 @@ export const FormModal: FC<Props> = ({
   description,
   buttonLabel,
   form,
-  onSubmit,
+  onSubmit
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal={isOpen}>

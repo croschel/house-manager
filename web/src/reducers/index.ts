@@ -1,13 +1,13 @@
-import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import { AppReducer } from "./app/reducer";
-import { loadingReducer } from "./loading/reducer";
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppReducer } from './app/reducer';
+import { loadingReducer } from './loading/reducer';
 
 export const store = configureStore({
   reducer: {
     app: AppReducer,
-    loading: loadingReducer,
-  },
+    loading: loadingReducer
+  }
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
