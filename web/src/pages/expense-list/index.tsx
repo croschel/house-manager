@@ -4,14 +4,88 @@ import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { ExpenseModal } from '../expense-control/expense-modal';
+import { DataTable } from '@/components/generic/base-table';
+import { ColumnDef } from '@tanstack/react-table';
+import { Button } from '@/components/ui/button';
+import { mockExpenseData } from '@/mocks/expense';
+import { format } from 'date-fns';
+import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
+import { ExpenseData } from '@/models/interfaces';
 
 export const ExpenseList = () => {
   const [expenseModal, setExpenseModal] = useState(false);
   const [editExpenseModal, setEditExpenseModal] = useState(false);
+  const [selectedExpense, setSelectedExpense] = useState<
+    ExpenseData | undefined
+  >();
 
   const handleOpenExpenseModal = () => {
     setExpenseModal(true);
   };
+
+  const handleOpenEditExpenseModal = (expense: ExpenseData) => {
+    setSelectedExpense(expense);
+    setEditExpenseModal(true);
+  };
+  const handleDeleteExpense = (expense: ExpenseData) => {
+    // TODO - Create action with service to handle it
+    alert(`Delete ${expense.name}`);
+  };
+
+  const columns: ColumnDef<any>[] = [
+    {
+      accessorKey: 'name',
+      header: 'Nome'
+    },
+    {
+      accessorKey: 'category',
+      header: 'Category'
+    },
+    {
+      accessorKey: 'value',
+      header: () => 'Valor',
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue('value'));
+        const formatted = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(amount);
+
+        return <div className="text-left font-medium">{formatted}</div>;
+      }
+    },
+    {
+      accessorKey: 'createdAt',
+      header: 'Data de Compra',
+      cell: ({ row }) => {
+        const date = row.getValue('createdAt');
+        return format(date as Date, 'dd/MM/yyyy');
+      }
+    },
+    {
+      id: 'actions',
+      cell: ({ row }) => {
+        return (
+          <div className="flex gap-4">
+            <Button
+              size="icon"
+              variant="icon"
+              onClick={() => handleOpenEditExpenseModal(row.original)}
+            >
+              <Pencil2Icon className="text-zinc-200" width={20} height={20} />
+            </Button>
+            <Button
+              size="icon"
+              variant="icon"
+              onClick={() => handleDeleteExpense(row.original)}
+            >
+              <TrashIcon className="text-destructive" width={20} height={20} />
+            </Button>
+          </div>
+        );
+      }
+    }
+  ];
 
   const handleFilter = (date: DateRange | undefined) => {
     console.log(date);
@@ -21,13 +95,16 @@ export const ExpenseList = () => {
     <div className="flex w-full flex-col">
       <Header />
       <MainContainer>
-        <MainFilterPage
-          title="Despesas"
-          primaryBtnLabel="Adicionar Despesa"
-          handlePrimaryBtn={() => handleOpenExpenseModal()}
-          onChange={(date) => handleFilter(date)}
-          primaryBtnVariant="destructive"
-        />
+        <div className="flex flex-1 flex-col gap-36 h-full">
+          <MainFilterPage
+            title="Despesas"
+            primaryBtnLabel="Adicionar Despesa"
+            handlePrimaryBtn={() => handleOpenExpenseModal()}
+            onChange={(date) => handleFilter(date)}
+            primaryBtnVariant="destructive"
+          />
+          <DataTable columns={columns} data={mockExpenseData} />
+        </div>
       </MainContainer>
       <ExpenseModal
         isOpen={expenseModal}
@@ -38,6 +115,7 @@ export const ExpenseList = () => {
         isOpen={editExpenseModal}
         setIsOpen={setEditExpenseModal}
         type="edit"
+        expense={selectedExpense}
       />
     </div>
   );

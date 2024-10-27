@@ -16,15 +16,17 @@ const buttonVariants = cva(
           'border border-zinc-600 bg-transparent text-zinc-200 hover:opacity-90 hover:text-zinc-200/90',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        ghost:
+          'border border-transparent hover:bg-trasparent hover:border hover:border-zinc-600',
         link: 'text-primary underline-offset-4 hover:underline',
-        navMenu: 'text-zinc-200 underline-offset-4 hover:text-zinc-200/80'
+        navMenu: 'text-zinc-200 underline-offset-4 hover:text-zinc-200/80',
+        icon: 'bg-transparent text-zinc-200 hover:text-zinc-200/80 p-0 h-auto'
       },
       size: {
         default: 'h-10 px-4 py-2',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10'
+        icon: 'h-auto w-auto'
       }
     },
     defaultVariants: {

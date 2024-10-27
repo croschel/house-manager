@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { format } from 'date-fns';
+import { format, formatDate, formatISO } from 'date-fns';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -14,8 +14,8 @@ import { Label } from '../ui/label';
 
 interface Props {
   id: string;
-  date: Date | undefined;
-  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  date: string | undefined;
+  setDate: React.Dispatch<React.SetStateAction<string | undefined>>;
   label?: string;
   boxStyles?: string;
 }
@@ -56,8 +56,10 @@ export const DatePicker: React.FC<Props> = ({
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
             mode="single"
-            selected={date}
-            onSelect={setDate}
+            selected={date !== undefined ? new Date(date) : date}
+            onSelect={(value: Date | undefined) =>
+              setDate(value !== undefined ? formatISO(value) : undefined)
+            }
             initialFocus
             className="pointer-events-auto" // required to make calendar working with modal
           />

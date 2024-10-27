@@ -10,6 +10,7 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { errorMessages } from '@/models/constants';
+import { ExpenseData } from '@/models/interfaces';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -19,27 +20,44 @@ interface Props {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   type: 'add' | 'edit';
+  expense?: ExpenseData;
 }
 
 const formSchema = z.object({
   name: z.string().min(1, errorMessages.requiredField),
   category: z.string().min(1, errorMessages.requiredField),
   value: z.string().min(1, errorMessages.requiredField),
-  date: z.date(),
+  date: z.string(),
   local: z.string(),
   repeatedExpense: z.boolean()
 });
 
-export const ExpenseModal: FC<Props> = ({ isOpen, setIsOpen, type }) => {
+export const ExpenseModal: FC<Props> = ({
+  isOpen,
+  setIsOpen,
+  type,
+  expense
+}) => {
+  const isEditing = type === 'edit';
+  const defaultValues = {
+    name: isEditing ? expense?.name : '',
+    category: isEditing ? expense?.category : '',
+    value: isEditing ? expense?.value.toString() : '',
+    date: isEditing ? expense?.updatedAt : new Date().toISOString(),
+    local: isEditing ? expense?.location : '',
+    repeatedExpense: isEditing ? expense?.isFixedExpense : false
+  };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      category: '',
-      value: '',
-      date: new Date(),
-      local: '',
-      repeatedExpense: false
+    defaultValues,
+    // @ts-ignore
+    values: isEditing && {
+      name: expense?.name ?? '',
+      category: expense?.category ?? '',
+      value: String(expense?.value ?? ''),
+      date: expense?.updatedAt ?? '',
+      local: expense?.location ?? '',
+      repeatedExpense: expense?.isFixedExpense ?? false
     }
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
