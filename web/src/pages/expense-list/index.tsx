@@ -66,7 +66,7 @@ export const ExpenseList = () => {
       id: 'actions',
       cell: ({ row }) => {
         return (
-          <div className="flex gap-4">
+          <div className="flex gap-6 justify-end">
             <Button
               size="icon"
               variant="icon"
@@ -95,7 +95,7 @@ export const ExpenseList = () => {
     <div className="flex w-full flex-col">
       <Header />
       <MainContainer>
-        <div className="flex flex-1 flex-col gap-36 h-full">
+        <div className="flex flex-col justify-between h-full">
           <MainFilterPage
             title="Despesas"
             primaryBtnLabel="Adicionar Despesa"

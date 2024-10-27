@@ -22,7 +22,7 @@ const formSchema = z.object({
   name: z.string().min(1, errorMessages.requiredField),
   category: z.string().min(1, errorMessages.requiredField),
   value: z.string().min(1, errorMessages.requiredField),
-  date: z.date()
+  date: z.string()
 });
 
 export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
@@ -32,7 +32,7 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
       name: '',
       category: '',
       value: '',
-      date: new Date()
+      date: new Date().toISOString()
     }
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
