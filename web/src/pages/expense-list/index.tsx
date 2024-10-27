@@ -11,6 +11,9 @@ import { mockExpenseData } from '@/mocks/expense';
 import { format } from 'date-fns';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { ExpenseData } from '@/models/interfaces';
+import { ArrowDown, ArrowUp } from 'lucide-react';
+import { Conditional } from '@/components/generic/conditional';
+import { SortElement } from '@/components/generic/sort-element';
 
 export const ExpenseList = () => {
   const [expenseModal, setExpenseModal] = useState(false);
@@ -35,15 +38,19 @@ export const ExpenseList = () => {
   const columns: ColumnDef<any>[] = [
     {
       accessorKey: 'name',
-      header: 'Nome'
+      header: ({ column }) => <SortElement column={column} headerLabel="Name" />
     },
     {
       accessorKey: 'category',
-      header: 'Category'
+      header: ({ column }) => (
+        <SortElement column={column} headerLabel="Category" />
+      )
     },
     {
       accessorKey: 'value',
-      header: () => 'Valor',
+      header: ({ column }) => (
+        <SortElement column={column} headerLabel="Valor" />
+      ),
       cell: ({ row }) => {
         const amount = parseFloat(row.getValue('value'));
         const formatted = new Intl.NumberFormat('en-US', {
@@ -56,7 +63,9 @@ export const ExpenseList = () => {
     },
     {
       accessorKey: 'createdAt',
-      header: 'Data de Compra',
+      header: ({ column }) => (
+        <SortElement column={column} headerLabel="Data de Compra" />
+      ),
       cell: ({ row }) => {
         const date = row.getValue('createdAt');
         return format(date as Date, 'dd/MM/yyyy');
