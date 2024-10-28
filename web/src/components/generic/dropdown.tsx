@@ -10,6 +10,7 @@ import {
 import { Conditional } from './conditional';
 import { cn } from '@/lib/utils';
 import { SelectField } from '@/models/interfaces';
+import { Button } from '../ui/button';
 
 interface Props {
   id: string;
@@ -52,6 +53,19 @@ export const Dropdown: FC<Props> = ({
               {option.label}
             </SelectItem>
           ))}
+          <Conditional condition={value !== undefined && value !== ''}>
+            <Button
+              className="w-full px-1"
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onChange('');
+              }}
+            >
+              Clear
+            </Button>
+          </Conditional>
         </SelectContent>
       </Select>
     </div>

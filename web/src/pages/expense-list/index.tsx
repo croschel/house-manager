@@ -11,8 +11,6 @@ import { mockExpenseData } from '@/mocks/expense';
 import { format } from 'date-fns';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { ExpenseData } from '@/models/interfaces';
-import { ArrowDown, ArrowUp } from 'lucide-react';
-import { Conditional } from '@/components/generic/conditional';
 import { SortElement } from '@/components/generic/sort-element';
 
 export const ExpenseList = () => {
@@ -112,7 +110,12 @@ export const ExpenseList = () => {
             onChange={(date) => handleFilter(date)}
             primaryBtnVariant="destructive"
           />
-          <DataTable columns={columns} data={mockExpenseData} />
+          <DataTable
+            columns={columns}
+            data={mockExpenseData}
+            primaryFilter="name"
+            secondaryFilter="category"
+          />
         </div>
       </MainContainer>
       <ExpenseModal
