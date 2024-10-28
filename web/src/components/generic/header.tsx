@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import bgHouse from '../../assets/small-logo.png';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
@@ -6,9 +6,18 @@ import { PageType } from '@/models/enums/pages';
 
 export const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const handleAvatarOptions = () => {
     // TODO - Implement Avatar Options
     alert('Future Feature');
+  };
+
+  const navigateExpense = () => {
+    navigate(PageType.ExpenseControl);
+  };
+
+  const navigateMarket = () => {
+    navigate(PageType.MarketControl);
   };
 
   return (
@@ -26,21 +35,23 @@ export const Header = () => {
         <nav className="ml-8 flex">
           <Button
             className={`text-[18px] ${
-              location.pathname.slice(0) === PageType.ExpenseControl
+              location.pathname.includes(PageType.ExpenseControl)
                 ? 'underline'
                 : ''
               }`}
             variant="navMenu"
+            onClick={navigateExpense}
           >
             Controle de Gastos
           </Button>
           <Button
             className={`text-zinc-200 text-[18px] ${
-              location.pathname.slice(0) === PageType.MarketControl
+              location.pathname.includes(PageType.MarketControl)
                 ? 'underline'
                 : ''
               }`}
             variant="navMenu"
+            onClick={navigateMarket}
           >
             Controle de Compras
           </Button>

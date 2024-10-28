@@ -6,8 +6,11 @@ import { useState } from 'react';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { DateRange } from 'react-day-picker';
 import { MainContainer } from '@/components/generic/main-container';
+import { useNavigate } from 'react-router-dom';
+import { PageType } from '@/models/enums/pages';
 
 export const ExpenseControl = () => {
+  const navigate = useNavigate();
   const [fundModal, setFundModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
 
@@ -20,6 +23,10 @@ export const ExpenseControl = () => {
   };
   const handleFilter = (date: DateRange | undefined) => {
     console.log(date);
+  };
+
+  const handleOpenExpenseList = () => {
+    navigate(`${PageType.ExpenseControl}${PageType.ExpenseList}`);
   };
 
   return (
@@ -66,6 +73,7 @@ export const ExpenseControl = () => {
             iconName="DollarSign"
             iconColor="white"
             iconSize={18}
+            onClick={handleOpenExpenseList}
           />
         </div>
         <div className="flex flex-1 w-full mt-6 gap-4">
@@ -75,6 +83,7 @@ export const ExpenseControl = () => {
             iconColor="white"
             iconSize={18}
             className="h-[100%] min-w-[60%]"
+            onClick={handleOpenExpenseList}
           />
           <DataBox
             title="Últimos 7 Gastos"
@@ -82,6 +91,7 @@ export const ExpenseControl = () => {
             iconColor="white"
             iconSize={18}
             className="h-[100%]"
+            onClick={handleOpenExpenseList}
           />
         </div>
       </MainContainer>

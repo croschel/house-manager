@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { Input } from '../ui/input';
 import { Dropdown } from './dropdown';
 import { Conditional } from './conditional';
+import { cn } from '@/lib/utils';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -56,10 +57,10 @@ export function DataTable<TData, TValue>({
 
   return (
     <div
-      className={`flex flex-1 flex-col gap-6
-        min-h-[${!!primaryFilter || !!secondaryFilter ? '720px' : '650px'}]
-        max-h-[${!!primaryFilter || !!secondaryFilter ? '720px' : '650px'}]
-        justify-between`}
+      className={cn('flex flex-1 flex-col gap-6 justify-between h-full', {
+        'min-h-[720px] max-h-[720px]': !!primaryFilter || !!secondaryFilter,
+        'min-h-[650px] max-h-[650px]': !primaryFilter && !secondaryFilter
+      })}
     >
       <div>
         <Conditional condition={!!primaryFilter || !!secondaryFilter}>

@@ -13,6 +13,7 @@ interface Props {
   subTitle?: string;
   customContent?: JSX.Element;
   className?: string;
+  onClick?: () => void;
 }
 
 export const DataBox: FC<Props> = ({
@@ -23,15 +24,18 @@ export const DataBox: FC<Props> = ({
   iconName,
   iconColor,
   iconSize,
-  className = 'unset'
+  className = 'unset',
+  onClick
 }) => {
   return (
     <div
       className={cn(
         `flex flex-1 flex-col justify-between min-w-[300px] min-h-[160px] border
-        rounded-xl border-zinc-700 px-[12px] py-[18px]`,
+        rounded-xl border-zinc-700 px-[12px] py-[18px] hover:shadow-md
+        hover:shadow-black/30 transition-shadow duration-300 ease-in-out cursor-pointer`,
         className
       )}
+      onClick={onClick}
     >
       <div className="flex gap-2 justify-between">
         <span className="text-base text-zinc-200">{title}</span>
