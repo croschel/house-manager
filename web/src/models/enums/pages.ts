@@ -3,5 +3,6 @@ export enum PageType {
   SignUp = '/sign-up',
   ExpenseControl = '/expense',
   ExpenseList = '/list',
-  MarketControl = '/market'
+  MarketControl = '/market',
+  MarketList = '/buy-list'
 }

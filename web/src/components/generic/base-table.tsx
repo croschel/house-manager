@@ -29,14 +29,18 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   primaryFilter?: string;
+  primaryFilterLabel?: string;
   secondaryFilter?: string;
+  secondaryFilterLabel?: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   primaryFilter,
-  secondaryFilter
+  primaryFilterLabel,
+  secondaryFilter,
+  secondaryFilterLabel
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -67,7 +71,7 @@ export function DataTable<TData, TValue>({
           <div className="flex items-center justify-between py-4">
             <Conditional condition={!!primaryFilter}>
               <Input
-                placeholder={`Filter by ${primaryFilter}...`}
+                placeholder={`Filtrar por ${primaryFilterLabel ?? ''}...`}
                 value={
                   (table
                     .getColumn(primaryFilter as string)
@@ -84,6 +88,7 @@ export function DataTable<TData, TValue>({
             <Conditional condition={!!secondaryFilter}>
               <Dropdown
                 id={secondaryFilter as string}
+                placeholder={`Filtrar por ${secondaryFilterLabel ?? ''}...`}
                 value={
                   (table
                     .getColumn(secondaryFilter as string)
@@ -147,7 +152,7 @@ export function DataTable<TData, TValue>({
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
-                    No results.
+                    Nenhum resultado encontrado
                   </TableCell>
                 </TableRow>
               )}
