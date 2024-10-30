@@ -75,5 +75,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    scrollbar-color: #3f3f46 #27272a;
   }
 }

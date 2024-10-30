@@ -12,6 +12,7 @@ import { format } from 'date-fns';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { ExpenseData } from '@/models/interfaces';
 import { SortElement } from '@/components/generic/sort-element';
+import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 
 export const ExpenseList = () => {
   const [expenseModal, setExpenseModal] = useState(false);
@@ -19,6 +20,7 @@ export const ExpenseList = () => {
   const [selectedExpense, setSelectedExpense] = useState<
     ExpenseData | undefined
   >();
+  const [deleteExpenseModal, setDeleteExpenseModal] = useState(false);
 
   const handleOpenExpenseModal = () => {
     setExpenseModal(true);
@@ -28,9 +30,13 @@ export const ExpenseList = () => {
     setSelectedExpense(expense);
     setEditExpenseModal(true);
   };
-  const handleDeleteExpense = (expense: ExpenseData) => {
-    // TODO - Create action with service to handle it
-    alert(`Delete ${expense.name}`);
+  const handleOpenDeleteExpense = (expense: ExpenseData) => {
+    setSelectedExpense(expense);
+    setDeleteExpenseModal(true);
+  };
+
+  const handleDeleteExpense = () => {
+    alert(`${selectedExpense?.name} deletado com sucesso!`);
   };
 
   const columns: ColumnDef<any>[] = [
@@ -84,7 +90,7 @@ export const ExpenseList = () => {
             <Button
               size="icon"
               variant="icon"
-              onClick={() => handleDeleteExpense(row.original)}
+              onClick={() => handleOpenDeleteExpense(row.original)}
             >
               <TrashIcon className="text-destructive" width={20} height={20} />
             </Button>
@@ -128,6 +134,13 @@ export const ExpenseList = () => {
         setIsOpen={setEditExpenseModal}
         type="edit"
         expense={selectedExpense}
+      />
+      <ConfirmationModal
+        isOpen={deleteExpenseModal}
+        setIsOpen={setDeleteExpenseModal}
+        title="Você tem certeza que deseja deletar este gasto?"
+        description="Essa ação não pode ser desfeita. Isso excluirá permanentemente seu gasto."
+        onSubmit={handleDeleteExpense}
       />
     </div>
   );
