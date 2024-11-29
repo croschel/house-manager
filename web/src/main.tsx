@@ -4,6 +4,9 @@ import App from './App.tsx';
 import './styles/global.css';
 import { Provider } from 'react-redux';
 import { store } from './reducers/index.ts';
+import { init } from './reducers/app/actions.ts';
+
+store.dispatch(init());
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -2,11 +2,15 @@ import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppReducer } from './app/reducer';
 import { loadingReducer } from './loading/reducer';
+import { ExpenseReducer } from './expenses/reducer';
+import { NotificationReducer } from './notification/reducer';
 
 export const store = configureStore({
   reducer: {
     app: AppReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    expense: ExpenseReducer,
+    notification: NotificationReducer
   }
 });
 

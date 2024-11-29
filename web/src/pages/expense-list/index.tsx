@@ -13,8 +13,11 @@ import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { ExpenseData } from '@/models/interfaces';
 import { SortElement } from '@/components/generic/sort-element';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
+import { useAppSelector } from '@/reducers';
+import { selectExpenseList } from '@/reducers/expenses/selectors';
 
 export const ExpenseList = () => {
+  const expenseList = useAppSelector(selectExpenseList);
   const [expenseModal, setExpenseModal] = useState(false);
   const [editExpenseModal, setEditExpenseModal] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState<
@@ -118,7 +121,7 @@ export const ExpenseList = () => {
           />
           <DataTable
             columns={columns}
-            data={mockExpenseData}
+            data={expenseList}
             primaryFilter="name"
             secondaryFilter="category"
           />
