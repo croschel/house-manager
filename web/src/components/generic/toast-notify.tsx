@@ -20,7 +20,7 @@ export const ToastNotify: FC<Props> = ({ autoClose = 5000 }) => {
   const notification = useAppSelector(selectCurrentNotification);
 
   const toastStyles = cn(
-    `font-[Inter] py-[12px] px-[8px] border-l-4 border-solid border-transparent max-w-[600px]`,
+    `font-[Inter] py-[12px] px-[8px] border-l-4  border-solid border-transparent w-full min-w-[500px] !bg-zinc-700`,
     notification?.type === NotificationType.ERROR && 'border-red-500',
     notification?.type === NotificationType.SUCCESS && 'border-green-500',
     notification?.type === NotificationType.INFORMATION && 'border-blue-500',
@@ -28,8 +28,8 @@ export const ToastNotify: FC<Props> = ({ autoClose = 5000 }) => {
   );
 
   const DefaultToast = ({ iconName }: { iconName: keyof typeof icons }) => (
-    <div className={'flex gap-2 items-start'}>
-      <Icon name={iconName} />
+    <div className={'flex gap-2 items-start '}>
+      <Icon name={iconName} size={20} />
       <div className={'flex flex-col gap-1 text-left'}>
         <h4 className={'font-semibold text-sm m-0'}>{notification?.title}</h4>
         <span className={'font-normal text-sm'}>
@@ -52,7 +52,7 @@ export const ToastNotify: FC<Props> = ({ autoClose = 5000 }) => {
       toast.dismiss();
     };
     return (
-      <Button variant="icon" onClick={handleClose}>
+      <Button className="p-0 h-fit" variant="icon" onClick={handleClose}>
         <Icon name="X" />
       </Button>
     );
@@ -78,24 +78,26 @@ export const ToastNotify: FC<Props> = ({ autoClose = 5000 }) => {
         break;
     }
 
-    if (notification !== undefined) {
-      setTimeout(() => {
-        dispatch(addNotificationAction(undefined));
-      }, 5000);
-    }
+    // if (notification !== undefined) {
+    //   setTimeout(() => {
+    //     dispatch(addNotificationAction(undefined));
+    //   }, 5000);
+    // }
   }, [notification]);
   return (
-    // @ts-ignore
     <ToastContainer
-      autoClose={autoClose}
+      // autoClose={autoClose}
       limit={1}
       draggable={false}
       closeButton={closeButton}
       hideProgressBar
       icon={false}
       toastClassName={toastStyles}
+      className={'background-zinc-700'}
       bodyClassName={`p-0`}
       position="bottom-left"
+      closeOnClick={false}
+      theme="dark"
     />
   );
 };

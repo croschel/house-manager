@@ -2,14 +2,17 @@ import { DataBox } from '@/components/generic/data-box';
 import { Header } from '@/components/generic/header';
 import { FundModal } from './fund-modal';
 import { ExpenseModal } from './expense-modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { DateRange } from 'react-day-picker';
 import { MainContainer } from '@/components/generic/main-container';
 import { useNavigate } from 'react-router-dom';
 import { PageType } from '@/models/enums/pages';
+import { useAppDispatch } from '@/reducers';
+import { getExpenseList } from '@/reducers/expenses/actions';
 
 export const ExpenseControl = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [fundModal, setFundModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
@@ -28,6 +31,10 @@ export const ExpenseControl = () => {
   const handleOpenExpenseList = () => {
     navigate(`${PageType.ExpenseControl}${PageType.ExpenseList}`);
   };
+
+  useEffect(() => {
+    dispatch(getExpenseList({}));
+  }, []);
 
   return (
     <div className="flex w-full flex-col">
