@@ -110,7 +110,7 @@ export const ExpenseList = () => {
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <MainContainer>
+      <MainContainer noOverflow>
         <div className="flex flex-col justify-between h-full">
           <MainFilterPage
             title="Despesas"

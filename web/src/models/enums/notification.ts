@@ -4,3 +4,10 @@ export enum NotificationType {
   INFORMATION = 'information',
   WARNING = 'warning'
 }
+
+export enum ActionStatus {
+  INITIAL = 'initial',
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  FAILED = 'failed'
+}

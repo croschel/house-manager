@@ -1,13 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { init } from '../app/actions';
+import {
+  createExpense,
+  getExpense,
+  getExpenseList,
+  updateExpense
+} from '../expenses/actions';
+import { ActionStatus } from '@/models/enums';
 // step 1: add state field and value
 interface LoadingState {
-  init: number;
+  init: ActionStatus;
+  // Expenses
+  createExpense: ActionStatus;
+  getExpense: ActionStatus;
+  getExpenseList: ActionStatus;
+  updateExpense: ActionStatus;
 }
 
 const initialState: LoadingState = {
-  init: 0
+  init: ActionStatus.INITIAL,
+  // Expenses
+  createExpense: ActionStatus.INITIAL,
+  getExpense: ActionStatus.INITIAL,
+  getExpenseList: ActionStatus.INITIAL,
+  updateExpense: ActionStatus.INITIAL
 };
 
 // step 2: add action to object
@@ -15,7 +32,12 @@ const asyncThunks: Record<
   keyof LoadingState,
   AsyncThunk<any, any, Record<string, unknown>>
 > = {
-  init
+  init,
+  // Expenses
+  createExpense,
+  getExpense,
+  getExpenseList,
+  updateExpense
 };
 
 export const loadingReducer = createReducer<LoadingState>(
@@ -28,15 +50,15 @@ export const loadingReducer = createReducer<LoadingState>(
       loading
         .addCase(thunk.pending, (state: LoadingState) => ({
           ...state,
-          [stateKey]: Math.max(state[stateKey], 0) + 1
+          [stateKey]: ActionStatus.LOADING
         }))
         .addCase(thunk.fulfilled, (state: LoadingState) => ({
           ...state,
-          [stateKey]: Math.max(state[stateKey], 1) - 1
+          [stateKey]: ActionStatus.SUCCESS
         }))
         .addCase(thunk.rejected, (state: LoadingState) => ({
           ...state,
-          [stateKey]: Math.max(state[stateKey], 1) - 1
+          [stateKey]: ActionStatus.FAILED
         }));
     }
   }

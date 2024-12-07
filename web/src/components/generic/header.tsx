@@ -61,6 +61,7 @@ export const Header = () => {
         <AvatarImage
           onClick={handleAvatarOptions}
           src="https://github.com/shadcn.png"
+          className="z-10"
         />
       </Avatar>
     </header>
