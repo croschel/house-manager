@@ -123,7 +123,7 @@ export const MarketControl = () => {
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <MainContainer noOverflow>
+      <MainContainer>
         <MainFilterPage
           title="Controle de Compras"
           primaryBtnLabel="Criar Nova Lista"

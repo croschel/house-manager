@@ -27,6 +27,7 @@ interface Props {
   secondaryBtnLabel?: string;
   primaryBtnVariant?: BtnVariant;
   secondaryBtnVariant?: BtnVariant;
+  dynamicFlex?: boolean;
 }
 
 export const MainFilterPage: FC<Props> = ({
@@ -38,7 +39,8 @@ export const MainFilterPage: FC<Props> = ({
   primaryBtnLabel,
   secondaryBtnLabel,
   primaryBtnVariant,
-  secondaryBtnVariant
+  secondaryBtnVariant,
+  dynamicFlex = false
 }) => {
   const [date, setDate] = useState<DateRange | undefined>({
     from: subDays(new Date(), 20),
@@ -49,7 +51,9 @@ export const MainFilterPage: FC<Props> = ({
     onChange(date);
   }, [date]);
   return (
-    <div className="flex justify-between items-center">
+    <div
+      className={`flex justify-between items-start ${dynamicFlex && 'flex-1 h-full'}`}
+    >
       <div className="flex gap-8 items-baseline">
         <div className="flex flex-col">
           <h1 className="text-[40px] text-zinc-200">{title}</h1>

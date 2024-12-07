@@ -61,9 +61,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div
-      className={cn('flex flex-1 flex-col gap-6 justify-between h-full', {
-        'min-h-[720px] max-h-[720px]': !!primaryFilter || !!secondaryFilter,
-        'min-h-[650px] max-h-[650px]': !primaryFilter && !secondaryFilter
+      className={cn('flex flex-1 flex-col gap-6 h-full', {
+        // 'min-h-[700px] max-h-[700px]': !!primaryFilter || !!secondaryFilter,
+        // 'min-h-[630px] max-h-[630px]': !primaryFilter && !secondaryFilter
       })}
     >
       <div>
@@ -109,7 +109,7 @@ export function DataTable<TData, TValue>({
           </div>
         </Conditional>
 
-        <div className="rounded-md border border-zinc-700">
+        <div className="rounded-md border border-zinc-700 max-h-[400px]">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (

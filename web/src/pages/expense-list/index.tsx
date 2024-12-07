@@ -110,7 +110,7 @@ export const ExpenseList = () => {
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <MainContainer noOverflow>
+      <MainContainer>
         <div className="flex flex-col justify-between h-full">
           <MainFilterPage
             title="Despesas"
@@ -118,6 +118,7 @@ export const ExpenseList = () => {
             handlePrimaryBtn={() => handleOpenExpenseModal()}
             onChange={(date) => handleFilter(date)}
             primaryBtnVariant="destructive"
+            dynamicFlex
           />
           <DataTable
             columns={columns}
