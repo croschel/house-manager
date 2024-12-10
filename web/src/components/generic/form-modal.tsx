@@ -10,6 +10,8 @@ import { FC } from 'react';
 import { Button } from '../ui/button';
 import { Form } from '../ui/form';
 import { UseFormReturn } from 'react-hook-form';
+import { Conditional } from './conditional';
+import { LoadingSpinner } from './spinner';
 
 interface Props {
   children: React.ReactNode;
@@ -20,6 +22,7 @@ interface Props {
   buttonLabel: string;
   form: UseFormReturn<any>;
   onSubmit: (values: any) => void;
+  isLoading?: boolean;
 }
 
 export const FormModal: FC<Props> = ({
@@ -30,7 +33,8 @@ export const FormModal: FC<Props> = ({
   description,
   buttonLabel,
   form,
-  onSubmit
+  onSubmit,
+  isLoading = false
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal={isOpen}>
@@ -50,7 +54,15 @@ export const FormModal: FC<Props> = ({
           >
             {children}
             <DialogFooter className="mt-8">
-              <Button variant="secondary" type="submit">
+              <Button
+                variant="secondary"
+                type="submit"
+                disabled={isLoading}
+                className={isLoading ? 'gap-1' : ''}
+              >
+                <Conditional condition={isLoading}>
+                  <LoadingSpinner size={24} color="gray" />
+                </Conditional>
                 {buttonLabel}
               </Button>
             </DialogFooter>

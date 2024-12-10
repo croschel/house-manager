@@ -9,6 +9,13 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { errorMessages } from '@/models/constants';
+import { ActionStatus } from '@/models/enums';
+import { CreateFormExpense } from '@/models/interfaces';
+import { useAppDispatch, useAppSelector } from '@/reducers';
+import { createExpense } from '@/reducers/expenses/actions';
+import { selectCreateExpenseLoading } from '@/reducers/loading/selectors';
+import { createDropOptions } from '@/utils/generators';
+import { fundLabels } from '@/utils/options';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -22,23 +29,28 @@ const formSchema = z.object({
   name: z.string().min(1, errorMessages.requiredField),
   category: z.string().min(1, errorMessages.requiredField),
   value: z.string().min(1, errorMessages.requiredField),
-  date: z.string()
+  createdAt: z.string()
 });
 
 export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
+  const dispatch = useAppDispatch();
+  const isCreatingExpense = useAppSelector(selectCreateExpenseLoading);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       category: '',
       value: '',
-      date: new Date().toISOString()
+      createdAt: new Date().toISOString()
     }
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    dispatch(
+      createExpense({
+        ...(values as unknown as CreateFormExpense),
+        type: 'fund'
+      })
+    );
   };
   return (
     <FormModal
@@ -49,6 +61,7 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
       buttonLabel="Adicionar Fundo"
       form={form}
       onSubmit={onSubmit}
+      isLoading={isCreatingExpense === ActionStatus.LOADING}
     >
       <div className="flex flex-row gap-4 items-start">
         <FormField
@@ -77,14 +90,12 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
             <FormItem className="w-[40%]">
               <FormControl>
                 <Dropdown
+                  boxStyles="mt-[-8px]"
                   id="category"
                   label="Categoria"
                   value={field.value}
                   onChange={field.onChange}
-                  options={[
-                    { label: 'Receita', value: '1' },
-                    { label: 'Despesa', value: '2' }
-                  ]}
+                  options={createDropOptions(fundLabels)}
                 />
               </FormControl>
               <FormMessage />
@@ -115,12 +126,12 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
         />
         <FormField
           control={form.control}
-          name="date"
+          name="createdAt"
           render={({ field }) => (
             <FormItem className="w-[40%]">
               <FormControl>
                 <DatePicker
-                  id="date"
+                  id="createdAt"
                   date={field.value}
                   setDate={field.onChange}
                   label="Data"

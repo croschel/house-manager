@@ -1,3 +1,4 @@
+import { Conditional } from '@/components/generic/conditional';
 import { DatePicker } from '@/components/generic/date-picker';
 import { Dropdown } from '@/components/generic/dropdown';
 import { FormModal } from '@/components/generic/form-modal';
@@ -10,7 +11,13 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { errorMessages } from '@/models/constants';
-import { ExpenseData } from '@/models/interfaces';
+import { ActionStatus } from '@/models/enums';
+import { CreateFormExpense, ExpenseData } from '@/models/interfaces';
+import { useAppDispatch, useAppSelector } from '@/reducers';
+import { createExpense } from '@/reducers/expenses/actions';
+import { selectCreateExpenseLoading } from '@/reducers/loading/selectors';
+import { createDropOptions } from '@/utils/generators';
+import { expenseLabels } from '@/utils/options';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -27,9 +34,10 @@ const formSchema = z.object({
   name: z.string().min(1, errorMessages.requiredField),
   category: z.string().min(1, errorMessages.requiredField),
   value: z.string().min(1, errorMessages.requiredField),
-  date: z.string(),
+  createdAt: z.string(),
   local: z.string(),
-  repeatedExpense: z.boolean()
+  repeatedExpense: z.boolean(),
+  otherCategory: z.string()
 });
 
 export const ExpenseModal: FC<Props> = ({
@@ -38,14 +46,17 @@ export const ExpenseModal: FC<Props> = ({
   type,
   expense
 }) => {
+  const dispatch = useAppDispatch();
+  const isCreatingExpense = useAppSelector(selectCreateExpenseLoading);
   const isEditing = type === 'edit';
   const defaultValues = {
     name: isEditing ? expense?.name : '',
     category: isEditing ? expense?.category : '',
     value: isEditing ? expense?.value.toString() : '',
-    date: isEditing ? expense?.updatedAt : new Date().toISOString(),
+    createdAt: isEditing ? expense?.updatedAt : new Date().toISOString(),
     local: isEditing ? expense?.location : '',
-    repeatedExpense: isEditing ? expense?.isFixedExpense : false
+    repeatedExpense: isEditing ? expense?.isFixedExpense : false,
+    otherCategory: isEditing ? expense?.otherCategory : ''
   };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,10 +71,14 @@ export const ExpenseModal: FC<Props> = ({
       repeatedExpense: expense?.isFixedExpense ?? false
     }
   });
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    await dispatch(
+      createExpense({
+        ...(values as unknown as CreateFormExpense),
+        type: 'fund'
+      })
+    );
+    setIsOpen(false);
   };
 
   const title = type === 'add' ? 'Adicionar Despesa' : 'Editar Despesa';
@@ -82,6 +97,7 @@ export const ExpenseModal: FC<Props> = ({
       buttonLabel={`${titleButton} Despesa`}
       form={form}
       onSubmit={onSubmit}
+      isLoading={isCreatingExpense === ActionStatus.LOADING}
     >
       <div className="flex flex-row gap-4 items-center">
         <FormField
@@ -110,14 +126,12 @@ export const ExpenseModal: FC<Props> = ({
             <FormItem className="w-[40%]">
               <FormControl>
                 <Dropdown
+                  boxStyles="mt-[-8px]"
                   id="category"
                   label="Categoria"
                   value={field.value}
                   onChange={field.onChange}
-                  options={[
-                    { label: 'Receita', value: '1' },
-                    { label: 'Despesa', value: '2' }
-                  ]}
+                  options={createDropOptions(expenseLabels)}
                 />
               </FormControl>
               <FormMessage />
@@ -125,6 +139,30 @@ export const ExpenseModal: FC<Props> = ({
           )}
         />
       </div>
+      <Conditional condition={form.getValues('category') === 'Other'}>
+        <div className="flex flex-row gap-4">
+          <FormField
+            control={form.control}
+            name="otherCategory"
+            render={({ field }) => (
+              <FormItem className="w-[60%]">
+                <FormControl>
+                  <InputLabel
+                    id="otherCategory"
+                    label="Valor"
+                    inputProps={{
+                      type: 'text',
+                      placeholder: 'Digite a outra categoria',
+                      ...field
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+      </Conditional>
       <div className="flex flex-row gap-4">
         <FormField
           control={form.control}
@@ -148,12 +186,12 @@ export const ExpenseModal: FC<Props> = ({
         />
         <FormField
           control={form.control}
-          name="date"
+          name="createdAt"
           render={({ field }) => (
             <FormItem className="w-[40%]">
               <FormControl>
                 <DatePicker
-                  id="date"
+                  id="createdAt"
                   date={field.value}
                   setDate={field.onChange}
                   label="Data"
