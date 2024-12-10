@@ -53,5 +53,14 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
             ? [...state.expenseList, payload]
             : state.expenseList
       })
+    )
+    .addCase(
+      ExpenseActions.deleteExpense.fulfilled,
+      (state: ExpenseState, { payload }) => ({
+        ...state,
+        expenseList: state.expenseList.filter(
+          (expense) => expense.id !== payload?.id
+        )
+      })
     );
 });

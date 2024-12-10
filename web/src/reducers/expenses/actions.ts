@@ -1,8 +1,8 @@
-import { ExpenseData } from '@/models/interfaces';
+import { CreateFormExpense, ExpenseData } from '@/models/interfaces';
 import { ExpenseService } from '@/services/expenses';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { addNotificationAction } from '../notification/actions';
-import { buildAppError } from '@/utils/message';
+import { buildAppError, buildAppSuccess } from '@/utils/message';
 
 export const getExpenseList = createAsyncThunk<
   ExpenseData[] | undefined,
@@ -57,7 +57,7 @@ export const updateExpense = createAsyncThunk<
 
 export const createExpense = createAsyncThunk<
   ExpenseData | undefined,
-  ExpenseData
+  CreateFormExpense
 >('EXPENSE/CREATE', async (expense, { dispatch }) => {
   try {
     return (await ExpenseService.createExpense(expense)).data;
@@ -66,6 +66,31 @@ export const createExpense = createAsyncThunk<
       addNotificationAction(
         buildAppError({
           type: 'Create'
+        })
+      )
+    );
+  }
+});
+
+export const deleteExpense = createAsyncThunk<
+  ExpenseData | undefined,
+  { expense: ExpenseData }
+>('EXPENSE/DELETE', async ({ expense }, { dispatch }) => {
+  try {
+    (await ExpenseService.deleteExpense(expense.id)).data;
+    dispatch(
+      addNotificationAction(
+        buildAppSuccess({
+          type: 'Delete'
+        })
+      )
+    );
+    return expense;
+  } catch (e) {
+    throw dispatch(
+      addNotificationAction(
+        buildAppError({
+          type: 'Delete'
         })
       )
     );

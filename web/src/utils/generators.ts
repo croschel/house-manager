@@ -19,3 +19,17 @@ export const createUrlParams = (obj: Record<string, string | number | Date>) =>
       return acc;
     }, '?')
     .slice(0, -1);
+
+/**
+ * Create an array of options with labels from a given object.
+ * The key of the object is used as the value of the option,
+ * and the value of the object is used as the label of the option.
+ * @param data - An object with string values
+ * @returns An array of options with labels
+ */
+export const createDropOptions = (data: { [key: string]: string }) => {
+  return Object.entries(data).map(([key, value]) => ({
+    label: value,
+    value: key
+  }));
+};

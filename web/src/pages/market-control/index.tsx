@@ -13,7 +13,6 @@ import { SortElement } from '@/components/generic/sort-element';
 import { Button } from '@/components/ui/button';
 import { Pencil2Icon, RocketIcon, TrashIcon } from '@radix-ui/react-icons';
 import { MarketList } from '@/models/interfaces/market';
-import { mockMarketList } from '@/mocks/market';
 import { format } from 'date-fns';
 import { capitalizeFirstLetter } from '@/utils/modifiers';
 import { Month } from '@/models/enums';
@@ -170,7 +169,7 @@ export const MarketControl = () => {
         </div>
         <DataTable
           columns={columns}
-          data={mockMarketList}
+          data={[]}
           primaryFilter="createdAt"
           primaryFilterLabel="Data de Criação"
         />

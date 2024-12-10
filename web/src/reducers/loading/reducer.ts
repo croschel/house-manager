@@ -5,7 +5,8 @@ import {
   createExpense,
   getExpense,
   getExpenseList,
-  updateExpense
+  updateExpense,
+  deleteExpense
 } from '../expenses/actions';
 import { ActionStatus } from '@/models/enums';
 // step 1: add state field and value
@@ -16,6 +17,7 @@ interface LoadingState {
   getExpense: ActionStatus;
   getExpenseList: ActionStatus;
   updateExpense: ActionStatus;
+  deleteExpense: ActionStatus;
 }
 
 const initialState: LoadingState = {
@@ -24,7 +26,8 @@ const initialState: LoadingState = {
   createExpense: ActionStatus.INITIAL,
   getExpense: ActionStatus.INITIAL,
   getExpenseList: ActionStatus.INITIAL,
-  updateExpense: ActionStatus.INITIAL
+  updateExpense: ActionStatus.INITIAL,
+  deleteExpense: ActionStatus.INITIAL
 };
 
 // step 2: add action to object
@@ -37,7 +40,8 @@ const asyncThunks: Record<
   createExpense,
   getExpense,
   getExpenseList,
-  updateExpense
+  updateExpense,
+  deleteExpense
 };
 
 export const loadingReducer = createReducer<LoadingState>(

@@ -7,22 +7,35 @@ import { ExpenseModal } from '../expense-control/expense-modal';
 import { DataTable } from '@/components/generic/base-table';
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import { mockExpenseData } from '@/mocks/expense';
 import { format } from 'date-fns';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { ExpenseData } from '@/models/interfaces';
 import { SortElement } from '@/components/generic/sort-element';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
-import { useAppSelector } from '@/reducers';
+import { useAppDispatch, useAppSelector } from '@/reducers';
 import { selectExpenseList } from '@/reducers/expenses/selectors';
+import { deleteExpense } from '@/reducers/expenses/actions';
+import {
+  selectCreateExpenseLoading,
+  selectDeleteExpenseLoading,
+  selectUpdateExpenseLoading
+} from '@/reducers/loading/selectors';
+import { Splash } from '@/components/generic/splash';
+import { expenseLabels, fundLabels } from '@/utils/options';
+import { ExpenseValues, FundValues } from '@/models/enums';
 
 export const ExpenseList = () => {
+  const dispatch = useAppDispatch();
   const expenseList = useAppSelector(selectExpenseList);
+  const deleteAction = useAppSelector(selectDeleteExpenseLoading);
+  const updateAction = useAppSelector(selectUpdateExpenseLoading);
+  const createAction = useAppSelector(selectCreateExpenseLoading);
   const [expenseModal, setExpenseModal] = useState(false);
   const [editExpenseModal, setEditExpenseModal] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState<
     ExpenseData | undefined
   >();
+  const [lastRequest, setLastRequest] = useState<() => void>(() => {});
   const [deleteExpenseModal, setDeleteExpenseModal] = useState(false);
 
   const handleOpenExpenseModal = () => {
@@ -39,9 +52,12 @@ export const ExpenseList = () => {
   };
 
   const handleDeleteExpense = () => {
-    alert(`${selectedExpense?.name} deletado com sucesso!`);
+    dispatch(deleteExpense({ expense: selectedExpense! }));
+    setLastRequest(
+      () => () => dispatch(deleteExpense({ expense: selectedExpense! }))
+    );
   };
-
+  console.log(expenseList);
   const columns: ColumnDef<any>[] = [
     {
       accessorKey: 'name',
@@ -51,7 +67,16 @@ export const ExpenseList = () => {
       accessorKey: 'category',
       header: ({ column }) => (
         <SortElement column={column} headerLabel="Category" />
-      )
+      ),
+      cell: ({ row }) => {
+        console.log(row.getValue('type'));
+        return row.getValue('type') === 'expense'
+          ? expenseLabels[row.getValue('category') as ExpenseValues]
+          : fundLabels[row.getValue('category') as FundValues];
+      }
+    },
+    {
+      accessorKey: 'type'
     },
     {
       accessorKey: 'value',
@@ -75,7 +100,7 @@ export const ExpenseList = () => {
       ),
       cell: ({ row }) => {
         const date = row.getValue('createdAt');
-        return format(date as Date, 'dd/MM/yyyy');
+        return format(date as string, 'dd/MM/yyyy');
       }
     },
     {
@@ -104,30 +129,34 @@ export const ExpenseList = () => {
   ];
 
   const handleFilter = (date: DateRange | undefined) => {
-    console.log(date);
+    // console.log(date);
   };
+
+  const asyncActions = [deleteAction, updateAction, createAction];
 
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <MainContainer>
-        <div className="flex flex-col justify-between h-full">
-          <MainFilterPage
-            title="Despesas"
-            primaryBtnLabel="Adicionar Despesa"
-            handlePrimaryBtn={() => handleOpenExpenseModal()}
-            onChange={(date) => handleFilter(date)}
-            primaryBtnVariant="destructive"
-            dynamicFlex
-          />
-          <DataTable
-            columns={columns}
-            data={expenseList}
-            primaryFilter="name"
-            secondaryFilter="category"
-          />
-        </div>
-      </MainContainer>
+      <Splash stateList={asyncActions} retry={lastRequest}>
+        <MainContainer>
+          <div className="flex flex-col justify-between h-full">
+            <MainFilterPage
+              title="Despesas"
+              primaryBtnLabel="Adicionar Despesa"
+              handlePrimaryBtn={() => handleOpenExpenseModal()}
+              onChange={(date) => handleFilter(date)}
+              primaryBtnVariant="destructive"
+              dynamicFlex
+            />
+            <DataTable
+              columns={columns}
+              data={expenseList}
+              primaryFilter="name"
+              secondaryFilter="category"
+            />
+          </div>
+        </MainContainer>
+      </Splash>
       <ExpenseModal
         isOpen={expenseModal}
         setIsOpen={setExpenseModal}

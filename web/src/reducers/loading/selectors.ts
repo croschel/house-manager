@@ -11,3 +11,5 @@ export const selectGetExpenseListLoading = (state: RootState) =>
   state.loading.getExpenseList;
 export const selectUpdateExpenseLoading = (state: RootState) =>
   state.loading.updateExpense;
+export const selectDeleteExpenseLoading = (state: RootState) =>
+  state.loading.deleteExpense;
