@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 /**
  * Given a string, capitalize the first letter of the string.
  *
@@ -12,4 +14,8 @@ export const capitalizeFirstLetter = (str: string): string => {
     return str;
   }
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+export const generateUUId = () => {
+  return uuidv4();
 };
