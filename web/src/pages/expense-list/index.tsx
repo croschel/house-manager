@@ -27,15 +27,11 @@ import { ExpenseValues, FundValues } from '@/models/enums';
 export const ExpenseList = () => {
   const dispatch = useAppDispatch();
   const expenseList = useAppSelector(selectExpenseList);
-  const deleteAction = useAppSelector(selectDeleteExpenseLoading);
-  const updateAction = useAppSelector(selectUpdateExpenseLoading);
-  const createAction = useAppSelector(selectCreateExpenseLoading);
   const [expenseModal, setExpenseModal] = useState(false);
   const [editExpenseModal, setEditExpenseModal] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState<
     ExpenseData | undefined
   >();
-  const [lastRequest, setLastRequest] = useState<() => void>(() => {});
   const [deleteExpenseModal, setDeleteExpenseModal] = useState(false);
 
   const handleOpenExpenseModal = () => {
@@ -53,11 +49,7 @@ export const ExpenseList = () => {
 
   const handleDeleteExpense = () => {
     dispatch(deleteExpense({ expense: selectedExpense! }));
-    setLastRequest(
-      () => () => dispatch(deleteExpense({ expense: selectedExpense! }))
-    );
   };
-  console.log(expenseList);
   const columns: ColumnDef<any>[] = [
     {
       accessorKey: 'name',
@@ -68,12 +60,10 @@ export const ExpenseList = () => {
       header: ({ column }) => (
         <SortElement column={column} headerLabel="Category" />
       ),
-      cell: ({ row }) => {
-        console.log(row.getValue('type'));
-        return row.getValue('type') === 'expense'
+      cell: ({ row }) =>
+        row.getValue('type') === 'expense'
           ? expenseLabels[row.getValue('category') as ExpenseValues]
-          : fundLabels[row.getValue('category') as FundValues];
-      }
+          : fundLabels[row.getValue('category') as FundValues]
     },
     {
       accessorKey: 'type'
@@ -132,31 +122,27 @@ export const ExpenseList = () => {
     // console.log(date);
   };
 
-  const asyncActions = [deleteAction, updateAction, createAction];
-
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <Splash stateList={asyncActions} retry={lastRequest}>
-        <MainContainer>
-          <div className="flex flex-col justify-between h-full">
-            <MainFilterPage
-              title="Despesas"
-              primaryBtnLabel="Adicionar Despesa"
-              handlePrimaryBtn={() => handleOpenExpenseModal()}
-              onChange={(date) => handleFilter(date)}
-              primaryBtnVariant="destructive"
-              dynamicFlex
-            />
-            <DataTable
-              columns={columns}
-              data={expenseList}
-              primaryFilter="name"
-              secondaryFilter="category"
-            />
-          </div>
-        </MainContainer>
-      </Splash>
+      <MainContainer>
+        <div className="flex flex-col justify-between h-full">
+          <MainFilterPage
+            title="Despesas"
+            primaryBtnLabel="Adicionar Despesa"
+            handlePrimaryBtn={() => handleOpenExpenseModal()}
+            onChange={(date) => handleFilter(date)}
+            primaryBtnVariant="destructive"
+            dynamicFlex
+          />
+          <DataTable
+            columns={columns}
+            data={expenseList}
+            primaryFilter="name"
+            secondaryFilter="category"
+          />
+        </div>
+      </MainContainer>
       <ExpenseModal
         isOpen={expenseModal}
         setIsOpen={setExpenseModal}

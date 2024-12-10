@@ -43,7 +43,15 @@ export const updateExpense = createAsyncThunk<
   ExpenseData
 >('EXPENSE/UPDATE', async (expense, { dispatch }) => {
   try {
-    return (await ExpenseService.updateExpense(expense)).data;
+    const response = (await ExpenseService.updateExpense(expense)).data;
+    dispatch(
+      addNotificationAction(
+        buildAppSuccess({
+          type: 'Update'
+        })
+      )
+    );
+    return response;
   } catch (e) {
     throw dispatch(
       addNotificationAction(
@@ -60,7 +68,15 @@ export const createExpense = createAsyncThunk<
   CreateFormExpense
 >('EXPENSE/CREATE', async (expense, { dispatch }) => {
   try {
-    return (await ExpenseService.createExpense(expense)).data;
+    const response = (await ExpenseService.createExpense(expense)).data;
+    dispatch(
+      addNotificationAction(
+        buildAppSuccess({
+          type: 'Create'
+        })
+      )
+    );
+    return response;
   } catch (e) {
     throw dispatch(
       addNotificationAction(
