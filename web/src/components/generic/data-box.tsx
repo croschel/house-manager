@@ -47,7 +47,9 @@ export const DataBox: FC<Props> = ({
           />
         </Conditional>
       </div>
-      <div className="flex flex-col items-start gap-0">
+      <div
+        className={`flex flex-col items-start gap-0 ${customContent && 'flex-1'}`}
+      >
         <Conditional condition={customContent === undefined}>
           <span className="text-2xl text-zinc-200">{mainValue}</span>
         </Conditional>
