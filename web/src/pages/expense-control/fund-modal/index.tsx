@@ -29,7 +29,7 @@ const formSchema = z.object({
   name: z.string().min(1, errorMessages.requiredField),
   category: z.string().min(1, errorMessages.requiredField),
   value: z.string().min(1, errorMessages.requiredField),
-  createdAt: z.string()
+  date: z.string()
 });
 
 export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
@@ -41,7 +41,7 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
       name: '',
       category: '',
       value: '',
-      createdAt: new Date().toISOString()
+      date: new Date().toISOString()
     }
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -127,7 +127,7 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
         />
         <FormField
           control={form.control}
-          name="createdAt"
+          name="date"
           render={({ field }) => (
             <FormItem className="w-[40%]">
               <FormControl>

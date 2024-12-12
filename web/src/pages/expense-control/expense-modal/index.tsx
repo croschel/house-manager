@@ -37,7 +37,7 @@ const formSchema = z.object({
   name: z.string().min(1, errorMessages.requiredField),
   category: z.string().min(1, errorMessages.requiredField),
   value: z.string().min(1, errorMessages.requiredField),
-  createdAt: z.string(),
+  date: z.string(),
   local: z.string(),
   repeatedExpense: z.boolean(),
   otherCategory: z.string()
@@ -57,7 +57,7 @@ export const ExpenseModal: FC<Props> = ({
     name: isEditing ? expense?.name : '',
     category: isEditing ? expense?.category : '',
     value: isEditing ? expense?.value.toString() : '',
-    createdAt: isEditing ? expense?.updatedAt : new Date().toISOString(),
+    date: isEditing ? expense?.date : new Date().toISOString(),
     local: isEditing ? expense?.location : '',
     repeatedExpense: isEditing ? expense?.isFixedExpense : false,
     otherCategory: isEditing ? (expense?.otherCategory ?? '') : ''
@@ -70,10 +70,7 @@ export const ExpenseModal: FC<Props> = ({
       name: expense?.name ?? '',
       category: expense?.category ?? '',
       value: String(expense?.value ?? ''),
-      createdAt:
-        expense?.updatedAt !== undefined
-          ? expense.updatedAt
-          : new Date().toISOString(),
+      date: expense?.date ?? new Date().toISOString(),
       local: expense?.location ?? '',
       repeatedExpense: expense?.isFixedExpense ?? false,
       otherCategory: expense?.otherCategory ?? ''
@@ -206,7 +203,7 @@ export const ExpenseModal: FC<Props> = ({
         />
         <FormField
           control={form.control}
-          name="createdAt"
+          name="date"
           render={({ field }) => (
             <FormItem className="w-[40%]">
               <FormControl>

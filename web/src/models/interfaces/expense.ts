@@ -8,6 +8,7 @@ export interface ExpenseData {
   otherCategory?: string;
   ownerId: number; // 6-digits
   ownerName: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
   isFixedExpense: boolean;

@@ -15,7 +15,14 @@ const fetchExpense = async (id: string) => {
 };
 
 const updateExpense = async (expense: ExpenseData) => {
-  return await request.put<ExpenseData>(`/expenses/${expense.id}`, expense);
+  const newExpense: ExpenseData = {
+    ...expense,
+    updatedAt: new Date().toISOString()
+  };
+  return await request.put<ExpenseData>(
+    `/expenses/${newExpense.id}`,
+    newExpense
+  );
 };
 
 const createExpense = async (expense: CreateFormExpense) => {
@@ -27,10 +34,12 @@ const createExpense = async (expense: CreateFormExpense) => {
     location:
       expense.location !== undefined && expense.location
         ? expense.location
-        : 'user',
+        : '',
     accountId: 'Mocked User', // Implement this once we get login
     id: generateUUId(),
-    updatedAt: ''
+    createdAt: new Date().toISOString(),
+    updatedAt: '',
+    date: ''
   };
   return await request.post<ExpenseData>('/expenses', newExpense);
 };
