@@ -9,7 +9,7 @@ export const MainContainer = ({
 }) => {
   return (
     <div
-      className={`flex w-full flex-col p-6 gap-4 h-[calc(100vh-105px)]
+      className={`flex w-full flex-col p-6 gap-4 h-[calc(100vh-105px)] overflow-x-hidden
         ${noOverflow ? '' : 'overflow-y-auto'}`}
     >
       {children}

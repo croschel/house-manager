@@ -91,7 +91,7 @@ export const ExpenseControl = () => {
             secondaryBtnVariant="destructive"
           />
           <div className="flex flex-col flex-1">
-            <div className="flex w-full mt-6 gap-4 pb-2">
+            <div className="flex w-full mt-6 gap-4 pb-2 overflow-x-auto">
               <DataBox
                 title="Saldo Total"
                 mainValue={formatToCurrencyRealWithDollar(counters.totalAmount)}
@@ -141,7 +141,7 @@ export const ExpenseControl = () => {
             <div className="flex flex-1 w-full mt-6 gap-4">
               <DataBox
                 title="Overview de Gastos"
-                iconName="BarChartHorizontal"
+                iconName="BatteryCharging"
                 iconColor="white"
                 iconSize={18}
                 className="h-[100%] min-w-[60%]"
@@ -149,7 +149,7 @@ export const ExpenseControl = () => {
               />
               <DataBox
                 title="Últimos 7 Gastos"
-                iconName="BarChartHorizontal"
+                iconName="BatteryCharging"
                 iconColor="white"
                 iconSize={18}
                 className="h-[100%]"

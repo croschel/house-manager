@@ -8,7 +8,7 @@ export const categoriesIcons: Record<ExpenseValues, JSX.Element> = {
   [ExpenseValues.ENTERTAINMENT]: <Icon name="Film" size={40} />,
   [ExpenseValues.FOOD]: <Icon name="Utensils" size={40} />,
   [ExpenseValues.HEALTH]: <Icon name="HeartPulse" size={40} />,
-  [ExpenseValues.HOUSING]: <Icon name="Home" size={40} />,
+  [ExpenseValues.HOUSING]: <Icon name="House" size={40} />,
   [ExpenseValues.OTHER]: <Icon name="RectangleEllipsis" size={40} />,
   [ExpenseValues.RECREATION]: <Icon name="Dumbbell" size={40} />,
   [ExpenseValues.TRANSPORT]: <Icon name="Bus" size={40} />,
