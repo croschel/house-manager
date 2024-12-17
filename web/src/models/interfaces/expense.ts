@@ -20,7 +20,7 @@ export type CreateFormExpense = Pick<
   | 'name'
   | 'category'
   | 'value'
-  | 'createdAt'
+  | 'date'
   | 'location'
   | 'isFixedExpense'
   | 'type'

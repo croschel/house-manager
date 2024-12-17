@@ -13,11 +13,13 @@ import { getExpenseList } from '@/reducers/expenses/actions';
 import { selectGetExpenseListLoading } from '@/reducers/loading/selectors';
 import { Splash } from '@/components/generic/splash';
 import { selectExpenseList } from '@/reducers/expenses/selectors';
-import { compareDatesForSort } from '@/utils/date';
+import { compareDatesForSort, getLast12monthsWithYear } from '@/utils/date';
 import { formatToCurrencyRealWithDollar } from '@/utils/modifiers';
-import { Button } from '@/components/ui/button';
 import { categoriesIcons } from '@/models/constants/categories-icons';
-import { ExpenseValues } from '@/models/enums';
+import { ExpenseValues, Month } from '@/models/enums';
+import { ChartConfig, ChartContainer } from '@/components/ui/chart';
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
+import { getMonth, getYear } from 'date-fns';
 
 export const ExpenseControl = () => {
   const dispatch = useAppDispatch();
@@ -40,6 +42,28 @@ export const ExpenseControl = () => {
       (total, expense) => total + expense.value,
       0
     );
+    let last12MonthsFundsExpenses: any = [];
+    getLast12monthsWithYear().forEach((item) => {
+      const fundsMonth = funds.filter(
+        (fund) =>
+          getMonth(fund.date) === item.month && getYear(fund.date) === item.year
+      );
+      const expensesMonth = expenses.filter(
+        (expense) =>
+          getMonth(expense.date) === item.month &&
+          getYear(expense.date) === item.year
+      );
+      last12MonthsFundsExpenses.push({
+        // @ts-ignore
+        month: Month[`OPTION_${item.month}`],
+        year: item.year,
+        funds: fundsMonth.reduce((total, expense) => total + expense.value, 0),
+        expenses: expensesMonth.reduce(
+          (total, expense) => total + expense.value,
+          0
+        )
+      });
+    });
     return {
       totalAmount: totalFunds - totalExpenses,
       higherExpense: expenses.sort((a, b) => b.value - a.value)[0]?.value,
@@ -49,7 +73,8 @@ export const ExpenseControl = () => {
         .sort((a, b) => b.value - a.value)[0]?.value,
       last7Expenses: expenses
         .sort((a, b) => compareDatesForSort(b.date, a.date))
-        .slice(0, 7)
+        .slice(0, 7),
+      last12MonthsFundsExpenses
     };
   }, [expenseList]);
 
@@ -69,6 +94,17 @@ export const ExpenseControl = () => {
   };
 
   const handleGetExpenseList = () => dispatch(getExpenseList({}));
+
+  const chartConfig = {
+    funds: {
+      label: 'Proventos',
+      color: '#5ec26b'
+    },
+    expense: {
+      label: 'Despesas',
+      color: '#E84545'
+    }
+  } satisfies ChartConfig;
 
   useEffect(() => {
     if (expenseList.length > 0) return;
@@ -121,19 +157,41 @@ export const ExpenseControl = () => {
                 iconSize={18}
               />
               <DataBox
-                title="Resumo de Ganhos"
+                title="Resumo de Ganhos/Despesas"
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}
+                className="min-w-[fit-content]"
                 customContent={
                   <div>
-                    <Button
-                      onClick={() =>
-                        alert(JSON.stringify(counters.last7Expenses))
-                      }
+                    <ChartContainer
+                      config={chartConfig}
+                      className="min-h-[230px] w-full"
                     >
-                      Try me
-                    </Button>
+                      <BarChart
+                        accessibilityLayer
+                        data={counters.last12MonthsFundsExpenses}
+                      >
+                        <CartesianGrid vertical={false} />
+                        <XAxis
+                          dataKey="month"
+                          tickLine={false}
+                          tickMargin={8}
+                          axisLine={false}
+                          tickFormatter={(value) => value.slice(0, 3)}
+                        />
+                        <Bar
+                          dataKey="funds"
+                          fill="var(--color-funds)"
+                          radius={2}
+                        />
+                        <Bar
+                          dataKey="expenses"
+                          fill="var(--color-expense)"
+                          radius={2}
+                        />
+                      </BarChart>
+                    </ChartContainer>
                   </div>
                 }
               />

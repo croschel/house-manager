@@ -28,6 +28,7 @@ const updateExpense = async (expense: ExpenseData) => {
 const createExpense = async (expense: CreateFormExpense) => {
   const newExpense: ExpenseData = {
     ...expense,
+    value: Number(expense.value),
     ownerId: 121345,
     ownerName: 'user',
     isFixedExpense: false,
@@ -38,8 +39,7 @@ const createExpense = async (expense: CreateFormExpense) => {
     accountId: 'Mocked User', // Implement this once we get login
     id: generateUUId(),
     createdAt: new Date().toISOString(),
-    updatedAt: '',
-    date: ''
+    updatedAt: ''
   };
   return await request.post<ExpenseData>('/expenses', newExpense);
 };

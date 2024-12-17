@@ -84,12 +84,12 @@ export const ExpenseList = () => {
       }
     },
     {
-      accessorKey: 'createdAt',
+      accessorKey: 'date',
       header: ({ column }) => (
         <SortElement column={column} headerLabel="Data de Compra" />
       ),
       cell: ({ row }) => {
-        const date = row.getValue('createdAt');
+        const date = row.getValue('date');
         return format(date as string, 'dd/MM/yyyy');
       }
     },

@@ -45,6 +45,7 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
     }
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values);
     await dispatch(
       createExpense({
         ...(values as unknown as CreateFormExpense),
@@ -132,7 +133,7 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
             <FormItem className="w-[40%]">
               <FormControl>
                 <DatePicker
-                  id="createdAt"
+                  id="date"
                   date={field.value}
                   setDate={field.onChange}
                   label="Data"

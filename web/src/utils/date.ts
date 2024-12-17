@@ -1,4 +1,4 @@
-import { compareAsc, isAfter, parseISO } from 'date-fns';
+import { compareAsc, isAfter, parseISO, getYear, getMonth } from 'date-fns';
 
 /**
  * Checks if the first date is after the second date.
@@ -30,4 +30,28 @@ export const compareDatesForSort = (date1: string, date2: string): number => {
 
   // Use compareAsc from date-fns to compare the dates
   return compareAsc(parsedDate1, parsedDate2);
+};
+
+export const getLast12monthsWithYear = () => {
+  const newDate = new Date();
+  const actualYearDate = getYear(newDate);
+  const actualMonthDate = getMonth(newDate);
+  const missingMonths = 12 - (actualMonthDate + 1);
+  let results = [];
+
+  for (let i = 0; i < 12; i++) {
+    results.push({ year: actualYearDate, month: i });
+  }
+  return results
+    .reverse()
+    .map((result) => {
+      if (result.month <= missingMonths - 1) {
+        return {
+          ...result,
+          year: result.year - 1
+        };
+      }
+      return result;
+    })
+    .reverse();
 };

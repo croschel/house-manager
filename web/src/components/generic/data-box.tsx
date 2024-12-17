@@ -31,7 +31,7 @@ export const DataBox: FC<Props> = ({
     <div
       className={cn(
         `flex flex-1 flex-col justify-between min-w-[300px] min-h-[160px] border
-        rounded-xl border-zinc-700 px-[12px] py-[18px] hover:shadow-md
+        rounded-xl border-zinc-700 px-[12px] py-[18px] hover:shadow-md overflow-x-auto
         hover:shadow-black/30 transition-shadow duration-300 ease-in-out cursor-pointer`,
         className
       )}
