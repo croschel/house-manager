@@ -16,10 +16,24 @@ import { selectExpenseList } from '@/reducers/expenses/selectors';
 import { compareDatesForSort, getLast12monthsWithYear } from '@/utils/date';
 import { formatToCurrencyRealWithDollar } from '@/utils/modifiers';
 import { categoriesIcons } from '@/models/constants/categories-icons';
-import { ExpenseValues, Month } from '@/models/enums';
-import { ChartConfig, ChartContainer } from '@/components/ui/chart';
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
+import { ExpenseColors, ExpenseValues, Month } from '@/models/enums';
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent
+} from '@/components/ui/chart';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Funnel,
+  FunnelChart,
+  LabelList,
+  XAxis
+} from 'recharts';
 import { getMonth, getYear } from 'date-fns';
+import { expenseLabels } from '@/utils/options';
 
 export const ExpenseControl = () => {
   const dispatch = useAppDispatch();
@@ -64,17 +78,35 @@ export const ExpenseControl = () => {
         )
       });
     });
+    const expensesPerCategory = expenses
+      .reduce(
+        (acc, expense) => {
+          return acc.map((item) => ({
+            ...item,
+            value:
+              item.category.toLowerCase() === expense.category
+                ? item.value + Number(expense.value)
+                : item.value
+          }));
+        },
+        Object.values(ExpenseValues).map((key) => ({
+          name: expenseLabels[key],
+          category: key[0].toUpperCase() + key.slice(1),
+          value: 0,
+          fill: ExpenseColors[key]
+        }))
+      )
+      .filter((item) => item.value > 0)
+      .sort((a, b) => b.value - a.value);
     return {
       totalAmount: totalFunds - totalExpenses,
-      higherExpense: expenses.sort((a, b) => b.value - a.value)[0]?.value,
-      lowerExpense: expenses.sort((a, b) => a.value - b.value)[0]?.value,
-      higherFixedExpense: expenses
-        .filter((expense) => expense.isFixedExpense)
-        .sort((a, b) => b.value - a.value)[0]?.value,
+      higherExpense: expenses.sort((a, b) => b.value - a.value)[0] ?? {},
+      lowerExpense: expenses.sort((a, b) => a.value - b.value)[0] ?? {},
       last7Expenses: expenses
         .sort((a, b) => compareDatesForSort(b.date, a.date))
         .slice(0, 7),
-      last12MonthsFundsExpenses
+      last12MonthsFundsExpenses,
+      expensesPerCategory
     };
   }, [expenseList]);
 
@@ -95,7 +127,7 @@ export const ExpenseControl = () => {
 
   const handleGetExpenseList = () => dispatch(getExpenseList({}));
 
-  const chartConfig = {
+  const chartConfigExpenseFund = {
     funds: {
       label: 'Proventos',
       color: '#5ec26b'
@@ -105,6 +137,15 @@ export const ExpenseControl = () => {
       color: '#E84545'
     }
   } satisfies ChartConfig;
+
+  const getChartConfigOverview = () => {
+    return {
+      Food: {
+        label: 'Alimentação',
+        color: '#5ec26b'
+      }
+    } satisfies ChartConfig;
+  };
 
   useEffect(() => {
     if (expenseList.length > 0) return;
@@ -135,43 +176,50 @@ export const ExpenseControl = () => {
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}
+                size="medium"
               />
               <DataBox
                 title="Maior Gasto"
                 mainValue={formatToCurrencyRealWithDollar(
-                  counters.higherExpense
+                  counters.higherExpense?.value
                 )}
-                subTitle="máquina de lavar"
+                subTitle={counters.higherExpense.name}
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}
+                size="medium"
+                category={counters.higherExpense.category}
               />
               <DataBox
                 title="Menor Gasto"
                 mainValue={formatToCurrencyRealWithDollar(
-                  counters.lowerExpense
+                  counters.lowerExpense.value
                 )}
-                subTitle="minhas compras"
+                subTitle={counters.higherExpense.name}
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}
+                size="medium"
+                category={counters.higherExpense.category}
               />
               <DataBox
                 title="Resumo de Ganhos/Despesas"
-                iconName="DollarSign"
+                iconName="ChartColumn"
                 iconColor="white"
                 iconSize={18}
                 className="min-w-[fit-content]"
+                size="medium"
                 customContent={
                   <div>
                     <ChartContainer
-                      config={chartConfig}
+                      config={chartConfigExpenseFund}
                       className="min-h-[230px] w-full"
                     >
                       <BarChart
                         accessibilityLayer
                         data={counters.last12MonthsFundsExpenses}
                       >
+                        <ChartTooltip content={<ChartTooltipContent />} />
                         <CartesianGrid vertical={false} />
                         <XAxis
                           dataKey="month"
@@ -199,15 +247,40 @@ export const ExpenseControl = () => {
             <div className="flex flex-1 w-full mt-6 gap-4">
               <DataBox
                 title="Overview de Gastos"
-                iconName="BatteryCharging"
+                iconName="ChartArea"
                 iconColor="white"
                 iconSize={18}
                 className="h-[100%] min-w-[60%]"
                 onClick={handleOpenExpenseList}
+                customContent={
+                  <div className="w-full max-w-[920px] flex flex-1 items-center self-center">
+                    <ChartContainer
+                      className="h-[400px] w-full"
+                      config={getChartConfigOverview()}
+                    >
+                      <FunnelChart>
+                        <ChartTooltip content={<ChartTooltipContent />} />
+
+                        <Funnel
+                          dataKey="value"
+                          data={counters.expensesPerCategory}
+                          isAnimationActive
+                        >
+                          <LabelList
+                            position="right"
+                            fill="#fff"
+                            stroke="#fff"
+                            dataKey="name"
+                          />
+                        </Funnel>
+                      </FunnelChart>
+                    </ChartContainer>
+                  </div>
+                }
               />
               <DataBox
                 title="Últimos 7 Gastos"
-                iconName="BatteryCharging"
+                iconName="List"
                 iconColor="white"
                 iconSize={18}
                 className="h-[100%]"
