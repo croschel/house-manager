@@ -273,6 +273,21 @@
       "id": "0447ed32-99cf-4dbe-8f2c-77732ffa196a",
       "createdAt": "2024-12-17T04:19:12.636Z",
       "updatedAt": ""
+    },
+    {
+      "name": "Investimento Resgate",
+      "category": "investment",
+      "value": 2000,
+      "date": "2024-12-20T15:48:11.482Z",
+      "type": "fund",
+      "ownerId": 121345,
+      "ownerName": "user",
+      "isFixedExpense": false,
+      "location": "",
+      "accountId": "Mocked User",
+      "id": "06e42f8d-d99a-4f86-85af-d77d48fc6e73",
+      "createdAt": "2024-12-20T15:48:33.219Z",
+      "updatedAt": ""
     }
   ],
   "market-list": [

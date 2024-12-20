@@ -1,4 +1,11 @@
-import { compareAsc, isAfter, parseISO, getYear, getMonth } from 'date-fns';
+import {
+  compareAsc,
+  isAfter,
+  parseISO,
+  getYear,
+  getMonth,
+  format
+} from 'date-fns';
 
 /**
  * Checks if the first date is after the second date.
@@ -61,8 +68,15 @@ export const getFilteredResultsByRange = (
   to: Date | string,
   array: any[],
   filterKey: string
-) =>
-  array.filter((item) => {
+) => {
+  if (to === '') {
+    return array.filter((item) => {
+      const eventDate = format(item[filterKey], 'yyyy-MM-dd');
+      return eventDate === format(from, 'yyyy-MM-dd');
+    });
+  }
+  return array.filter((item) => {
     const eventDate = new Date(item[filterKey]);
-    return eventDate >= new Date(from) && eventDate <= new Date(to);
+    return eventDate >= from && eventDate <= to;
   });
+};
