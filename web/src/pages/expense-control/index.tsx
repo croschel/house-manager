@@ -12,12 +12,12 @@ import { useAppDispatch, useAppSelector } from '@/reducers';
 import { getExpenseList } from '@/reducers/expenses/actions';
 import { selectGetExpenseListLoading } from '@/reducers/loading/selectors';
 import { Splash } from '@/components/generic/splash';
-import { selectExpenseList } from '@/reducers/expenses/selectors';
+import { selectFilteredExpenses } from '@/reducers/expenses/selectors';
 import { compareDatesForSort, getLast12monthsWithYear } from '@/utils/date';
 import { formatToCurrencyRealWithDollar } from '@/utils/modifiers';
 import { categoriesIcons } from '@/models/constants/categories-icons';
 import { ExpenseColors, ExpenseValues, Month } from '@/models/enums';
-import { getMonth, getYear } from 'date-fns';
+import { getMonth, getYear, subDays } from 'date-fns';
 import { expenseLabels } from '@/utils/options';
 import { ExpenseBarChart } from './expense-bar-chart';
 import { OverviewChart } from './overview-chart';
@@ -26,7 +26,7 @@ import { ExpenseData } from '@/models/interfaces';
 export const ExpenseControl = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const expenseList = useAppSelector(selectExpenseList);
+  const expenseList = useAppSelector(selectFilteredExpenses);
   const isLoadingExpenses = useAppSelector(selectGetExpenseListLoading);
   const [fundModal, setFundModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
@@ -105,13 +105,13 @@ export const ExpenseControl = () => {
       setExpenseModal(true);
     }
   };
-  const handleFilter = (date: DateRange | undefined) => {
-    // dispatch(
-    //   getExpenseList({
-    //     expense: {} as unknown as ExpenseData,
-    //     filter: date
-    //   })
-    // );
+  const handleFilter = async (date: DateRange | undefined) => {
+    dispatch(
+      getExpenseList({
+        expense: {} as unknown as ExpenseData,
+        filter: date
+      })
+    );
   };
 
   const handleOpenExpenseList = () => {
@@ -122,7 +122,10 @@ export const ExpenseControl = () => {
     dispatch(
       getExpenseList({
         expense: {} as unknown as ExpenseData,
-        filter: undefined
+        filter: {
+          from: subDays(new Date(), 30),
+          to: new Date()
+        }
       })
     );
 
@@ -142,7 +145,7 @@ export const ExpenseControl = () => {
             secondaryBtnLabel="Adicionar Despesa"
             handlePrimaryBtn={() => handleOpenExpenseModal('fund')}
             handleSecondaryBtn={() => handleOpenExpenseModal('expense')}
-            onChange={(date) => handleFilter(date)}
+            onSubmitFilter={(date) => handleFilter(date)}
             primaryBtnVariant="creation"
             secondaryBtnVariant="destructive"
           />
@@ -151,7 +154,7 @@ export const ExpenseControl = () => {
               <DataBox
                 title="Saldo Total"
                 mainValue={formatToCurrencyRealWithDollar(counters.totalAmount)}
-                subTitle="Saldo do último mês"
+                subTitle="Saldo total do filtro de datas"
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}

@@ -20,7 +20,7 @@ export const ActualList = () => {
             primaryBtnLabel="Iniciar Compra"
             secondaryBtnLabel="Adicionar Produto"
             handlePrimaryBtn={handleStartShopping}
-            onChange={(date) => handleFilter(date)}
+            onSubmitFilter={(date) => handleFilter(date)}
             primaryBtnVariant="outline"
             secondaryBtnVariant="creation"
           />

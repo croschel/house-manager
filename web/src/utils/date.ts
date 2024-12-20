@@ -55,3 +55,14 @@ export const getLast12monthsWithYear = () => {
     })
     .reverse();
 };
+
+export const getFilteredResultsByRange = (
+  from: Date | string,
+  to: Date | string,
+  array: any[],
+  filterKey: string
+) =>
+  array.filter((item) => {
+    const eventDate = new Date(item[filterKey]);
+    return eventDate >= new Date(from) && eventDate <= new Date(to);
+  });

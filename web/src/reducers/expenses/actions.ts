@@ -1,19 +1,41 @@
 import { CreateFormExpense, ExpenseData } from '@/models/interfaces';
 import { ExpenseService } from '@/services/expenses';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { addNotificationAction } from '../notification/actions';
 import { buildAppError, buildAppSuccess } from '@/utils/message';
 import { DateRange } from 'react-day-picker';
+import { getFilteredResultsByRange } from '@/utils/date';
+
+export const setExpenseDateFilter = createAction<DateRange>(
+  'EXPENSE/FILTER_DATE'
+);
 
 export const getExpenseList = createAsyncThunk<
-  ExpenseData[] | undefined,
+  {
+    expenses: ExpenseData[] | undefined;
+    filteredExpenses: ExpenseData[] | undefined;
+  },
   {
     expense: Partial<Omit<ExpenseData, 'id' | 'isFixedExpense'>>;
     filter: DateRange | undefined;
   }
 >('EXPENSE/FETCH_LIST', async ({ expense, filter }, { dispatch }) => {
   try {
-    return (await ExpenseService.fetchExpenseList(expense, filter)).data;
+    const response = (await ExpenseService.fetchExpenseList(expense)).data;
+    let filteredExpenses = [] as ExpenseData[];
+    if (!!filter) {
+      filteredExpenses = getFilteredResultsByRange(
+        filter?.from ?? '',
+        filter?.to ?? '',
+        response,
+        'date'
+      );
+    }
+
+    return {
+      expenses: response,
+      filteredExpenses
+    };
   } catch (e) {
     throw dispatch(
       addNotificationAction(

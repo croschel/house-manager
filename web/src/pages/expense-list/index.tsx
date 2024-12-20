@@ -131,7 +131,7 @@ export const ExpenseList = () => {
             title="Despesas"
             primaryBtnLabel="Adicionar Despesa"
             handlePrimaryBtn={() => handleOpenExpenseModal()}
-            onChange={(date) => handleFilter(date)}
+            onSubmitFilter={(date) => handleFilter(date)}
             primaryBtnVariant="destructive"
             dynamicFlex
           />

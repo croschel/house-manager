@@ -129,7 +129,7 @@ export const MarketControl = () => {
           secondaryBtnLabel="Acessar Lista Atual"
           handlePrimaryBtn={() => handleOpenList('create')}
           handleSecondaryBtn={() => handleOpenList('actual')}
-          onChange={(date) => handleFilter(date)}
+          onSubmitFilter={(date) => handleFilter(date)}
           primaryBtnVariant="outline"
           secondaryBtnVariant="creation"
         />
