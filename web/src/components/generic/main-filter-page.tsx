@@ -43,7 +43,7 @@ export const MainFilterPage: FC<Props> = ({
   dynamicFlex = false
 }) => {
   const [date, setDate] = useState<DateRange | undefined>({
-    from: subDays(new Date(), 20),
+    from: subDays(new Date(), 30),
     to: new Date()
   });
 

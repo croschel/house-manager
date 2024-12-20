@@ -17,23 +17,11 @@ import { compareDatesForSort, getLast12monthsWithYear } from '@/utils/date';
 import { formatToCurrencyRealWithDollar } from '@/utils/modifiers';
 import { categoriesIcons } from '@/models/constants/categories-icons';
 import { ExpenseColors, ExpenseValues, Month } from '@/models/enums';
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent
-} from '@/components/ui/chart';
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Funnel,
-  FunnelChart,
-  LabelList,
-  XAxis
-} from 'recharts';
 import { getMonth, getYear } from 'date-fns';
 import { expenseLabels } from '@/utils/options';
+import { ExpenseBarChart } from './expense-bar-chart';
+import { OverviewChart } from './overview-chart';
+import { ExpenseData } from '@/models/interfaces';
 
 export const ExpenseControl = () => {
   const dispatch = useAppDispatch();
@@ -118,34 +106,25 @@ export const ExpenseControl = () => {
     }
   };
   const handleFilter = (date: DateRange | undefined) => {
-    // console.log(date);
+    // dispatch(
+    //   getExpenseList({
+    //     expense: {} as unknown as ExpenseData,
+    //     filter: date
+    //   })
+    // );
   };
 
   const handleOpenExpenseList = () => {
     navigate(`${PageType.ExpenseControl}${PageType.ExpenseList}`);
   };
 
-  const handleGetExpenseList = () => dispatch(getExpenseList({}));
-
-  const chartConfigExpenseFund = {
-    funds: {
-      label: 'Proventos',
-      color: '#5ec26b'
-    },
-    expense: {
-      label: 'Despesas',
-      color: '#E84545'
-    }
-  } satisfies ChartConfig;
-
-  const getChartConfigOverview = () => {
-    return {
-      Food: {
-        label: 'Alimentação',
-        color: '#5ec26b'
-      }
-    } satisfies ChartConfig;
-  };
+  const handleGetExpenseList = () =>
+    dispatch(
+      getExpenseList({
+        expense: {} as unknown as ExpenseData,
+        filter: undefined
+      })
+    );
 
   useEffect(() => {
     if (expenseList.length > 0) return;
@@ -210,37 +189,11 @@ export const ExpenseControl = () => {
                 className="min-w-[fit-content]"
                 size="medium"
                 customContent={
-                  <div>
-                    <ChartContainer
-                      config={chartConfigExpenseFund}
-                      className="min-h-[230px] w-full"
-                    >
-                      <BarChart
-                        accessibilityLayer
-                        data={counters.last12MonthsFundsExpenses}
-                      >
-                        <ChartTooltip content={<ChartTooltipContent />} />
-                        <CartesianGrid vertical={false} />
-                        <XAxis
-                          dataKey="month"
-                          tickLine={false}
-                          tickMargin={8}
-                          axisLine={false}
-                          tickFormatter={(value) => value.slice(0, 3)}
-                        />
-                        <Bar
-                          dataKey="funds"
-                          fill="var(--color-funds)"
-                          radius={2}
-                        />
-                        <Bar
-                          dataKey="expenses"
-                          fill="var(--color-expense)"
-                          radius={2}
-                        />
-                      </BarChart>
-                    </ChartContainer>
-                  </div>
+                  <ExpenseBarChart
+                    last12MonthsFundsExpenses={
+                      counters.last12MonthsFundsExpenses
+                    }
+                  />
                 }
               />
             </div>
@@ -253,29 +206,9 @@ export const ExpenseControl = () => {
                 className="h-[100%] min-w-[60%]"
                 onClick={handleOpenExpenseList}
                 customContent={
-                  <div className="w-full max-w-[920px] flex flex-1 items-center self-center">
-                    <ChartContainer
-                      className="h-[400px] w-full"
-                      config={getChartConfigOverview()}
-                    >
-                      <FunnelChart>
-                        <ChartTooltip content={<ChartTooltipContent />} />
-
-                        <Funnel
-                          dataKey="value"
-                          data={counters.expensesPerCategory}
-                          isAnimationActive
-                        >
-                          <LabelList
-                            position="right"
-                            fill="#fff"
-                            stroke="#fff"
-                            dataKey="name"
-                          />
-                        </Funnel>
-                      </FunnelChart>
-                    </ChartContainer>
-                  </div>
+                  <OverviewChart
+                    expensesPerCategory={counters.expensesPerCategory}
+                  />
                 }
               />
               <DataBox

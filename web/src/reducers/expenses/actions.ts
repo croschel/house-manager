@@ -3,13 +3,17 @@ import { ExpenseService } from '@/services/expenses';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { addNotificationAction } from '../notification/actions';
 import { buildAppError, buildAppSuccess } from '@/utils/message';
+import { DateRange } from 'react-day-picker';
 
 export const getExpenseList = createAsyncThunk<
   ExpenseData[] | undefined,
-  Partial<Omit<ExpenseData, 'id' | 'isFixedExpense'>>
->('EXPENSE/FETCH_LIST', async (params, { dispatch }) => {
+  {
+    expense: Partial<Omit<ExpenseData, 'id' | 'isFixedExpense'>>;
+    filter: DateRange | undefined;
+  }
+>('EXPENSE/FETCH_LIST', async ({ expense, filter }, { dispatch }) => {
   try {
-    return (await ExpenseService.fetchExpenseList(params)).data;
+    return (await ExpenseService.fetchExpenseList(expense, filter)).data;
   } catch (e) {
     throw dispatch(
       addNotificationAction(

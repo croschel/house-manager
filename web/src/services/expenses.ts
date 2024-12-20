@@ -2,11 +2,21 @@ import { request } from '@/lib/request';
 import { CreateFormExpense, ExpenseData } from '@/models/interfaces';
 import { createUrlParams } from '@/utils/generators';
 import { generateUUId } from '@/utils/modifiers';
+import { formatISO } from 'date-fns';
+import { DateRange } from 'react-day-picker';
 
 const fetchExpenseList = async (
-  params: Partial<Omit<ExpenseData, 'id' | 'isFixedExpense'>>
+  expense: Partial<Omit<ExpenseData, 'id' | 'isFixedExpense'>>,
+  filter: DateRange | undefined
 ) => {
-  const query = createUrlParams({ ...params });
+  // @ts-ignore
+  let query = createUrlParams({ ...expense });
+  if (filter) {
+    query =
+      query.length > 0
+        ? `${query}&_start=${formatISO(filter.from as Date)}${filter.to !== undefined ? `&_end=${formatISO(filter.to)}` : ''}`
+        : `?_start=${filter.from}&_end=${filter.to}`;
+  }
   return await request.get<ExpenseData[]>(`/expenses${query}`);
 };
 
