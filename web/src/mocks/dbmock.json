@@ -288,268 +288,573 @@
       "id": "06e42f8d-d99a-4f86-85af-d77d48fc6e73",
       "createdAt": "2024-12-20T15:48:33.219Z",
       "updatedAt": ""
+    },
+    {
+      "name": "Investimento",
+      "category": "investment",
+      "value": 1000,
+      "date": "2024-12-23T22:55:52.829Z",
+      "type": "fund",
+      "ownerId": 121345,
+      "ownerName": "user",
+      "isFixedExpense": false,
+      "location": "",
+      "accountId": "Mocked User",
+      "id": "600b6f80-e27e-4603-9a1c-58fb220886e7",
+      "createdAt": "2024-12-23T22:56:42.566Z",
+      "updatedAt": ""
     }
   ],
   "market-list": [
     {
-      "id": "ml001",
-      "accountId": "acc123",
-      "totalAmount": 15,
-      "totalValue": 75.5,
-      "version": 1,
-      "createdAt": "2024-01-15T10:30:00Z",
-      "updatedAt": "2024-01-15T10:30:00Z",
-      "location": "Supermarket A",
-      "status": "ACTIVE",
-      "effectiveMonth": 0,
-      "effectiveYear": 2024
-    },
-    {
-      "id": "ml002",
-      "accountId": "acc124",
-      "totalAmount": 8,
-      "totalValue": 42.75,
-      "version": 2,
-      "createdAt": "2024-01-16T14:45:00Z",
-      "updatedAt": "2024-01-16T15:00:00Z",
-      "location": "Grocery Store B",
-      "status": "PROGRESS",
+      "id": "list-1",
+      "accountId": "account-1",
+      "totalValue": 150.0,
+      "createdAt": "2023-01-15T08:00:00Z",
+      "updatedAt": "2023-01-15T08:00:00Z",
+      "location": "São Paulo",
+      "status": "expired",
       "effectiveMonth": 1,
-      "effectiveYear": 2024
+      "effectiveYear": 2023,
+      "products": [
+        {
+          "id": "product-1",
+          "name": "Bananas",
+          "amount": 10,
+          "value": 5.0,
+          "createdAt": "2023-01-15T08:00:00Z",
+          "updatedAt": "2023-01-15T08:00:00Z",
+          "category": "produce"
+        }
+      ]
     },
     {
-      "id": "ml003",
-      "accountId": "acc125",
-      "totalAmount": 22,
-      "totalValue": 110.25,
-      "version": 1,
-      "createdAt": "2024-01-17T09:15:00Z",
-      "updatedAt": "2024-01-17T09:15:00Z",
-      "location": "Hypermarket C",
-      "status": "ACTIVE",
+      "id": "list-2",
+      "accountId": "account-1",
+      "totalValue": 300.0,
+      "createdAt": "2023-12-15T08:00:00Z",
+      "updatedAt": "2023-12-15T08:00:00Z",
+      "location": "Rio de Janeiro",
+      "status": "done",
+      "effectiveMonth": 12,
+      "effectiveYear": 2023,
+      "products": [
+        {
+          "id": "product-2",
+          "name": "Milk",
+          "amount": 5,
+          "value": 15.0,
+          "createdAt": "2023-12-15T08:00:00Z",
+          "updatedAt": "2023-12-15T08:00:00Z",
+          "category": "dairy"
+        }
+      ]
+    },
+    {
+      "id": "list-3",
+      "accountId": "account-2",
+      "totalValue": 200.0,
+      "createdAt": "2024-01-20T08:00:00Z",
+      "updatedAt": "2024-01-20T08:00:00Z",
+      "location": "Curitiba",
+      "status": "expired",
+      "effectiveMonth": 1,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-3",
+          "name": "Chicken",
+          "amount": 8,
+          "value": 30.0,
+          "createdAt": "2024-01-20T08:00:00Z",
+          "updatedAt": "2024-01-20T08:00:00Z",
+          "category": "meat_poultry"
+        }
+      ]
+    },
+    {
+      "id": "list-4",
+      "accountId": "account-2",
+      "totalValue": 220.0,
+      "createdAt": "2024-02-15T08:00:00Z",
+      "updatedAt": "2024-02-15T08:00:00Z",
+      "location": "Porto Alegre",
+      "status": "expired",
       "effectiveMonth": 2,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-4",
+          "name": "Eggs",
+          "amount": 20,
+          "value": 12.0,
+          "createdAt": "2024-02-15T08:00:00Z",
+          "updatedAt": "2024-02-15T08:00:00Z",
+          "category": "dairy"
+        }
+      ]
     },
     {
-      "id": "ml004",
-      "accountId": "acc126",
-      "totalAmount": 5,
-      "totalValue": 25,
-      "version": 3,
-      "createdAt": "2024-01-18T16:30:00Z",
-      "updatedAt": "2024-01-18T17:00:00Z",
-      "location": "Corner Shop D",
-      "status": "DONE",
+      "id": "list-5",
+      "accountId": "account-3",
+      "totalValue": 180.0,
+      "createdAt": "2024-03-10T08:00:00Z",
+      "updatedAt": "2024-03-10T08:00:00Z",
+      "location": "Brasília",
+      "status": "expired",
       "effectiveMonth": 3,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-5",
+          "name": "Bread",
+          "amount": 15,
+          "value": 9.0,
+          "createdAt": "2024-03-10T08:00:00Z",
+          "updatedAt": "2024-03-10T08:00:00Z",
+          "category": "bakery"
+        }
+      ]
     },
     {
-      "id": "ml005",
-      "accountId": "acc127",
-      "totalAmount": 18,
-      "totalValue": 90.75,
-      "version": 2,
-      "createdAt": "2024-01-19T11:00:00Z",
-      "updatedAt": "2024-01-19T11:30:00Z",
-      "location": "Supermarket E",
-      "status": "PROGRESS",
+      "id": "list-6",
+      "accountId": "account-3",
+      "totalValue": 500.0,
+      "createdAt": "2024-04-10T08:00:00Z",
+      "updatedAt": "2024-04-10T08:00:00Z",
+      "location": "Salvador",
+      "status": "expired",
       "effectiveMonth": 4,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-6",
+          "name": "Chocolate",
+          "amount": 10,
+          "value": 25.0,
+          "createdAt": "2024-04-10T08:00:00Z",
+          "updatedAt": "2024-04-10T08:00:00Z",
+          "category": "snacks_confectionery"
+        }
+      ]
     },
     {
-      "id": "ml006",
-      "accountId": "acc128",
-      "totalAmount": 12,
-      "totalValue": 60.25,
-      "version": 1,
-      "createdAt": "2024-01-20T13:45:00Z",
-      "updatedAt": "2024-01-20T13:45:00Z",
-      "location": "Grocery Store F",
-      "status": "ACTIVE",
+      "id": "list-7",
+      "accountId": "account-4",
+      "totalValue": 380.0,
+      "createdAt": "2024-05-10T08:00:00Z",
+      "updatedAt": "2024-05-10T08:00:00Z",
+      "location": "Fortaleza",
+      "status": "expired",
       "effectiveMonth": 5,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-7",
+          "name": "Fish",
+          "amount": 12,
+          "value": 84.0,
+          "createdAt": "2024-05-10T08:00:00Z",
+          "updatedAt": "2024-05-10T08:00:00Z",
+          "category": "seafood"
+        }
+      ]
     },
     {
-      "id": "ml007",
-      "accountId": "acc129",
-      "totalAmount": 30,
-      "totalValue": 150,
-      "version": 4,
-      "createdAt": "2024-01-21T08:00:00Z",
-      "updatedAt": "2024-01-21T09:30:00Z",
-      "location": "Hypermarket G",
-      "status": "CLOSED",
+      "id": "list-8",
+      "accountId": "account-4",
+      "totalValue": 400.0,
+      "createdAt": "2024-06-10T08:00:00Z",
+      "updatedAt": "2024-06-10T08:00:00Z",
+      "location": "Belo Horizonte",
+      "status": "expired",
       "effectiveMonth": 6,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-8",
+          "name": "Ice Cream",
+          "amount": 7,
+          "value": 30.0,
+          "createdAt": "2024-06-10T08:00:00Z",
+          "updatedAt": "2024-06-10T08:00:00Z",
+          "category": "frozen_foods"
+        }
+      ]
     },
     {
-      "id": "ml008",
-      "accountId": "acc130",
-      "totalAmount": 7,
-      "totalValue": 35.5,
-      "version": 1,
-      "createdAt": "2024-01-22T17:15:00Z",
-      "updatedAt": "2024-01-22T17:15:00Z",
-      "location": "Corner Shop H",
-      "status": "ACTIVE",
+      "id": "list-9",
+      "accountId": "account-5",
+      "totalValue": 250.0,
+      "createdAt": "2024-07-15T08:00:00Z",
+      "updatedAt": "2024-07-15T08:00:00Z",
+      "location": "Manaus",
+      "status": "expired",
       "effectiveMonth": 7,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-9",
+          "name": "Rice",
+          "amount": 25,
+          "value": 10.0,
+          "createdAt": "2024-07-15T08:00:00Z",
+          "updatedAt": "2024-07-15T08:00:00Z",
+          "category": "pantry_staples"
+        }
+      ]
     },
     {
-      "id": "ml009",
-      "accountId": "acc131",
-      "totalAmount": 25,
-      "totalValue": 125.75,
-      "version": 2,
-      "createdAt": "2024-01-23T10:30:00Z",
-      "updatedAt": "2024-01-23T11:00:00Z",
-      "location": "Supermarket I",
-      "status": "PROGRESS",
+      "id": "list-10",
+      "accountId": "account-5",
+      "totalValue": 320.0,
+      "createdAt": "2024-08-15T08:00:00Z",
+      "updatedAt": "2024-08-15T08:00:00Z",
+      "location": "Recife",
+      "status": "expired",
       "effectiveMonth": 8,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-10",
+          "name": "Juice",
+          "amount": 6,
+          "value": 18.0,
+          "createdAt": "2024-08-15T08:00:00Z",
+          "updatedAt": "2024-08-15T08:00:00Z",
+          "category": "beverages"
+        }
+      ]
     },
     {
-      "id": "ml010",
-      "accountId": "acc132",
-      "totalAmount": 10,
-      "totalValue": 50,
-      "version": 3,
-      "createdAt": "2024-01-24T14:00:00Z",
-      "updatedAt": "2024-01-24T14:45:00Z",
-      "location": "Grocery Store J",
-      "status": "DONE",
+      "id": "list-11",
+      "accountId": "account-6",
+      "totalValue": 280.0,
+      "createdAt": "2024-09-15T08:00:00Z",
+      "updatedAt": "2024-09-15T08:00:00Z",
+      "location": "Belém",
+      "status": "expired",
       "effectiveMonth": 9,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-11",
+          "name": "Soft Drink",
+          "amount": 12,
+          "value": 24.0,
+          "createdAt": "2024-09-15T08:00:00Z",
+          "updatedAt": "2024-09-15T08:00:00Z",
+          "category": "beverages"
+        }
+      ]
     },
     {
-      "id": "ml011",
-      "accountId": "acc133",
-      "totalAmount": 20,
-      "totalValue": 100.25,
-      "version": 1,
-      "createdAt": "2024-01-25T09:45:00Z",
-      "updatedAt": "2024-01-25T09:45:00Z",
-      "location": "Hypermarket K",
-      "status": "ACTIVE",
+      "id": "list-12",
+      "accountId": "account-6",
+      "totalValue": 150.0,
+      "createdAt": "2024-10-15T08:00:00Z",
+      "updatedAt": "2024-10-15T08:00:00Z",
+      "location": "Natal",
+      "status": "done",
       "effectiveMonth": 10,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-12",
+          "name": "Vitamin Pills",
+          "amount": 5,
+          "value": 50.0,
+          "createdAt": "2024-10-15T08:00:00Z",
+          "updatedAt": "2024-10-15T08:00:00Z",
+          "category": "health_wellness"
+        }
+      ]
     },
     {
-      "id": "ml012",
-      "accountId": "acc134",
-      "totalAmount": 6,
-      "totalValue": 30.5,
-      "version": 2,
-      "createdAt": "2024-01-26T16:00:00Z",
-      "updatedAt": "2024-01-26T16:15:00Z",
-      "location": "Corner Shop L",
-      "status": "PROGRESS",
+      "id": "list-13",
+      "accountId": "account-7",
+      "totalValue": 320.0,
+      "createdAt": "2024-11-15T08:00:00Z",
+      "updatedAt": "2024-11-15T08:00:00Z",
+      "location": "João Pessoa",
+      "status": "done",
       "effectiveMonth": 11,
-      "effectiveYear": 2024
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-13",
+          "name": "Laundry Detergent",
+          "amount": 3,
+          "value": 45.0,
+          "createdAt": "2024-11-15T08:00:00Z",
+          "updatedAt": "2024-11-15T08:00:00Z",
+          "category": "household_items"
+        }
+      ]
     },
     {
-      "id": "ml013",
-      "accountId": "acc135",
-      "totalAmount": 28,
-      "totalValue": 140.75,
-      "version": 5,
-      "createdAt": "2024-01-27T11:30:00Z",
-      "updatedAt": "2024-01-27T13:00:00Z",
-      "location": "Supermarket M",
-      "status": "EXPIRED",
-      "effectiveMonth": 0,
-      "effectiveYear": 2025
+      "id": "list-14",
+      "accountId": "account-7",
+      "totalValue": 500.0,
+      "createdAt": "2024-12-15T08:00:00Z",
+      "updatedAt": "2024-12-15T08:00:00Z",
+      "location": "Florianópolis",
+      "status": "closed",
+      "effectiveMonth": 12,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-14",
+          "name": "Shampoo",
+          "amount": 20,
+          "value": 5.0,
+          "createdAt": "2024-12-15T08:00:00Z",
+          "updatedAt": "2024-12-15T08:00:00Z",
+          "category": "personal_care"
+        }
+      ]
     },
     {
-      "id": "ml014",
-      "accountId": "acc136",
-      "totalAmount": 14,
-      "totalValue": 70,
-      "version": 1,
-      "createdAt": "2024-01-28T15:15:00Z",
-      "updatedAt": "2024-01-28T15:15:00Z",
-      "location": "Grocery Store N",
-      "status": "ACTIVE",
-      "effectiveMonth": 1,
-      "effectiveYear": 2025
+      "id": "list-15",
+      "accountId": "account-8",
+      "totalValue": 420.0,
+      "createdAt": "2024-12-20T08:00:00Z",
+      "updatedAt": "2024-12-23T08:00:00Z",
+      "location": "Rio Branco",
+      "status": "progress",
+      "effectiveMonth": 12,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-15",
+          "name": "Baby Formula",
+          "amount": 4,
+          "value": 100.0,
+          "createdAt": "2024-12-20T08:00:00Z",
+          "updatedAt": "2024-12-23T08:00:00Z",
+          "category": "baby_products"
+        }
+      ]
     },
     {
-      "id": "ml015",
-      "accountId": "acc137",
-      "totalAmount": 35,
-      "totalValue": 175.5,
-      "version": 3,
-      "createdAt": "2024-01-29T08:30:00Z",
-      "updatedAt": "2024-01-29T09:15:00Z",
-      "location": "Hypermarket O",
-      "status": "CLOSED",
-      "effectiveMonth": 2,
-      "effectiveYear": 2025
+      "id": "list-16",
+      "accountId": "account-8",
+      "totalValue": 250.0,
+      "createdAt": "2024-12-22T08:00:00Z",
+      "updatedAt": "2024-12-22T08:00:00Z",
+      "location": "Cuiabá",
+      "status": "active",
+      "effectiveMonth": 12,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-16",
+          "name": "Dog Food",
+          "amount": 10,
+          "value": 25.0,
+          "createdAt": "2024-12-22T08:00:00Z",
+          "updatedAt": "2024-12-22T08:00:00Z",
+          "category": "pet_supplies"
+        }
+      ]
     },
     {
-      "id": "ml016",
-      "accountId": "acc138",
-      "totalAmount": 9,
-      "totalValue": 45.25,
-      "version": 1,
-      "createdAt": "2024-01-30T17:45:00Z",
-      "updatedAt": "2024-01-30T17:45:00Z",
-      "location": "Corner Shop P",
-      "status": "ACTIVE",
-      "effectiveMonth": 3,
-      "effectiveYear": 2025
+      "id": "list-17",
+      "accountId": "account-9",
+      "totalValue": 610.0,
+      "createdAt": "2024-12-23T08:00:00Z",
+      "updatedAt": "2024-12-23T08:00:00Z",
+      "location": "Maceió",
+      "status": "done",
+      "effectiveMonth": 12,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-17",
+          "name": "Wine",
+          "amount": 7,
+          "value": 85.0,
+          "createdAt": "2024-12-23T08:00:00Z",
+          "updatedAt": "2024-12-23T08:00:00Z",
+          "category": "alcohol_tobacco"
+        }
+      ]
     },
     {
-      "id": "ml017",
-      "accountId": "acc139",
-      "totalAmount": 23,
-      "totalValue": 115.75,
-      "version": 2,
-      "createdAt": "2024-01-31T10:00:00Z",
-      "updatedAt": "2024-01-31T10:30:00Z",
-      "location": "Supermarket Q",
-      "status": "PROGRESS",
-      "effectiveMonth": 4,
-      "effectiveYear": 2025
+      "id": "list-18",
+      "accountId": "account-9",
+      "totalValue": 210.0,
+      "createdAt": "2024-12-01T08:00:00Z",
+      "updatedAt": "2024-12-10T08:00:00Z",
+      "location": "Vitória",
+      "status": "closed",
+      "effectiveMonth": 12,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-18",
+          "name": "Imported Cheese",
+          "amount": 3,
+          "value": 70.0,
+          "createdAt": "2024-12-01T08:00:00Z",
+          "updatedAt": "2024-12-10T08:00:00Z",
+          "category": "international_foods"
+        }
+      ]
     },
     {
-      "id": "ml018",
-      "accountId": "acc140",
-      "totalAmount": 11,
-      "totalValue": 55.5,
-      "version": 4,
-      "createdAt": "2024-02-01T13:30:00Z",
-      "updatedAt": "2024-02-01T14:15:00Z",
-      "location": "Grocery Store R",
-      "status": "DONE",
-      "effectiveMonth": 5,
-      "effectiveYear": 2025
+      "id": "list-19",
+      "accountId": "account-10",
+      "totalValue": 195.0,
+      "createdAt": "2024-11-05T08:00:00Z",
+      "updatedAt": "2024-11-05T08:00:00Z",
+      "location": "Campo Grande",
+      "status": "done",
+      "effectiveMonth": 11,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-19",
+          "name": "Toothpaste",
+          "amount": 6,
+          "value": 15.0,
+          "createdAt": "2024-11-05T08:00:00Z",
+          "updatedAt": "2024-11-05T08:00:00Z",
+          "category": "personal_care"
+        }
+      ]
     },
     {
-      "id": "ml019",
-      "accountId": "acc141",
-      "totalAmount": 27,
-      "totalValue": 135.25,
-      "version": 1,
-      "createdAt": "2024-02-02T09:00:00Z",
-      "updatedAt": "2024-02-02T09:00:00Z",
-      "location": "Hypermarket S",
-      "status": "ACTIVE",
-      "effectiveMonth": 6,
-      "effectiveYear": 2025
+      "id": "list-20",
+      "accountId": "account-10",
+      "totalValue": 320.0,
+      "createdAt": "2024-10-10T08:00:00Z",
+      "updatedAt": "2024-10-10T08:00:00Z",
+      "location": "Aracaju",
+      "status": "done",
+      "effectiveMonth": 10,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-20",
+          "name": "Beer",
+          "amount": 15,
+          "value": 12.5,
+          "createdAt": "2024-10-10T08:00:00Z",
+          "updatedAt": "2024-10-10T08:00:00Z",
+          "category": "alcohol_tobacco"
+        }
+      ]
     },
     {
-      "id": "ml020",
-      "accountId": "acc142",
-      "totalAmount": 16,
-      "totalValue": 80,
-      "version": 2,
-      "createdAt": "2024-02-03T15:45:00Z",
-      "updatedAt": "2024-02-03T16:00:00Z",
-      "location": "Corner Shop T",
-      "status": "PROGRESS",
+      "id": "list-21",
+      "accountId": "account-11",
+      "totalValue": 410.0,
+      "createdAt": "2024-09-20T08:00:00Z",
+      "updatedAt": "2024-09-20T08:00:00Z",
+      "location": "Teresina",
+      "status": "expired",
+      "effectiveMonth": 9,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-21",
+          "name": "Batteries",
+          "amount": 10,
+          "value": 25.0,
+          "createdAt": "2024-09-20T08:00:00Z",
+          "updatedAt": "2024-09-20T08:00:00Z",
+          "category": "household_items"
+        }
+      ]
+    },
+    {
+      "id": "list-22",
+      "accountId": "account-11",
+      "totalValue": 230.0,
+      "createdAt": "2024-08-25T08:00:00Z",
+      "updatedAt": "2024-08-25T08:00:00Z",
+      "location": "Palmas",
+      "status": "expired",
+      "effectiveMonth": 8,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-22",
+          "name": "Imported Chocolate",
+          "amount": 4,
+          "value": 45.0,
+          "createdAt": "2024-08-25T08:00:00Z",
+          "updatedAt": "2024-08-25T08:00:00Z",
+          "category": "international_foods"
+        }
+      ]
+    },
+    {
+      "id": "list-23",
+      "accountId": "account-12",
+      "totalValue": 150.0,
+      "createdAt": "2024-07-05T08:00:00Z",
+      "updatedAt": "2024-07-05T08:00:00Z",
+      "location": "Boa Vista",
+      "status": "expired",
       "effectiveMonth": 7,
-      "effectiveYear": 2025
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-23",
+          "name": "Cookies",
+          "amount": 20,
+          "value": 5.0,
+          "createdAt": "2024-07-05T08:00:00Z",
+          "updatedAt": "2024-07-05T08:00:00Z",
+          "category": "bakery"
+        }
+      ]
+    },
+    {
+      "id": "list-24",
+      "accountId": "account-12",
+      "totalValue": 280.0,
+      "createdAt": "2024-06-25T08:00:00Z",
+      "updatedAt": "2024-06-25T08:00:00Z",
+      "location": "Ribeirão Preto",
+      "status": "expired",
+      "effectiveMonth": 6,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-24",
+          "name": "Frozen Pizza",
+          "amount": 8,
+          "value": 35.0,
+          "createdAt": "2024-06-25T08:00:00Z",
+          "updatedAt": "2024-06-25T08:00:00Z",
+          "category": "frozen_foods"
+        }
+      ]
+    },
+    {
+      "id": "list-25",
+      "accountId": "account-13",
+      "totalValue": 330.0,
+      "createdAt": "2024-05-19T08:00:00Z",
+      "updatedAt": "2024-05-19T08:00:00Z",
+      "location": "Campinas",
+      "status": "expired",
+      "effectiveMonth": 5,
+      "effectiveYear": 2024,
+      "products": [
+        {
+          "id": "product-25",
+          "name": "Imported Wine",
+          "amount": 3,
+          "value": 110.0,
+          "createdAt": "2024-05-19T08:00:00Z",
+          "updatedAt": "2024-05-19T08:00:00Z",
+          "category": "international_foods"
+        }
+      ]
     }
   ]
 }
