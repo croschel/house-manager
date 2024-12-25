@@ -4,12 +4,14 @@ import { AppReducer } from './app/reducer';
 import { loadingReducer } from './loading/reducer';
 import { ExpenseReducer } from './expenses/reducer';
 import { NotificationReducer } from './notification/reducer';
+import { MarketReducer } from './market/reducer';
 
 export const store = configureStore({
   reducer: {
     app: AppReducer,
     loading: loadingReducer,
     expense: ExpenseReducer,
+    market: MarketReducer,
     notification: NotificationReducer
   }
 });

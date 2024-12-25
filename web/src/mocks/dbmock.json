@@ -316,6 +316,7 @@
       "status": "expired",
       "effectiveMonth": 1,
       "effectiveYear": 2023,
+      "date": "2023-01-15T08:00:00Z",
       "products": [
         {
           "id": "product-1",
@@ -338,6 +339,7 @@
       "status": "done",
       "effectiveMonth": 12,
       "effectiveYear": 2023,
+      "date": "2023-12-15T08:00:00Z",
       "products": [
         {
           "id": "product-2",
@@ -360,6 +362,7 @@
       "status": "expired",
       "effectiveMonth": 1,
       "effectiveYear": 2024,
+      "date": "2024-01-20T08:00:00Z",
       "products": [
         {
           "id": "product-3",
@@ -382,6 +385,7 @@
       "status": "expired",
       "effectiveMonth": 2,
       "effectiveYear": 2024,
+      "date": "2024-02-15T08:00:00Z",
       "products": [
         {
           "id": "product-4",
@@ -404,6 +408,7 @@
       "status": "expired",
       "effectiveMonth": 3,
       "effectiveYear": 2024,
+      "date": "2024-03-10T08:00:00Z",
       "products": [
         {
           "id": "product-5",
@@ -426,6 +431,7 @@
       "status": "expired",
       "effectiveMonth": 4,
       "effectiveYear": 2024,
+      "date": "2024-04-10T08:00:00Z",
       "products": [
         {
           "id": "product-6",
@@ -448,6 +454,7 @@
       "status": "expired",
       "effectiveMonth": 5,
       "effectiveYear": 2024,
+      "date": "2024-05-10T08:00:00Z",
       "products": [
         {
           "id": "product-7",
@@ -470,6 +477,7 @@
       "status": "expired",
       "effectiveMonth": 6,
       "effectiveYear": 2024,
+      "date": "2024-06-10T08:00:00Z",
       "products": [
         {
           "id": "product-8",
@@ -492,6 +500,7 @@
       "status": "expired",
       "effectiveMonth": 7,
       "effectiveYear": 2024,
+      "date": "2024-07-15T08:00:00Z",
       "products": [
         {
           "id": "product-9",
@@ -514,6 +523,7 @@
       "status": "expired",
       "effectiveMonth": 8,
       "effectiveYear": 2024,
+      "date": "2024-08-15T08:00:00Z",
       "products": [
         {
           "id": "product-10",
@@ -536,6 +546,7 @@
       "status": "expired",
       "effectiveMonth": 9,
       "effectiveYear": 2024,
+      "date": "2024-09-15T08:00:00Z",
       "products": [
         {
           "id": "product-11",
@@ -558,6 +569,7 @@
       "status": "done",
       "effectiveMonth": 10,
       "effectiveYear": 2024,
+      "date": "2024-10-15T08:00:00Z",
       "products": [
         {
           "id": "product-12",
@@ -580,6 +592,7 @@
       "status": "done",
       "effectiveMonth": 11,
       "effectiveYear": 2024,
+      "date": "2024-11-15T08:00:00Z",
       "products": [
         {
           "id": "product-13",
@@ -602,6 +615,7 @@
       "status": "closed",
       "effectiveMonth": 12,
       "effectiveYear": 2024,
+      "date": "2024-12-15T08:00:00Z",
       "products": [
         {
           "id": "product-14",
@@ -624,6 +638,7 @@
       "status": "progress",
       "effectiveMonth": 12,
       "effectiveYear": 2024,
+      "date": "2024-12-20T08:00:00Z",
       "products": [
         {
           "id": "product-15",
@@ -646,6 +661,7 @@
       "status": "active",
       "effectiveMonth": 12,
       "effectiveYear": 2024,
+      "date": "2024-12-22T08:00:00Z",
       "products": [
         {
           "id": "product-16",
@@ -668,6 +684,7 @@
       "status": "done",
       "effectiveMonth": 12,
       "effectiveYear": 2024,
+      "date": "2024-12-23T08:00:00Z",
       "products": [
         {
           "id": "product-17",
@@ -690,6 +707,7 @@
       "status": "closed",
       "effectiveMonth": 12,
       "effectiveYear": 2024,
+      "date": "2024-12-01T08:00:00Z",
       "products": [
         {
           "id": "product-18",
@@ -712,6 +730,7 @@
       "status": "done",
       "effectiveMonth": 11,
       "effectiveYear": 2024,
+      "date": "2024-11-05T08:00:00Z",
       "products": [
         {
           "id": "product-19",
@@ -734,6 +753,7 @@
       "status": "done",
       "effectiveMonth": 10,
       "effectiveYear": 2024,
+      "date": "2024-10-10T08:00:00Z",
       "products": [
         {
           "id": "product-20",
@@ -756,6 +776,7 @@
       "status": "expired",
       "effectiveMonth": 9,
       "effectiveYear": 2024,
+      "date": "2024-09-20T08:00:00Z",
       "products": [
         {
           "id": "product-21",
@@ -778,6 +799,7 @@
       "status": "expired",
       "effectiveMonth": 8,
       "effectiveYear": 2024,
+      "date": "2024-08-25T08:00:00Z",
       "products": [
         {
           "id": "product-22",
@@ -800,6 +822,7 @@
       "status": "expired",
       "effectiveMonth": 7,
       "effectiveYear": 2024,
+      "date": "2024-07-05T08:00:00Z",
       "products": [
         {
           "id": "product-23",
@@ -822,6 +845,7 @@
       "status": "expired",
       "effectiveMonth": 6,
       "effectiveYear": 2024,
+      "date": "2024-06-25T08:00:00Z",
       "products": [
         {
           "id": "product-24",
@@ -844,6 +868,7 @@
       "status": "expired",
       "effectiveMonth": 5,
       "effectiveYear": 2024,
+      "date": "2024-05-19T08:00:00Z",
       "products": [
         {
           "id": "product-25",

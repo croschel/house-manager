@@ -46,6 +46,12 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
             return payload;
           }
           return expense;
+        }),
+        filteredExpenses: state.filteredExpenses.map((expense) => {
+          if (expense.id === payload?.id) {
+            return payload;
+          }
+          return expense;
         })
       })
     )
@@ -54,6 +60,12 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
       (state: ExpenseState, { payload }) => ({
         ...state,
         expenseList: state.expenseList.map((expense) => {
+          if (expense.id === payload?.id) {
+            return payload;
+          }
+          return expense;
+        }),
+        filteredExpenses: state.filteredExpenses.map((expense) => {
           if (expense.id === payload?.id) {
             return payload;
           }
@@ -68,7 +80,11 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
         expenseList:
           payload !== undefined
             ? [...state.expenseList, payload]
-            : state.expenseList
+            : state.expenseList,
+        filteredExpenses:
+          payload !== undefined
+            ? [...state.filteredExpenses, payload]
+            : state.filteredExpenses
       })
     )
     .addCase(
@@ -76,6 +92,9 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
       (state: ExpenseState, { payload }) => ({
         ...state,
         expenseList: state.expenseList.filter(
+          (expense) => expense.id !== payload?.id
+        ),
+        filteredExpenses: state.filteredExpenses.filter(
           (expense) => expense.id !== payload?.id
         )
       })

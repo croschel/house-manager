@@ -15,6 +15,7 @@ export interface MarketList {
   accountId: string;
   totalValue: number;
   createdAt: string;
+  date: string;
   updatedAt: string;
   location: string;
   status: StatusList;
