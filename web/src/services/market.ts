@@ -3,27 +3,28 @@ import { StatusList } from '@/models/enums';
 import { MarketList } from '@/models/interfaces';
 import { createUrlParams } from '@/utils/generators';
 import { generateUUId } from '@/utils/modifiers';
+import { formatISO, getMonth, getYear } from 'date-fns';
 
-const fetchAllMarketList = (
+const fetchAllMarketList = async (
   market: Partial<Omit<MarketList, 'id' | 'products'>>
 ) => {
   let query = createUrlParams({ ...market });
-  return request.get<MarketList[]>(`/market-list${query}`);
+  return await request.get<MarketList[]>(`/market-list${query}`);
 };
 
-const fetchMarketById = (id: string) => {
-  return request.get<MarketList>(`/market-list/${id}`);
+const fetchMarketById = async (id: string) => {
+  return await request.get<MarketList>(`/market-list/${id}`);
 };
 
-const updateMarketList = (market: MarketList) => {
+const updateMarketList = async (market: MarketList) => {
   const newMarketList: MarketList = {
     ...market,
     updatedAt: new Date().toISOString()
   };
-  return request.put(`/market-list/${market.id}`, newMarketList);
+  return await request.put(`/market-list/${market.id}`, newMarketList);
 };
 
-const createMarketList = (date: Date) => {
+const createMarketList = async (date: Date) => {
   const body: Partial<MarketList> = {
     id: generateUUId(),
     accountId: 'Mocked User', // Implement this once we get login
@@ -31,17 +32,18 @@ const createMarketList = (date: Date) => {
     createdAt: new Date().toISOString(),
     status: StatusList.ACTIVE,
     totalValue: 0,
-    date: date.toISOString(),
-    effectiveMonth: date.getMonth() + 1,
-    effectiveYear: date.getFullYear(),
+    date: formatISO(date),
+    effectiveMonth: getMonth(date) + 1,
+    effectiveYear: getYear(date),
     products: [],
     updatedAt: ''
   };
-  return request.post('/market-list', body);
+  console.log(body);
+  return await request.post('/market-list', body);
 };
 
-const deleteMarketList = (id: string) => {
-  return request.delete(`/market-list/${id}`);
+const deleteMarketList = async (id: string) => {
+  return await request.delete(`/market-list/${id}`);
 };
 
 export const MarketService = {

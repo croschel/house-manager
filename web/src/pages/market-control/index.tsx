@@ -15,13 +15,16 @@ import { Pencil2Icon, RocketIcon, TrashIcon } from '@radix-ui/react-icons';
 import { MarketList, Product } from '@/models/interfaces/market';
 import { format, subDays } from 'date-fns';
 import { capitalizeFirstLetter } from '@/utils/modifiers';
-import { Month } from '@/models/enums';
+import { ActionStatus, Month } from '@/models/enums';
 import {
   fetchAllMarketList,
   deleteMarketList
 } from '@/reducers/market/actions';
 import { useAppDispatch, useAppSelector } from '@/reducers';
-import { selectFetchAllMarketListLoading } from '@/reducers/loading/selectors';
+import {
+  selectDeleteMarketListLoading,
+  selectFetchAllMarketListLoading
+} from '@/reducers/loading/selectors';
 import { selectFilteredMarketList } from '@/reducers/market/selectors';
 import { Splash } from '@/components/generic/splash';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
@@ -33,6 +36,7 @@ export const MarketControl = () => {
   const [expenseModal, setOpenCreateList] = useState(false);
   const isLoadingMarketList = useAppSelector(selectFetchAllMarketListLoading);
   const filteredMarketList = useAppSelector(selectFilteredMarketList);
+  const isDeletingList = useAppSelector(selectDeleteMarketListLoading);
   const [selectedList, setSelectedList] = useState<MarketList | undefined>();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -58,8 +62,8 @@ export const MarketControl = () => {
     setOpenDeleteModal(true);
   };
 
-  const handleDeleteList = () => {
-    dispatch(deleteMarketList(selectedList?.id!));
+  const handleDeleteList = async () => {
+    await dispatch(deleteMarketList(selectedList?.id!));
   };
   const handleFilter = (date: DateRange | undefined) => {
     dispatch(
@@ -234,6 +238,7 @@ export const MarketControl = () => {
         title="Você tem certeza que deseja deletar esta lista de compras?"
         description="Essa ação não pode ser desfeita. Isso excluirá permanentemente sua lista."
         onSubmit={handleDeleteList}
+        isLoading={isDeletingList === ActionStatus.LOADING}
       />
       <EditListModal
         isOpen={openEditModal}

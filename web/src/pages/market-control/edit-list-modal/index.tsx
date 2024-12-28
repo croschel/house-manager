@@ -10,7 +10,10 @@ import {
 import { ActionStatus, StatusList } from '@/models/enums';
 import { MarketList } from '@/models/interfaces';
 import { useAppDispatch, useAppSelector } from '@/reducers';
-import { selectCreateExpenseLoading } from '@/reducers/loading/selectors';
+import {
+  selectCreateExpenseLoading,
+  selectUpdateMarketListLoading
+} from '@/reducers/loading/selectors';
 import { updateMarketList } from '@/reducers/market/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
@@ -29,8 +32,7 @@ const formSchema = z.object({
 
 export const EditListModal: FC<Props> = ({ isOpen, setIsOpen, marketList }) => {
   const dispatch = useAppDispatch();
-  const isCreatingExpense = useAppSelector(selectCreateExpenseLoading);
-  console.log(marketList);
+  const isUpdatingMarketList = useAppSelector(selectUpdateMarketListLoading);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,7 +63,7 @@ export const EditListModal: FC<Props> = ({ isOpen, setIsOpen, marketList }) => {
       buttonLabel="Atualizar Lista"
       form={form}
       onSubmit={onSubmit}
-      isLoading={isCreatingExpense === ActionStatus.LOADING}
+      isLoading={isUpdatingMarketList === ActionStatus.LOADING}
     >
       <div className="flex flex-row gap-4 items-start">
         <FormField

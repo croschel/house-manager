@@ -15,18 +15,14 @@ import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { useAppDispatch, useAppSelector } from '@/reducers';
 import { selectExpenseList } from '@/reducers/expenses/selectors';
 import { deleteExpense } from '@/reducers/expenses/actions';
-import {
-  selectCreateExpenseLoading,
-  selectDeleteExpenseLoading,
-  selectUpdateExpenseLoading
-} from '@/reducers/loading/selectors';
-import { Splash } from '@/components/generic/splash';
 import { expenseLabels, fundLabels } from '@/utils/options';
-import { ExpenseValues, FundValues } from '@/models/enums';
+import { ActionStatus, ExpenseValues, FundValues } from '@/models/enums';
+import { selectDeleteExpenseLoading } from '@/reducers/loading/selectors';
 
 export const ExpenseList = () => {
   const dispatch = useAppDispatch();
   const expenseList = useAppSelector(selectExpenseList);
+  const isDeletingExpense = useAppSelector(selectDeleteExpenseLoading);
   const [expenseModal, setExpenseModal] = useState(false);
   const [editExpenseModal, setEditExpenseModal] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState<
@@ -47,8 +43,8 @@ export const ExpenseList = () => {
     setDeleteExpenseModal(true);
   };
 
-  const handleDeleteExpense = () => {
-    dispatch(deleteExpense({ expense: selectedExpense! }));
+  const handleDeleteExpense = async () => {
+    await dispatch(deleteExpense({ expense: selectedExpense! }));
   };
   const columns: ColumnDef<any>[] = [
     {
@@ -160,6 +156,7 @@ export const ExpenseList = () => {
         title="Você tem certeza que deseja deletar este gasto?"
         description="Essa ação não pode ser desfeita. Isso excluirá permanentemente seu gasto."
         onSubmit={handleDeleteExpense}
+        isLoading={isDeletingExpense === ActionStatus.LOADING}
       />
     </div>
   );

@@ -92,10 +92,10 @@ export const MarketReducer = createReducer(initialState, (market) => {
       (state: MarketState, { payload }) => ({
         ...state,
         allMarketList: state.allMarketList.filter(
-          (expense) => expense.id !== payload?.id
+          (expense) => expense.id !== payload
         ),
         filteredMarketList: state.filteredMarketList.filter(
-          (expense) => expense.id !== payload?.id
+          (expense) => expense.id !== payload
         )
       })
     );

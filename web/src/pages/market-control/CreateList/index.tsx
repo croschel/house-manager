@@ -7,6 +7,10 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { errorMessages } from '@/models/constants';
+import { ActionStatus } from '@/models/enums';
+import { useAppDispatch, useAppSelector } from '@/reducers';
+import { selectCreateMarketListLoading } from '@/reducers/loading/selectors';
+import { createMarketList } from '@/reducers/market/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,21 +21,22 @@ interface Props {
 }
 
 const formSchema = z.object({
-  createdAtList: z.string().min(1, errorMessages.requiredField)
+  date: z.string().min(1, errorMessages.requiredField)
 });
 
 export const CreateList: FC<Props> = ({ isOpen, setIsOpen }) => {
+  const dispatch = useAppDispatch();
+  const isCreatingList = useAppSelector(selectCreateMarketListLoading);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      createdAtList: new Date().toISOString()
+      date: new Date().toISOString()
     }
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    await dispatch(createMarketList(values.date as unknown as Date));
+    setIsOpen(false);
   };
 
   return (
@@ -43,16 +48,17 @@ export const CreateList: FC<Props> = ({ isOpen, setIsOpen }) => {
       buttonLabel="Criar Lista"
       form={form}
       onSubmit={onSubmit}
+      isLoading={isCreatingList === ActionStatus.LOADING}
     >
       <div className="flex flex-row mt-4">
         <FormField
           control={form.control}
-          name="createdAtList"
+          name="date"
           render={({ field }) => (
             <FormItem className="w-[50%]">
               <FormControl>
                 <DatePicker
-                  id="createdAtList"
+                  id="date"
                   date={field.value}
                   setDate={field.onChange}
                   label="Data"

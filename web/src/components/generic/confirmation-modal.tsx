@@ -8,6 +8,8 @@ import {
   DialogTitle
 } from '../ui/dialog';
 import { Button } from '../ui/button';
+import { Conditional } from './conditional';
+import { LoadingSpinner } from './spinner';
 
 interface Props {
   isOpen: boolean;
@@ -16,7 +18,8 @@ interface Props {
   description: string;
   submitLabel?: string;
   cancelLabel?: string;
-  onSubmit: () => void;
+  onSubmit: () => Promise<void>;
+  isLoading?: boolean;
 }
 
 export const ConfirmationModal: FC<Props> = ({
@@ -26,11 +29,12 @@ export const ConfirmationModal: FC<Props> = ({
   description,
   submitLabel = 'Confirmar',
   cancelLabel = 'Cancelar',
-  onSubmit
+  onSubmit,
+  isLoading = false
 }) => {
-  const handleSubmmit = () => {
+  const handleSubmmit = async () => {
+    await onSubmit();
     setIsOpen(false);
-    onSubmit();
   };
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal={isOpen}>
@@ -47,7 +51,16 @@ export const ConfirmationModal: FC<Props> = ({
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             {cancelLabel}
           </Button>
-          <Button variant="secondary" onClick={handleSubmmit}>
+          <Button
+            variant="secondary"
+            type="submit"
+            disabled={isLoading}
+            className={isLoading ? 'gap-1' : ''}
+            onClick={handleSubmmit}
+          >
+            <Conditional condition={isLoading}>
+              <LoadingSpinner size={24} color="gray" />
+            </Conditional>
             {submitLabel}
           </Button>
         </DialogFooter>

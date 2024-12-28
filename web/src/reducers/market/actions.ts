@@ -88,6 +88,7 @@ export const createMarketList = createAsyncThunk<MarketList | undefined, Date>(
   'MARKET/CREATE',
   async (date, { dispatch }) => {
     try {
+      console.log('action :: ', date);
       const response = (await MarketService.createMarketList(date)).data;
       dispatch(
         addNotificationAction(
@@ -109,20 +110,27 @@ export const createMarketList = createAsyncThunk<MarketList | undefined, Date>(
   }
 );
 
-export const deleteMarketList = createAsyncThunk<
-  MarketList | undefined,
-  string
->('MARKET/DELETE_LIST', async (id, { dispatch }) => {
-  try {
-    const response = (await MarketService.deleteMarketList(id)).data;
-    return response;
-  } catch (e) {
-    throw dispatch(
-      addNotificationAction(
-        buildAppError({
-          type: 'Delete'
-        })
-      )
-    );
+export const deleteMarketList = createAsyncThunk<string, string>(
+  'MARKET/DELETE_LIST',
+  async (id, { dispatch }) => {
+    try {
+      await MarketService.deleteMarketList(id);
+      dispatch(
+        addNotificationAction(
+          buildAppSuccess({
+            type: 'Delete'
+          })
+        )
+      );
+      return id;
+    } catch (e) {
+      throw dispatch(
+        addNotificationAction(
+          buildAppError({
+            type: 'Delete'
+          })
+        )
+      );
+    }
   }
-});
+);
