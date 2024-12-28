@@ -8,11 +8,11 @@ const fetchAllMarketList = (
   market: Partial<Omit<MarketList, 'id' | 'products'>>
 ) => {
   let query = createUrlParams({ ...market });
-  return request.get<MarketList[]>(`/markets${query}`);
+  return request.get<MarketList[]>(`/market-list${query}`);
 };
 
 const fetchMarketById = (id: string) => {
-  return request.get<MarketList>(`/markets/${id}`);
+  return request.get<MarketList>(`/market-list/${id}`);
 };
 
 const updateMarketList = (market: MarketList) => {
@@ -20,7 +20,7 @@ const updateMarketList = (market: MarketList) => {
     ...market,
     updatedAt: new Date().toISOString()
   };
-  return request.put(`/markets/${market.id}`, newMarketList);
+  return request.put(`/market-list/${market.id}`, newMarketList);
 };
 
 const createMarketList = (date: Date) => {
@@ -31,16 +31,17 @@ const createMarketList = (date: Date) => {
     createdAt: new Date().toISOString(),
     status: StatusList.ACTIVE,
     totalValue: 0,
+    date: date.toISOString(),
     effectiveMonth: date.getMonth() + 1,
     effectiveYear: date.getFullYear(),
     products: [],
     updatedAt: ''
   };
-  return request.post('/markets', body);
+  return request.post('/market-list', body);
 };
 
 const deleteMarketList = (id: string) => {
-  return request.delete(`/markets/${id}`);
+  return request.delete(`/market-list/${id}`);
 };
 
 export const MarketService = {

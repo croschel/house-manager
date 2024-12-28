@@ -60,12 +60,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div
-      className={cn('flex flex-1 flex-col gap-6 h-full', {
-        // 'min-h-[700px] max-h-[700px]': !!primaryFilter || !!secondaryFilter,
-        // 'min-h-[630px] max-h-[630px]': !primaryFilter && !secondaryFilter
-      })}
-    >
+    <div className={cn('flex flex-1 flex-col gap-6 h-full')}>
       <div>
         <Conditional condition={!!primaryFilter || !!secondaryFilter}>
           <div className="flex items-center justify-between py-4">

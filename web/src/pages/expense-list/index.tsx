@@ -119,7 +119,7 @@ export const ExpenseList = () => {
   ];
 
   const handleFilter = (date: DateRange | undefined) => {
-    // console.log(date);
+    // TODO - add filter to expense list action
   };
 
   return (

@@ -45,7 +45,6 @@ export const FundModal: FC<Props> = ({ isOpen, setIsOpen }) => {
     }
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     await dispatch(
       createExpense({
         ...(values as unknown as CreateFormExpense),

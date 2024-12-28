@@ -6,9 +6,8 @@ import { buildAppError, buildAppSuccess } from '@/utils/message';
 import { DateRange } from 'react-day-picker';
 import { getFilteredResultsByRange } from '@/utils/date';
 
-export const setMarketDateFilter = createAction<DateRange>(
-  'EXPENSE/FILTER_DATE'
-);
+export const setMarketDateFilter =
+  createAction<DateRange>('MARKET/FILTER_DATE');
 
 export const fetchAllMarketList = createAsyncThunk<
   {
@@ -19,7 +18,7 @@ export const fetchAllMarketList = createAsyncThunk<
     marketList: Partial<Omit<MarketList, 'id' | 'products'>>;
     filter: DateRange | undefined;
   }
->('EXPENSE/FETCH_LIST', async ({ marketList, filter }, { dispatch }) => {
+>('MARKET/FETCH_LIST', async ({ marketList, filter }, { dispatch }) => {
   try {
     const response = (await MarketService.fetchAllMarketList(marketList)).data;
     let filteredMarketList = [] as MarketList[];

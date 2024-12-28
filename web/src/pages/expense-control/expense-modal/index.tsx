@@ -77,7 +77,6 @@ export const ExpenseModal: FC<Props> = ({
     }
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('I am here');
     if (isEditing) {
       await dispatch(
         updateExpense({ ...expense, ...(values as unknown as ExpenseData) })
