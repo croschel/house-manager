@@ -19,6 +19,8 @@ const fetchMarketById = async (id: string) => {
 const updateMarketList = async (market: MarketList) => {
   const newMarketList: MarketList = {
     ...market,
+    effectiveMonth: getMonth(market.date) + 1,
+    effectiveYear: getYear(market.date),
     updatedAt: new Date().toISOString()
   };
   return await request.put(`/market-list/${market.id}`, newMarketList);
