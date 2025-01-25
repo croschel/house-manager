@@ -309,7 +309,7 @@
     {
       "id": "list-1",
       "accountId": "account-1",
-      "totalValue": 150.0,
+      "totalValue": 150,
       "createdAt": "2023-01-15T08:00:00Z",
       "updatedAt": "2023-01-15T08:00:00Z",
       "location": "São Paulo",
@@ -322,7 +322,7 @@
           "id": "product-1",
           "name": "Bananas",
           "amount": 10,
-          "value": 5.0,
+          "value": 5,
           "createdAt": "2023-01-15T08:00:00Z",
           "updatedAt": "2023-01-15T08:00:00Z",
           "category": "produce"
@@ -332,7 +332,7 @@
     {
       "id": "list-2",
       "accountId": "account-1",
-      "totalValue": 300.0,
+      "totalValue": 300,
       "createdAt": "2023-12-15T08:00:00Z",
       "updatedAt": "2023-12-15T08:00:00Z",
       "location": "Rio de Janeiro",
@@ -345,7 +345,7 @@
           "id": "product-2",
           "name": "Milk",
           "amount": 5,
-          "value": 15.0,
+          "value": 15,
           "createdAt": "2023-12-15T08:00:00Z",
           "updatedAt": "2023-12-15T08:00:00Z",
           "category": "dairy"
@@ -355,7 +355,7 @@
     {
       "id": "list-3",
       "accountId": "account-2",
-      "totalValue": 200.0,
+      "totalValue": 200,
       "createdAt": "2024-01-20T08:00:00Z",
       "updatedAt": "2024-01-20T08:00:00Z",
       "location": "Curitiba",
@@ -368,7 +368,7 @@
           "id": "product-3",
           "name": "Chicken",
           "amount": 8,
-          "value": 30.0,
+          "value": 30,
           "createdAt": "2024-01-20T08:00:00Z",
           "updatedAt": "2024-01-20T08:00:00Z",
           "category": "meat_poultry"
@@ -378,7 +378,7 @@
     {
       "id": "list-4",
       "accountId": "account-2",
-      "totalValue": 220.0,
+      "totalValue": 220,
       "createdAt": "2024-02-15T08:00:00Z",
       "updatedAt": "2024-02-15T08:00:00Z",
       "location": "Porto Alegre",
@@ -391,7 +391,7 @@
           "id": "product-4",
           "name": "Eggs",
           "amount": 20,
-          "value": 12.0,
+          "value": 12,
           "createdAt": "2024-02-15T08:00:00Z",
           "updatedAt": "2024-02-15T08:00:00Z",
           "category": "dairy"
@@ -401,7 +401,7 @@
     {
       "id": "list-5",
       "accountId": "account-3",
-      "totalValue": 180.0,
+      "totalValue": 180,
       "createdAt": "2024-03-10T08:00:00Z",
       "updatedAt": "2024-03-10T08:00:00Z",
       "location": "Brasília",
@@ -414,7 +414,7 @@
           "id": "product-5",
           "name": "Bread",
           "amount": 15,
-          "value": 9.0,
+          "value": 9,
           "createdAt": "2024-03-10T08:00:00Z",
           "updatedAt": "2024-03-10T08:00:00Z",
           "category": "bakery"
@@ -424,7 +424,7 @@
     {
       "id": "list-6",
       "accountId": "account-3",
-      "totalValue": 500.0,
+      "totalValue": 500,
       "createdAt": "2024-04-10T08:00:00Z",
       "updatedAt": "2024-04-10T08:00:00Z",
       "location": "Salvador",
@@ -437,7 +437,7 @@
           "id": "product-6",
           "name": "Chocolate",
           "amount": 10,
-          "value": 25.0,
+          "value": 25,
           "createdAt": "2024-04-10T08:00:00Z",
           "updatedAt": "2024-04-10T08:00:00Z",
           "category": "snacks_confectionery"
@@ -447,7 +447,7 @@
     {
       "id": "list-7",
       "accountId": "account-4",
-      "totalValue": 380.0,
+      "totalValue": 380,
       "createdAt": "2024-05-10T08:00:00Z",
       "updatedAt": "2024-05-10T08:00:00Z",
       "location": "Fortaleza",
@@ -460,7 +460,7 @@
           "id": "product-7",
           "name": "Fish",
           "amount": 12,
-          "value": 84.0,
+          "value": 84,
           "createdAt": "2024-05-10T08:00:00Z",
           "updatedAt": "2024-05-10T08:00:00Z",
           "category": "seafood"
@@ -470,7 +470,7 @@
     {
       "id": "list-8",
       "accountId": "account-4",
-      "totalValue": 400.0,
+      "totalValue": 400,
       "createdAt": "2024-06-10T08:00:00Z",
       "updatedAt": "2024-06-10T08:00:00Z",
       "location": "Belo Horizonte",
@@ -483,7 +483,7 @@
           "id": "product-8",
           "name": "Ice Cream",
           "amount": 7,
-          "value": 30.0,
+          "value": 30,
           "createdAt": "2024-06-10T08:00:00Z",
           "updatedAt": "2024-06-10T08:00:00Z",
           "category": "frozen_foods"
@@ -493,7 +493,7 @@
     {
       "id": "list-9",
       "accountId": "account-5",
-      "totalValue": 250.0,
+      "totalValue": 250,
       "createdAt": "2024-07-15T08:00:00Z",
       "updatedAt": "2024-07-15T08:00:00Z",
       "location": "Manaus",
@@ -506,7 +506,7 @@
           "id": "product-9",
           "name": "Rice",
           "amount": 25,
-          "value": 10.0,
+          "value": 10,
           "createdAt": "2024-07-15T08:00:00Z",
           "updatedAt": "2024-07-15T08:00:00Z",
           "category": "pantry_staples"
@@ -516,7 +516,7 @@
     {
       "id": "list-10",
       "accountId": "account-5",
-      "totalValue": 320.0,
+      "totalValue": 320,
       "createdAt": "2024-08-15T08:00:00Z",
       "updatedAt": "2024-08-15T08:00:00Z",
       "location": "Recife",
@@ -529,7 +529,7 @@
           "id": "product-10",
           "name": "Juice",
           "amount": 6,
-          "value": 18.0,
+          "value": 18,
           "createdAt": "2024-08-15T08:00:00Z",
           "updatedAt": "2024-08-15T08:00:00Z",
           "category": "beverages"
@@ -539,7 +539,7 @@
     {
       "id": "list-11",
       "accountId": "account-6",
-      "totalValue": 280.0,
+      "totalValue": 280,
       "createdAt": "2024-09-15T08:00:00Z",
       "updatedAt": "2024-09-15T08:00:00Z",
       "location": "Belém",
@@ -552,7 +552,7 @@
           "id": "product-11",
           "name": "Soft Drink",
           "amount": 12,
-          "value": 24.0,
+          "value": 24,
           "createdAt": "2024-09-15T08:00:00Z",
           "updatedAt": "2024-09-15T08:00:00Z",
           "category": "beverages"
@@ -562,7 +562,7 @@
     {
       "id": "list-12",
       "accountId": "account-6",
-      "totalValue": 150.0,
+      "totalValue": 150,
       "createdAt": "2024-10-15T08:00:00Z",
       "updatedAt": "2024-10-15T08:00:00Z",
       "location": "Natal",
@@ -575,7 +575,7 @@
           "id": "product-12",
           "name": "Vitamin Pills",
           "amount": 5,
-          "value": 50.0,
+          "value": 50,
           "createdAt": "2024-10-15T08:00:00Z",
           "updatedAt": "2024-10-15T08:00:00Z",
           "category": "health_wellness"
@@ -585,7 +585,7 @@
     {
       "id": "list-13",
       "accountId": "account-7",
-      "totalValue": 320.0,
+      "totalValue": 320,
       "createdAt": "2024-11-15T08:00:00Z",
       "updatedAt": "2024-11-15T08:00:00Z",
       "location": "João Pessoa",
@@ -598,7 +598,7 @@
           "id": "product-13",
           "name": "Laundry Detergent",
           "amount": 3,
-          "value": 45.0,
+          "value": 45,
           "createdAt": "2024-11-15T08:00:00Z",
           "updatedAt": "2024-11-15T08:00:00Z",
           "category": "household_items"
@@ -608,7 +608,7 @@
     {
       "id": "list-14",
       "accountId": "account-7",
-      "totalValue": 500.0,
+      "totalValue": 500,
       "createdAt": "2024-12-15T08:00:00Z",
       "updatedAt": "2024-12-15T08:00:00Z",
       "location": "Florianópolis",
@@ -621,7 +621,7 @@
           "id": "product-14",
           "name": "Shampoo",
           "amount": 20,
-          "value": 5.0,
+          "value": 5,
           "createdAt": "2024-12-15T08:00:00Z",
           "updatedAt": "2024-12-15T08:00:00Z",
           "category": "personal_care"
@@ -631,20 +631,20 @@
     {
       "id": "list-15",
       "accountId": "account-8",
-      "totalValue": 420.0,
+      "totalValue": 420,
       "createdAt": "2024-12-20T08:00:00Z",
-      "updatedAt": "2024-12-23T08:00:00Z",
+      "updatedAt": "2025-01-25T22:55:03.670Z",
       "location": "Rio Branco",
-      "status": "progress",
+      "status": "active",
       "effectiveMonth": 12,
       "effectiveYear": 2024,
-      "date": "2024-12-20T08:00:00Z",
+      "date": "2025-01-09T00:00:00-03:00",
       "products": [
         {
           "id": "product-15",
           "name": "Baby Formula",
           "amount": 4,
-          "value": 100.0,
+          "value": 100,
           "createdAt": "2024-12-20T08:00:00Z",
           "updatedAt": "2024-12-23T08:00:00Z",
           "category": "baby_products"
@@ -654,7 +654,7 @@
     {
       "id": "list-16",
       "accountId": "account-8",
-      "totalValue": 250.0,
+      "totalValue": 250,
       "createdAt": "2024-12-22T08:00:00Z",
       "updatedAt": "2024-12-22T08:00:00Z",
       "location": "Cuiabá",
@@ -667,7 +667,7 @@
           "id": "product-16",
           "name": "Dog Food",
           "amount": 10,
-          "value": 25.0,
+          "value": 25,
           "createdAt": "2024-12-22T08:00:00Z",
           "updatedAt": "2024-12-22T08:00:00Z",
           "category": "pet_supplies"
@@ -677,7 +677,7 @@
     {
       "id": "list-17",
       "accountId": "account-9",
-      "totalValue": 610.0,
+      "totalValue": 610,
       "createdAt": "2024-12-23T08:00:00Z",
       "updatedAt": "2024-12-23T08:00:00Z",
       "location": "Maceió",
@@ -690,7 +690,7 @@
           "id": "product-17",
           "name": "Wine",
           "amount": 7,
-          "value": 85.0,
+          "value": 85,
           "createdAt": "2024-12-23T08:00:00Z",
           "updatedAt": "2024-12-23T08:00:00Z",
           "category": "alcohol_tobacco"
@@ -700,7 +700,7 @@
     {
       "id": "list-18",
       "accountId": "account-9",
-      "totalValue": 210.0,
+      "totalValue": 210,
       "createdAt": "2024-12-01T08:00:00Z",
       "updatedAt": "2024-12-10T08:00:00Z",
       "location": "Vitória",
@@ -713,7 +713,7 @@
           "id": "product-18",
           "name": "Imported Cheese",
           "amount": 3,
-          "value": 70.0,
+          "value": 70,
           "createdAt": "2024-12-01T08:00:00Z",
           "updatedAt": "2024-12-10T08:00:00Z",
           "category": "international_foods"
@@ -723,7 +723,7 @@
     {
       "id": "list-19",
       "accountId": "account-10",
-      "totalValue": 195.0,
+      "totalValue": 195,
       "createdAt": "2024-11-05T08:00:00Z",
       "updatedAt": "2024-11-05T08:00:00Z",
       "location": "Campo Grande",
@@ -736,7 +736,7 @@
           "id": "product-19",
           "name": "Toothpaste",
           "amount": 6,
-          "value": 15.0,
+          "value": 15,
           "createdAt": "2024-11-05T08:00:00Z",
           "updatedAt": "2024-11-05T08:00:00Z",
           "category": "personal_care"
@@ -746,7 +746,7 @@
     {
       "id": "list-20",
       "accountId": "account-10",
-      "totalValue": 320.0,
+      "totalValue": 320,
       "createdAt": "2024-10-10T08:00:00Z",
       "updatedAt": "2024-10-10T08:00:00Z",
       "location": "Aracaju",
@@ -769,7 +769,7 @@
     {
       "id": "list-21",
       "accountId": "account-11",
-      "totalValue": 410.0,
+      "totalValue": 410,
       "createdAt": "2024-09-20T08:00:00Z",
       "updatedAt": "2024-09-20T08:00:00Z",
       "location": "Teresina",
@@ -782,7 +782,7 @@
           "id": "product-21",
           "name": "Batteries",
           "amount": 10,
-          "value": 25.0,
+          "value": 25,
           "createdAt": "2024-09-20T08:00:00Z",
           "updatedAt": "2024-09-20T08:00:00Z",
           "category": "household_items"
@@ -792,7 +792,7 @@
     {
       "id": "list-22",
       "accountId": "account-11",
-      "totalValue": 230.0,
+      "totalValue": 230,
       "createdAt": "2024-08-25T08:00:00Z",
       "updatedAt": "2024-08-25T08:00:00Z",
       "location": "Palmas",
@@ -805,7 +805,7 @@
           "id": "product-22",
           "name": "Imported Chocolate",
           "amount": 4,
-          "value": 45.0,
+          "value": 45,
           "createdAt": "2024-08-25T08:00:00Z",
           "updatedAt": "2024-08-25T08:00:00Z",
           "category": "international_foods"
@@ -815,7 +815,7 @@
     {
       "id": "list-23",
       "accountId": "account-12",
-      "totalValue": 150.0,
+      "totalValue": 150,
       "createdAt": "2024-07-05T08:00:00Z",
       "updatedAt": "2024-07-05T08:00:00Z",
       "location": "Boa Vista",
@@ -828,7 +828,7 @@
           "id": "product-23",
           "name": "Cookies",
           "amount": 20,
-          "value": 5.0,
+          "value": 5,
           "createdAt": "2024-07-05T08:00:00Z",
           "updatedAt": "2024-07-05T08:00:00Z",
           "category": "bakery"
@@ -838,7 +838,7 @@
     {
       "id": "list-24",
       "accountId": "account-12",
-      "totalValue": 280.0,
+      "totalValue": 280,
       "createdAt": "2024-06-25T08:00:00Z",
       "updatedAt": "2024-06-25T08:00:00Z",
       "location": "Ribeirão Preto",
@@ -851,7 +851,7 @@
           "id": "product-24",
           "name": "Frozen Pizza",
           "amount": 8,
-          "value": 35.0,
+          "value": 35,
           "createdAt": "2024-06-25T08:00:00Z",
           "updatedAt": "2024-06-25T08:00:00Z",
           "category": "frozen_foods"
@@ -861,7 +861,7 @@
     {
       "id": "list-25",
       "accountId": "account-13",
-      "totalValue": 330.0,
+      "totalValue": 330,
       "createdAt": "2024-05-19T08:00:00Z",
       "updatedAt": "2024-05-19T08:00:00Z",
       "location": "Campinas",
@@ -874,7 +874,7 @@
           "id": "product-25",
           "name": "Imported Wine",
           "amount": 3,
-          "value": 110.0,
+          "value": 110,
           "createdAt": "2024-05-19T08:00:00Z",
           "updatedAt": "2024-05-19T08:00:00Z",
           "category": "international_foods"
