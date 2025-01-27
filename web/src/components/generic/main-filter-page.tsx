@@ -23,7 +23,7 @@ type BtnVariant =
 
 interface Props {
   title: string;
-  onSubmitFilter: (date: DateRange | undefined) => void;
+  onSubmitFilter?: (date: DateRange | undefined) => void;
   descriptionElement?: JSX.Element;
   handlePrimaryBtn?: () => void;
   handleSecondaryBtn?: () => void;
@@ -54,6 +54,7 @@ export const MainFilterPage: FC<Props> = ({
 
   const handleSubmitFilter = () => {
     dispatch(setExpenseDateFilter(date as DateRange));
+    if (!onSubmitFilter) return;
     onSubmitFilter(date);
   };
   return (
@@ -67,10 +68,16 @@ export const MainFilterPage: FC<Props> = ({
             {descriptionElement as JSX.Element}
           </Conditional>
         </div>
-        <DatePickerRange date={date} onChange={setDate} />
-        <Button variant="outline" className="ml-1" onClick={handleSubmitFilter}>
-          <Icon name="Filter" />
-        </Button>
+        <Conditional condition={!!onSubmitFilter}>
+          <DatePickerRange date={date} onChange={setDate} />
+          <Button
+            variant="outline"
+            className="ml-1"
+            onClick={handleSubmitFilter}
+          >
+            <Icon name="Filter" />
+          </Button>
+        </Conditional>
       </div>
       <div className="flex gap-4">
         <Conditional condition={!!primaryBtnLabel}>

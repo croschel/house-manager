@@ -13,7 +13,9 @@ import {
   fetchMarketById,
   updateMarketList,
   createMarketList,
-  deleteMarketList
+  deleteMarketList,
+  updateProductFromMarketList,
+  createNewProductForMarketList
 } from '../market/actions';
 import { ActionStatus } from '@/models/enums';
 // step 1: add state field and value
@@ -31,6 +33,8 @@ interface LoadingState {
   updateMarketList: ActionStatus;
   createMarketList: ActionStatus;
   deleteMarketList: ActionStatus;
+  updateProductFromMarketList: ActionStatus;
+  createNewProductForMarketList: ActionStatus;
 }
 
 const initialState: LoadingState = {
@@ -46,7 +50,9 @@ const initialState: LoadingState = {
   fetchMarketById: ActionStatus.INITIAL,
   updateMarketList: ActionStatus.INITIAL,
   createMarketList: ActionStatus.INITIAL,
-  deleteMarketList: ActionStatus.INITIAL
+  deleteMarketList: ActionStatus.INITIAL,
+  updateProductFromMarketList: ActionStatus.INITIAL,
+  createNewProductForMarketList: ActionStatus.INITIAL
 };
 
 // step 2: add action to object
@@ -66,7 +72,9 @@ const asyncThunks: Record<
   fetchMarketById,
   updateMarketList,
   createMarketList,
-  deleteMarketList
+  deleteMarketList,
+  updateProductFromMarketList,
+  createNewProductForMarketList
 };
 
 export const loadingReducer = createReducer<LoadingState>(

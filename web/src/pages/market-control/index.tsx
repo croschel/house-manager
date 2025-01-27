@@ -6,7 +6,6 @@ import { PageType } from '@/models/enums/pages';
 import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { useNavigate } from 'react-router-dom';
-import { CreateList } from './CreateList';
 import { DataTable } from '@/components/generic/base-table';
 import { ColumnDef } from '@tanstack/react-table';
 import { SortElement } from '@/components/generic/sort-element';
@@ -15,10 +14,11 @@ import { Pencil2Icon, RocketIcon, TrashIcon } from '@radix-ui/react-icons';
 import { MarketList, Product } from '@/models/interfaces/market';
 import { format, subDays } from 'date-fns';
 import { capitalizeFirstLetter } from '@/utils/modifiers';
-import { ActionStatus, Month } from '@/models/enums';
+import { ActionStatus, Month, StatusList } from '@/models/enums';
 import {
   fetchAllMarketList,
-  deleteMarketList
+  deleteMarketList,
+  setMarketListSelected
 } from '@/reducers/market/actions';
 import { useAppDispatch, useAppSelector } from '@/reducers';
 import {
@@ -29,6 +29,8 @@ import { selectFilteredMarketList } from '@/reducers/market/selectors';
 import { Splash } from '@/components/generic/splash';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { EditListModal } from './edit-list-modal';
+import { Conditional } from '@/components/generic/conditional';
+import { CreateList } from './create-list';
 
 export const MarketControl = () => {
   const dispatch = useAppDispatch();
@@ -41,13 +43,14 @@ export const MarketControl = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
 
-  const handleNavigateToList = () => {
-    navigate(`${PageType.MarketControl}${PageType.MarketList}`);
-  };
-
   const handleOpenList = (type: 'actual' | 'create') => {
     if (type === 'actual') {
-      handleNavigateToList();
+      const lastActiveList = filteredMarketList
+        .filter((list) => list.status === StatusList.ACTIVE)
+        .sort((a, b) => {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+      handleEnterActiveList(lastActiveList[0]);
     } else {
       setOpenCreateList(true);
     }
@@ -60,6 +63,11 @@ export const MarketControl = () => {
   const handleOpenDeleteModal = (marketList: MarketList) => {
     setSelectedList(marketList);
     setOpenDeleteModal(true);
+  };
+
+  const handleEnterActiveList = (marketList: MarketList) => {
+    navigate(`${PageType.MarketControl}${PageType.MarketList}`);
+    dispatch(setMarketListSelected(marketList));
   };
 
   const handleDeleteList = async () => {
@@ -138,13 +146,17 @@ export const MarketControl = () => {
       cell: ({ row }) => {
         return (
           <div className="flex gap-6 justify-end">
-            <Button
-              size="icon"
-              variant="icon"
-              onClick={() => handleOpenDeleteModal(row.original)}
+            <Conditional
+              condition={row.getValue('status') === StatusList.ACTIVE}
             >
-              <RocketIcon className="text-green-400" width={20} height={20} />
-            </Button>
+              <Button
+                size="icon"
+                variant="icon"
+                onClick={() => handleEnterActiveList(row.original)}
+              >
+                <RocketIcon className="text-green-400" width={20} height={20} />
+              </Button>
+            </Conditional>
             <Button
               size="icon"
               variant="icon"

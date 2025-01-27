@@ -633,7 +633,7 @@
       "accountId": "account-8",
       "totalValue": 420,
       "createdAt": "2024-12-20T08:00:00Z",
-      "updatedAt": "2025-01-25T23:13:58.555Z",
+      "updatedAt": "2025-01-27T02:57:34.445Z",
       "location": "Rio Branco",
       "status": "active",
       "effectiveMonth": 1,
@@ -644,10 +644,19 @@
           "id": "product-15",
           "name": "Baby Formula",
           "amount": 4,
-          "value": 100,
+          "value": 120,
           "createdAt": "2024-12-20T08:00:00Z",
-          "updatedAt": "2024-12-23T08:00:00Z",
+          "updatedAt": "2025-01-27T02:57:19.266Z",
           "category": "baby_products"
+        },
+        {
+          "name": "Shampoo",
+          "category": "health_wellness",
+          "value": 20,
+          "amount": 1,
+          "id": "68e91676-b63f-4fbc-88bf-f03a8e18c8ad",
+          "createdAt": "2025-01-27T02:57:34.445Z",
+          "updatedAt": ""
         }
       ]
     },

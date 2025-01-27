@@ -1,6 +1,6 @@
 import { SupermarketSections } from '@/models/enums';
 
-export const SupermarketOptLabels = {
+export const SupermarketOptLabels: Record<SupermarketSections, string> = {
   [SupermarketSections.PRODUCE]: 'Hortifruti',
   [SupermarketSections.DAIRY]: 'Laticínios',
   [SupermarketSections.MEAT_POULTRY]: 'Carnes e Aves',

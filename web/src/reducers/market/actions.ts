@@ -1,4 +1,4 @@
-import { MarketList } from '@/models/interfaces';
+import { MarketList, Product } from '@/models/interfaces';
 import { MarketService } from '@/services/market';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { addNotificationAction } from '../notification/actions';
@@ -8,6 +8,10 @@ import { getFilteredResultsByRange } from '@/utils/date';
 
 export const setMarketDateFilter =
   createAction<DateRange>('MARKET/FILTER_DATE');
+
+export const setMarketListSelected = createAction<MarketList | undefined>(
+  'MARKET/SELECTED_LIST'
+);
 
 export const fetchAllMarketList = createAsyncThunk<
   {
@@ -128,6 +132,59 @@ export const deleteMarketList = createAsyncThunk<string, string>(
         addNotificationAction(
           buildAppError({
             type: 'Delete'
+          })
+        )
+      );
+    }
+  }
+);
+
+export const createNewProductForMarketList = createAsyncThunk<
+  MarketList | undefined,
+  { marketList: MarketList; newProduct: Partial<Product> }
+>(
+  'MARKET/CREATE_NEW_PRODUCT',
+  async ({ marketList, newProduct }, { dispatch }) => {
+    try {
+      const response = (
+        await MarketService.createNewProductForMarketList(
+          marketList,
+          newProduct
+        )
+      ).data;
+      return response;
+    } catch (e) {
+      throw dispatch(
+        addNotificationAction(
+          buildAppError({
+            type: 'Create'
+          })
+        )
+      );
+    }
+  }
+);
+
+export const updateProductFromMarketList = createAsyncThunk<
+  MarketList | undefined,
+  { marketList: MarketList; newProduct: Product; productIndex: number }
+>(
+  'MARKET/UPDATE_PRODUCT',
+  async ({ marketList, newProduct, productIndex }, { dispatch }) => {
+    try {
+      const response = (
+        await MarketService.updateProductFromMarketList(
+          marketList,
+          newProduct,
+          productIndex
+        )
+      ).data;
+      return response;
+    } catch (e) {
+      throw dispatch(
+        addNotificationAction(
+          buildAppError({
+            type: 'Update'
           })
         )
       );

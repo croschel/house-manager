@@ -9,11 +9,13 @@ interface MarketState {
   allMarketList: MarketList[];
   filteredMarketList: MarketList[];
   marketDateFilter: DateRange | undefined;
+  selectedMarketList: MarketList | undefined;
 }
 
 const initialState: MarketState = {
   allMarketList: [],
   filteredMarketList: [],
+  selectedMarketList: undefined,
   marketDateFilter: {
     from: subDays(new Date(), 30),
     to: new Date()
@@ -22,6 +24,13 @@ const initialState: MarketState = {
 
 export const MarketReducer = createReducer(initialState, (market) => {
   market
+    .addCase(
+      MarketActions.setMarketListSelected,
+      (state: MarketState, { payload }) => ({
+        ...state,
+        selectedMarketList: payload
+      })
+    )
     .addCase(
       MarketActions.setMarketDateFilter,
       (state: MarketState, { payload }) => ({
@@ -41,17 +50,17 @@ export const MarketReducer = createReducer(initialState, (market) => {
       MarketActions.fetchMarketById.fulfilled,
       (state: MarketState, { payload }) => ({
         ...state,
-        allMarketList: state.allMarketList.map((expense) => {
-          if (expense.id === payload?.id) {
+        allMarketList: state.allMarketList.map((list) => {
+          if (list.id === payload?.id) {
             return payload;
           }
-          return expense;
+          return list;
         }),
-        filteredMarketList: state.filteredMarketList.map((expense) => {
-          if (expense.id === payload?.id) {
+        filteredMarketList: state.filteredMarketList.map((list) => {
+          if (list.id === payload?.id) {
             return payload;
           }
-          return expense;
+          return list;
         })
       })
     )
@@ -59,17 +68,17 @@ export const MarketReducer = createReducer(initialState, (market) => {
       MarketActions.updateMarketList.fulfilled,
       (state: MarketState, { payload }) => ({
         ...state,
-        allMarketList: state.allMarketList.map((expense) => {
-          if (expense.id === payload?.id) {
+        allMarketList: state.allMarketList.map((list) => {
+          if (list.id === payload?.id) {
             return payload;
           }
-          return expense;
+          return list;
         }),
-        filteredMarketList: state.filteredMarketList.map((expense) => {
-          if (expense.id === payload?.id) {
+        filteredMarketList: state.filteredMarketList.map((list) => {
+          if (list.id === payload?.id) {
             return payload;
           }
-          return expense;
+          return list;
         })
       })
     )
@@ -92,11 +101,49 @@ export const MarketReducer = createReducer(initialState, (market) => {
       (state: MarketState, { payload }) => ({
         ...state,
         allMarketList: state.allMarketList.filter(
-          (expense) => expense.id !== payload
+          (list) => list.id !== payload
         ),
         filteredMarketList: state.filteredMarketList.filter(
-          (expense) => expense.id !== payload
+          (list) => list.id !== payload
         )
+      })
+    )
+    .addCase(
+      MarketActions.updateProductFromMarketList.fulfilled,
+      (state: MarketState, { payload }) => ({
+        ...state,
+        selectedMarketList: payload,
+        allMarketList: state.allMarketList.map((list) => {
+          if (list.id === payload?.id) {
+            return payload;
+          }
+          return list;
+        }),
+        filteredMarketList: state.filteredMarketList.map((list) => {
+          if (list.id === payload?.id) {
+            return payload;
+          }
+          return list;
+        })
+      })
+    )
+    .addCase(
+      MarketActions.createNewProductForMarketList.fulfilled,
+      (state: MarketState, { payload }) => ({
+        ...state,
+        selectedMarketList: payload,
+        allMarketList: state.allMarketList.map((list) => {
+          if (list.id === payload?.id) {
+            return payload;
+          }
+          return list;
+        }),
+        filteredMarketList: state.filteredMarketList.map((list) => {
+          if (list.id === payload?.id) {
+            return payload;
+          }
+          return list;
+        })
       })
     );
 });

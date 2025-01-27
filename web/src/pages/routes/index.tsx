@@ -5,7 +5,7 @@ import { ExpenseControl } from '../expense-control';
 import { PageType } from '@/models/enums/pages';
 import { ExpenseList } from '../expense-list';
 import { MarketControl } from '../market-control';
-import { ActualList } from '../market-control/ActualList';
+import { ActualList } from '../market-control/actual-list';
 
 export const RoutesComponent = () => {
   const router = createBrowserRouter([

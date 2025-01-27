@@ -1,9 +1,9 @@
 export enum StatusList {
-  ACTIVE = 'active',
-  PROGRESS = 'progress',
-  EXPIRED = 'expired',
-  CLOSED = 'closed',
-  DONE = 'done'
+  ACTIVE = 'active', // Market List can be used
+  PROGRESS = 'progress', // Someone has opened the list and using
+  EXPIRED = 'expired', // Past more than 30 days
+  CLOSED = 'closed', // Market List is cancelled
+  DONE = 'done' // Market List was used and now paid
 }
 
 export enum SupermarketSections {
