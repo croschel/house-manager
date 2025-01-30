@@ -4,7 +4,7 @@ import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { SortElement } from '@/components/generic/sort-element';
 import { Button } from '@/components/ui/button';
-import { PageType } from '@/models/enums';
+import { ActionStatus, PageType } from '@/models/enums';
 import { MarketList, Product } from '@/models/interfaces';
 import { Pencil2Icon } from '@radix-ui/react-icons';
 import { ColumnDef } from '@tanstack/react-table';
@@ -13,15 +13,23 @@ import { TrashIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditProductModal } from './edit-product-modal';
-import { useAppSelector } from '@/reducers';
+import { useAppDispatch, useAppSelector } from '@/reducers';
 import { selectMarketListSelected } from '@/reducers/market/selectors';
+import { ConfirmationModal } from '@/components/generic/confirmation-modal';
+import { deleteProductFromMarketList } from '@/reducers/market/actions';
+import { selectDeleteProductFromMarketListLoading } from '@/reducers/loading/selectors';
 
 export const ActualList = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const marketList = useAppSelector(selectMarketListSelected);
+  const isDeletingProduct = useAppSelector(
+    selectDeleteProductFromMarketListLoading
+  );
   const productsList = marketList?.products;
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<{
     product: Product;
     productIndex: number;
@@ -38,7 +46,20 @@ export const ActualList = () => {
     setOpenEditModal(true);
   };
 
-  const handleOpenDeleteModal = (product: Product) => {};
+  const handleOpenDeleteModal = (product: Product) => {
+    setOpenDeleteProductModal(true);
+    setSelectedProduct({ product, productIndex: 0 });
+  };
+
+  const handleDeleteProduct = async () => {
+    await dispatch(
+      deleteProductFromMarketList({
+        marketList: marketList as MarketList,
+        productId: selectedProduct.product.id
+      })
+    );
+    setOpenDeleteProductModal(false);
+  };
 
   const columns: ColumnDef<any>[] = [
     {
@@ -137,6 +158,14 @@ export const ActualList = () => {
           type="edit"
           marketList={marketList}
           productIndex={selectedProduct.productIndex}
+        />
+        <ConfirmationModal
+          isOpen={openDeleteProductModal}
+          setIsOpen={setOpenDeleteProductModal}
+          title="Você tem certeza que deseja deletar este produto?"
+          description="Essa ação não pode ser desfeita. Isso excluirá permanentemente seu produto."
+          onSubmit={handleDeleteProduct}
+          isLoading={isDeletingProduct === ActionStatus.LOADING}
         />
       </MainContainer>
     </div>

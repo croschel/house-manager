@@ -1,14 +1,6 @@
-import { Dropdown } from '@/components/generic/dropdown';
 import { FormFieldWrapper } from '@/components/generic/form-field-wrapper';
 import { FormModal } from '@/components/generic/form-modal';
-import { InputLabel } from '@/components/generic/input-label';
 import { RowFieldForm } from '@/components/generic/row-field-form';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage
-} from '@/components/ui/form';
 import { ActionStatus, SupermarketSections } from '@/models/enums';
 import { MarketList } from '@/models/interfaces';
 import { useAppDispatch, useAppSelector } from '@/reducers';
@@ -81,8 +73,7 @@ export const EditProductModal: FC<Props> = ({
             category: values.category as SupermarketSections,
             value: Number(values.value),
             amount: Number(values.amount)
-          },
-          productIndex
+          }
         })
       );
     } else {

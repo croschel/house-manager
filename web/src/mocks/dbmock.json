@@ -633,7 +633,7 @@
       "accountId": "account-8",
       "totalValue": 420,
       "createdAt": "2024-12-20T08:00:00Z",
-      "updatedAt": "2025-01-27T02:57:34.445Z",
+      "updatedAt": "2025-01-30T01:08:25.557Z",
       "location": "Rio Branco",
       "status": "active",
       "effectiveMonth": 1,
@@ -648,15 +648,6 @@
           "createdAt": "2024-12-20T08:00:00Z",
           "updatedAt": "2025-01-27T02:57:19.266Z",
           "category": "baby_products"
-        },
-        {
-          "name": "Shampoo",
-          "category": "health_wellness",
-          "value": 20,
-          "amount": 1,
-          "id": "68e91676-b63f-4fbc-88bf-f03a8e18c8ad",
-          "createdAt": "2025-01-27T02:57:34.445Z",
-          "updatedAt": ""
         }
       ]
     },

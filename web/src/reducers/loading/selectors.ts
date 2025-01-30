@@ -29,3 +29,5 @@ export const selectUpdateProductFromMarketListLoading = (state: RootState) =>
   state.loading.updateProductFromMarketList;
 export const selectCreateProductFromMarketListLoading = (state: RootState) =>
   state.loading.createNewProductForMarketList;
+export const selectDeleteProductFromMarketListLoading = (state: RootState) =>
+  state.loading.deleteProductFromMarketList;

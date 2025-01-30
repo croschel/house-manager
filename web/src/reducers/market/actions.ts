@@ -167,27 +167,40 @@ export const createNewProductForMarketList = createAsyncThunk<
 
 export const updateProductFromMarketList = createAsyncThunk<
   MarketList | undefined,
-  { marketList: MarketList; newProduct: Product; productIndex: number }
->(
-  'MARKET/UPDATE_PRODUCT',
-  async ({ marketList, newProduct, productIndex }, { dispatch }) => {
-    try {
-      const response = (
-        await MarketService.updateProductFromMarketList(
-          marketList,
-          newProduct,
-          productIndex
-        )
-      ).data;
-      return response;
-    } catch (e) {
-      throw dispatch(
-        addNotificationAction(
-          buildAppError({
-            type: 'Update'
-          })
-        )
-      );
-    }
+  { marketList: MarketList; newProduct: Product }
+>('MARKET/UPDATE_PRODUCT', async ({ marketList, newProduct }, { dispatch }) => {
+  try {
+    const response = (
+      await MarketService.updateProductFromMarketList(marketList, newProduct)
+    ).data;
+    return response;
+  } catch (e) {
+    throw dispatch(
+      addNotificationAction(
+        buildAppError({
+          type: 'Update'
+        })
+      )
+    );
   }
-);
+});
+
+export const deleteProductFromMarketList = createAsyncThunk<
+  MarketList,
+  { marketList: MarketList; productId: string }
+>('MARKET/DELETE_PRODUCT', async ({ marketList, productId }, { dispatch }) => {
+  try {
+    return await MarketService.deleteProductFromMarketList(
+      marketList,
+      productId
+    );
+  } catch (e) {
+    throw dispatch(
+      addNotificationAction(
+        buildAppError({
+          type: 'Delete'
+        })
+      )
+    );
+  }
+});

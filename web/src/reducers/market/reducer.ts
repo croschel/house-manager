@@ -145,5 +145,24 @@ export const MarketReducer = createReducer(initialState, (market) => {
           return list;
         })
       })
+    )
+    .addCase(
+      MarketActions.deleteProductFromMarketList.fulfilled,
+      (state: MarketState, { payload }) => ({
+        ...state,
+        selectedMarketList: payload,
+        allMarketList: state.allMarketList.map((list) => {
+          if (list.id === payload?.id) {
+            return payload;
+          }
+          return list;
+        }),
+        filteredMarketList: state.filteredMarketList.map((list) => {
+          if (list.id === payload?.id) {
+            return payload;
+          }
+          return list;
+        })
+      })
     );
 });

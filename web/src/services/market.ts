@@ -50,20 +50,17 @@ const deleteMarketList = async (id: string) => {
 
 const updateProductFromMarketList = async (
   marketList: MarketList,
-  newProduct: Product,
-  productIndex: number
+  newProduct: Product
 ) => {
-  const newProductList: Product[] = marketList.products.map(
-    (product, index) => {
-      if (index === productIndex) {
-        return {
-          ...newProduct,
-          updatedAt: new Date().toISOString()
-        };
-      }
-      return product;
+  const newProductList: Product[] = marketList.products.map((product) => {
+    if (product.id === newProduct.id) {
+      return {
+        ...newProduct,
+        updatedAt: new Date().toISOString()
+      };
     }
-  );
+    return product;
+  });
   const newMarketList: MarketList = {
     ...marketList,
     updatedAt: new Date().toISOString(),
@@ -92,6 +89,28 @@ const createNewProductForMarketList = async (
   return await request.put(`/market-list/${marketList.id}`, newMarketList);
 };
 
+const deleteProductFromMarketList = async (
+  marketList: MarketList,
+  productId: string
+) => {
+  const newProductList: Product[] = marketList.products.filter(
+    (product) => product.id !== productId
+  );
+  const newMarketList: MarketList = {
+    ...marketList,
+    updatedAt: new Date().toISOString(),
+    products: newProductList
+  };
+  const result = await request.put(
+    `/market-list/${marketList.id}`,
+    newMarketList
+  );
+  if (result.status !== 200) {
+    throw new Error('Error deleting product from market list');
+  }
+  return newMarketList;
+};
+
 export const MarketService = {
   fetchAllMarketList,
   fetchMarketById,
@@ -99,5 +118,6 @@ export const MarketService = {
   createMarketList,
   deleteMarketList,
   updateProductFromMarketList,
-  createNewProductForMarketList
+  createNewProductForMarketList,
+  deleteProductFromMarketList
 };
