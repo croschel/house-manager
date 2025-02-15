@@ -633,7 +633,7 @@
       "accountId": "account-8",
       "totalValue": 420,
       "createdAt": "2024-12-20T08:00:00Z",
-      "updatedAt": "2025-01-30T01:08:25.557Z",
+      "updatedAt": "2025-02-15T01:19:22.924Z",
       "location": "Rio Branco",
       "status": "active",
       "effectiveMonth": 1,
@@ -641,13 +641,13 @@
       "date": "2025-01-08T00:00:00-03:00",
       "products": [
         {
-          "id": "product-15",
-          "name": "Baby Formula",
-          "amount": 4,
-          "value": 120,
-          "createdAt": "2024-12-20T08:00:00Z",
-          "updatedAt": "2025-01-27T02:57:19.266Z",
-          "category": "baby_products"
+          "name": "Ebook",
+          "category": "international_foods",
+          "value": 222,
+          "amount": 1,
+          "id": "e8a8672d-ebaa-481d-b483-6e3a555ef90a",
+          "createdAt": "2025-02-15T01:19:09.733Z",
+          "updatedAt": ""
         }
       ]
     },

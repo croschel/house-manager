@@ -77,7 +77,7 @@ export const EditProductModal: FC<Props> = ({
         })
       );
     } else {
-      dispatch(
+      await dispatch(
         createNewProductForMarketList({
           marketList,
           newProduct: {
