@@ -37,19 +37,25 @@ export const Shopping = () => {
           }
         />
         <ScrollArea className="h-[calc(100vh-253px)] mt-6">
-          {selectedMarketList?.products.map((product) => (
-            <div
-              role="button"
-              className="flex items-center justify-between border-[1px] border-zinc-700 px-4 py-4
-                rounded-lg shadow-md shadow-black/30 hover:shadow-black/10 transition-shadow
-                duration-300 ease-in-out mb-4 text-zinc-400"
-            >
-              <GenericCheckbox label={''} checked={false} onChange={() => {}} />
-              <span>{product.name}</span>
-              <span>{product.amount}</span>
-              <span>{product.value}</span>
-            </div>
-          ))}
+          <div className="max-w-[99%]">
+            {selectedMarketList?.products.map((product) => (
+              <div
+                role="button"
+                className="flex items-center justify-between border-[1px] border-zinc-700 px-4 py-4
+                  rounded-lg shadow-md shadow-black/30 hover:shadow-black/10 transition-shadow
+                  duration-300 ease-in-out mb-4 text-zinc-400"
+              >
+                <GenericCheckbox
+                  label={''}
+                  checked={false}
+                  onChange={() => {}}
+                />
+                <span>{product.name}</span>
+                <span>{product.amount}</span>
+                <span>{product.value}</span>
+              </div>
+            ))}
+          </div>
         </ScrollArea>
       </MainContainer>
     </div>
