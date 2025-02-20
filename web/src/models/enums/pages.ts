@@ -4,5 +4,6 @@ export enum PageType {
   ExpenseControl = '/expense',
   ExpenseList = '/list',
   MarketControl = '/market',
-  MarketList = '/buy-list'
+  MarketList = '/buy-list',
+  Shopping = '/shopping'
 }

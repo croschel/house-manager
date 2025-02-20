@@ -35,7 +35,7 @@ export const ActualList = () => {
     productIndex: number;
   }>({ product: {} as Product, productIndex: 0 });
   const handleStartShopping = () => {
-    alert('Iniciar Compra');
+    navigate(`${PageType.Shopping}/${marketList?.id}`);
   };
   const handleCreateNewProduct = () => {
     setOpenAddModal(true);

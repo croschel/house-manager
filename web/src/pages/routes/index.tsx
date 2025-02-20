@@ -6,6 +6,7 @@ import { PageType } from '@/models/enums/pages';
 import { ExpenseList } from '../expense-list';
 import { MarketControl } from '../market-control';
 import { ActualList } from '../market-control/actual-list';
+import { Shopping } from '../market-control/shopping';
 
 export const RoutesComponent = () => {
   const router = createBrowserRouter([
@@ -32,6 +33,10 @@ export const RoutesComponent = () => {
     {
       path: `${PageType.MarketControl}${PageType.MarketList}`,
       element: <ActualList />
+    },
+    {
+      path: `${PageType.Shopping}/:listId`,
+      element: <Shopping />
     },
     {
       path: '*',

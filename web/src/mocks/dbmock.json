@@ -633,7 +633,7 @@
       "accountId": "account-8",
       "totalValue": 420,
       "createdAt": "2024-12-20T08:00:00Z",
-      "updatedAt": "2025-02-15T01:19:22.924Z",
+      "updatedAt": "2025-02-20T00:18:02.288Z",
       "location": "Rio Branco",
       "status": "active",
       "effectiveMonth": 1,
@@ -647,6 +647,24 @@
           "amount": 1,
           "id": "e8a8672d-ebaa-481d-b483-6e3a555ef90a",
           "createdAt": "2025-02-15T01:19:09.733Z",
+          "updatedAt": ""
+        },
+        {
+          "name": "Clips",
+          "category": "pantry_staples",
+          "value": 11,
+          "amount": 1,
+          "id": "9ec14bee-2e4c-4316-a4a9-a330cadfdb63",
+          "createdAt": "2025-02-20T00:17:44.006Z",
+          "updatedAt": ""
+        },
+        {
+          "name": "Toalha",
+          "category": "health_wellness",
+          "value": 35,
+          "amount": 1,
+          "id": "17dd0acc-c6bb-4619-99fc-cefc337c5da4",
+          "createdAt": "2025-02-20T00:18:02.288Z",
           "updatedAt": ""
         }
       ]
