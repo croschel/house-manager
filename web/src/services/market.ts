@@ -19,28 +19,27 @@ const fetchMarketById = async (id: string) => {
 const updateMarketList = async (market: MarketList) => {
   const newMarketList: MarketList = {
     ...market,
-    effectiveMonth: getMonth(market.date) + 1,
-    effectiveYear: getYear(market.date),
-    updatedAt: new Date().toISOString()
+    effectiveMonth: getMonth(market.date) + 1, // TODO - pass this logic to backend
+    effectiveYear: getYear(market.date), // TODO - pass this logic to backend
+    updatedAt: new Date().toISOString() // TODO - pass this logic to backend
   };
   return await request.put(`/market-list/${market.id}`, newMarketList);
 };
 
 const createMarketList = async (date: Date) => {
   const body: Partial<MarketList> = {
-    id: generateUUId(),
+    id: generateUUId(), // TODO - pass this logic to backend
     accountId: 'Mocked User', // Implement this once we get login
-    location: '',
-    createdAt: new Date().toISOString(),
+    location: '', // TODO - pass this logic to backend
+    createdAt: new Date().toISOString(), // TODO - pass this logic to backend
     status: StatusList.ACTIVE,
-    totalValue: 0,
+    totalValue: 0, // TODO - pass this logic to backend
     date: formatISO(date),
     effectiveMonth: getMonth(date) + 1,
     effectiveYear: getYear(date),
-    products: [],
-    updatedAt: ''
+    products: [], // TODO - pass this logic to backend
+    updatedAt: '' // TODO - pass this logic to backend
   };
-  console.log(body);
   return await request.post('/market-list', body);
 };
 
@@ -63,7 +62,7 @@ const updateProductFromMarketList = async (
   });
   const newMarketList: MarketList = {
     ...marketList,
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(), // TODO - pass this logic to backend
     products: newProductList
   };
   return await request.put(`/market-list/${marketList.id}`, newMarketList);
@@ -75,15 +74,15 @@ const createNewProductForMarketList = async (
 ) => {
   const newProduct = {
     ...product,
-    id: generateUUId(),
-    createdAt: new Date().toISOString(),
+    id: generateUUId(), // TODO - pass this logic to backend
+    createdAt: new Date().toISOString(), // TODO - pass this logic to backend
     updatedAt: ''
   };
 
   const newMarketList = {
     ...marketList,
     products: [...marketList.products, newProduct],
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString() // TODO - pass this logic to backend
   };
 
   return await request.put(`/market-list/${marketList.id}`, newMarketList);
@@ -98,7 +97,7 @@ const deleteProductFromMarketList = async (
   );
   const newMarketList: MarketList = {
     ...marketList,
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(), // TODO - pass this logic to backend
     products: newProductList
   };
   const result = await request.put(
@@ -106,7 +105,7 @@ const deleteProductFromMarketList = async (
     newMarketList
   );
   if (result.status !== 200) {
-    throw new Error('Error deleting product from market list');
+    throw new Error('Error deleting product from market list'); // TODO - not necessary
   }
   return newMarketList;
 };

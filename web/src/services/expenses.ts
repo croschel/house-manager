@@ -18,7 +18,7 @@ const fetchExpense = async (id: string) => {
 const updateExpense = async (expense: ExpenseData) => {
   const newExpense: ExpenseData = {
     ...expense,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString() // TODO - pass this logic to backend
   };
   return await request.put<ExpenseData>(
     `/expenses/${newExpense.id}`,
@@ -30,16 +30,16 @@ const createExpense = async (expense: CreateFormExpense) => {
   const newExpense: ExpenseData = {
     ...expense,
     value: Number(expense.value),
-    ownerId: 121345,
-    ownerName: 'user',
-    isFixedExpense: false,
+    ownerId: 121345, // Change after have login
+    ownerName: 'user', // Change after have login
+    isFixedExpense: false, // TODO - pass this logic to backend
     location:
       expense.location !== undefined && expense.location
         ? expense.location
         : '',
     accountId: 'Mocked User', // Implement this once we get login
-    id: generateUUId(),
-    createdAt: new Date().toISOString(),
+    id: generateUUId(), // TODO - pass this logic to backend
+    createdAt: new Date().toISOString(), // TODO - pass this logic to backend
     updatedAt: ''
   };
   return await request.post<ExpenseData>('/expenses', newExpense);
