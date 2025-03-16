@@ -3,7 +3,7 @@ import { Header } from '@/components/generic/header';
 import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { PageType } from '@/models/enums/pages';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { useNavigate } from 'react-router-dom';
 import { DataTable } from '@/components/generic/base-table';
@@ -42,6 +42,45 @@ export const MarketControl = () => {
   const [selectedList, setSelectedList] = useState<MarketList | undefined>();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+
+  const marketInfo = useMemo(() => {
+    let lastTotalPaid = '$0.00';
+    let lastLocation = '';
+    let lastCheaperProduct = {
+      name: '',
+      value: '$0.00'
+    };
+    let lastExpensiveProduct = {
+      name: '',
+      value: '$0.00'
+    };
+
+    if (filteredMarketList.length > 0) {
+      console.log(filteredMarketList);
+      const sortedMarketList = [...filteredMarketList].sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+      const lastProduct = [...sortedMarketList[0].products].sort((a, b) => {
+        return b.value - a.value;
+      });
+      lastTotalPaid = `$${sortedMarketList[0].totalValue.toFixed(2) ?? '0.00'}`;
+      lastLocation = sortedMarketList[0].location ?? '';
+      lastCheaperProduct = {
+        name: lastProduct[0].name,
+        value: `$${lastProduct[0].value.toFixed(2) ?? '0.00'}`
+      };
+      lastExpensiveProduct = {
+        name: lastProduct[lastProduct.length - 1].name,
+        value: `$${lastProduct[lastProduct.length - 1].value.toFixed(2) ?? '0.00'}`
+      };
+    }
+    return {
+      lastTotalPaid,
+      lastLocation,
+      lastCheaperProduct,
+      lastExpensiveProduct
+    };
+  }, [filteredMarketList]);
 
   const handleOpenList = (type: 'actual' | 'create') => {
     if (type === 'actual') {
@@ -137,7 +176,7 @@ export const MarketControl = () => {
     },
     {
       header: ({ column }) => (
-        <SortElement column={column} headerLabel="Mês efetivo" />
+        <SortElement column={column} headerLabel="Ano efetivo" />
       ),
       accessorKey: 'effectiveYear'
     },
@@ -201,7 +240,7 @@ export const MarketControl = () => {
             <div className="flex w-full mt-6 gap-4 pb-2 overflow-x-auto">
               <DataBox
                 title="Valor da última compra"
-                mainValue="$45.240,00"
+                mainValue={marketInfo.lastTotalPaid}
                 subTitle="Valor total em produtos"
                 iconName="DollarSign"
                 iconColor="white"
@@ -209,24 +248,23 @@ export const MarketControl = () => {
               />
               <DataBox
                 title="Último local de compra"
-                mainValue="Supermercado Vida"
-                subTitle="vila Jose - Campinas - SP"
+                mainValue={marketInfo.lastLocation}
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}
               />
               <DataBox
                 title="Produto mais barato da última compra"
-                mainValue="$1,00"
-                subTitle="Pano de lavar louça"
+                mainValue={marketInfo.lastCheaperProduct.value}
+                subTitle={marketInfo.lastCheaperProduct.name}
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}
               />
               <DataBox
                 title="Produto mais caro da última compra"
-                mainValue="$1.000,00"
-                subTitle="Peixe importado"
+                mainValue={marketInfo.lastExpensiveProduct.value}
+                subTitle={marketInfo.lastExpensiveProduct.name}
                 iconName="DollarSign"
                 iconColor="white"
                 iconSize={18}
