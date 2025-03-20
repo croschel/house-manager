@@ -20,7 +20,10 @@ export const Splash: FC<PropsWithChildren<Props>> = ({
     {stateList.some(
       (state) => state === ActionStatus.FAILED || state === ActionStatus.LOADING
     ) && (
-      <div className="bg-black bg-opacity-50 flex flex-1 justify-center items-center z-10000">
+      <div
+        className="bg-zinc-900 h-screen bg-opacity-50 flex flex-1 justify-center items-center
+          z-10000"
+      >
         <div className="flex flex-col gap-6">
           {!stateList.includes(ActionStatus.FAILED) && (
             <LoadingSpinner size={60} />

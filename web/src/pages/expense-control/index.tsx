@@ -22,6 +22,7 @@ import { expenseLabels } from '@/utils/options';
 import { ExpenseBarChart } from './expense-bar-chart';
 import { OverviewChart } from './overview-chart';
 import { ExpenseData } from '@/models/interfaces';
+import SidebarComponent from '@/components/generic/sidebar-component';
 
 export const ExpenseControl = () => {
   const dispatch = useAppDispatch();
@@ -135,12 +136,10 @@ export const ExpenseControl = () => {
   }, []);
 
   return (
-    <div className="flex w-full flex-col">
-      <Header />
+    <SidebarComponent>
       <Splash stateList={[isLoadingExpenses]} retry={handleGetExpenseList}>
         <MainContainer>
           <MainFilterPage
-            title="Controle de Gastos"
             primaryBtnLabel="Adicionar Fundo"
             secondaryBtnLabel="Adicionar Despesa"
             handlePrimaryBtn={() => handleOpenExpenseModal('fund')}
@@ -250,6 +249,6 @@ export const ExpenseControl = () => {
         setIsOpen={setExpenseModal}
         type="add"
       />
-    </div>
+    </SidebarComponent>
   );
 };

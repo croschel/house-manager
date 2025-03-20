@@ -22,9 +22,7 @@ type BtnVariant =
   | undefined;
 
 interface Props {
-  title: string;
   onSubmitFilter?: (date: DateRange | undefined) => void;
-  descriptionElement?: JSX.Element;
   handlePrimaryBtn?: () => void;
   handleSecondaryBtn?: () => void;
   primaryBtnLabel?: string;
@@ -35,8 +33,6 @@ interface Props {
 }
 
 export const MainFilterPage: FC<Props> = ({
-  title,
-  descriptionElement,
   onSubmitFilter,
   handlePrimaryBtn,
   handleSecondaryBtn,
@@ -62,12 +58,6 @@ export const MainFilterPage: FC<Props> = ({
       className={`flex justify-between items-start ${dynamicFlex && 'flex-1 h-full'}`}
     >
       <div className="flex items-center">
-        <div className="flex flex-col mr-8">
-          <h1 className="text-[40px] text-zinc-200">{title}</h1>
-          <Conditional condition={!!descriptionElement}>
-            {descriptionElement as JSX.Element}
-          </Conditional>
-        </div>
         <Conditional condition={!!onSubmitFilter}>
           <DatePickerRange date={date} onChange={setDate} />
           <Button
@@ -75,7 +65,7 @@ export const MainFilterPage: FC<Props> = ({
             className="ml-1"
             onClick={handleSubmitFilter}
           >
-            <Icon name="Filter" />
+            <Icon name="Funnel" />
           </Button>
         </Conditional>
       </div>

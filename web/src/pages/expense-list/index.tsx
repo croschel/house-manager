@@ -18,6 +18,7 @@ import { deleteExpense } from '@/reducers/expenses/actions';
 import { expenseLabels, fundLabels } from '@/utils/options';
 import { ActionStatus, ExpenseValues, FundValues } from '@/models/enums';
 import { selectDeleteExpenseLoading } from '@/reducers/loading/selectors';
+import SidebarComponent from '@/components/generic/sidebar-component';
 
 export const ExpenseList = () => {
   const dispatch = useAppDispatch();
@@ -119,12 +120,10 @@ export const ExpenseList = () => {
   };
 
   return (
-    <div className="flex w-full flex-col">
-      <Header />
+    <SidebarComponent>
       <MainContainer>
         <div className="flex flex-col justify-between h-full">
           <MainFilterPage
-            title="Despesas"
             primaryBtnLabel="Adicionar Despesa"
             handlePrimaryBtn={() => handleOpenExpenseModal()}
             onSubmitFilter={(date) => handleFilter(date)}
@@ -158,6 +157,6 @@ export const ExpenseList = () => {
         onSubmit={handleDeleteExpense}
         isLoading={isDeletingExpense === ActionStatus.LOADING}
       />
-    </div>
+    </SidebarComponent>
   );
 };

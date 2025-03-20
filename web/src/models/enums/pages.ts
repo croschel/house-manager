@@ -7,3 +7,13 @@ export enum PageType {
   MarketList = '/buy-list',
   Shopping = '/shopping'
 }
+
+export enum PageTitle {
+  'login' = 'Autenticação',
+  'sign-up' = 'Cadastro de usuário',
+  'expense' = 'Controle de Despesas',
+  'list' = 'Listagem de Despesas',
+  'market' = 'Controle de Compras',
+  'buy-list' = 'Listagem de Compras',
+  'shopping' = 'Lista de Produtos'
+}

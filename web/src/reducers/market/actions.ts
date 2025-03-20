@@ -92,7 +92,6 @@ export const createMarketList = createAsyncThunk<MarketList | undefined, Date>(
   'MARKET/CREATE',
   async (date, { dispatch }) => {
     try {
-      console.log('action :: ', date);
       const response = (await MarketService.createMarketList(date)).data;
       dispatch(
         addNotificationAction(

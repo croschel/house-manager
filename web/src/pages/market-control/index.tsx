@@ -31,6 +31,7 @@ import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { EditListModal } from './edit-list-modal';
 import { Conditional } from '@/components/generic/conditional';
 import { CreateList } from './create-list';
+import SidebarComponent from '@/components/generic/sidebar-component';
 
 export const MarketControl = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +57,6 @@ export const MarketControl = () => {
     };
 
     if (filteredMarketList.length > 0) {
-      console.log(filteredMarketList);
       const sortedMarketList = [...filteredMarketList].sort((a, b) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime();
       });
@@ -222,12 +222,10 @@ export const MarketControl = () => {
   }, []);
 
   return (
-    <div className="flex w-full flex-col">
-      <Header />
+    <SidebarComponent>
       <Splash stateList={[isLoadingMarketList]} retry={handleFetchMarketList}>
         <MainContainer>
           <MainFilterPage
-            title="Controle de Compras"
             primaryBtnLabel="Criar Nova Lista"
             secondaryBtnLabel="Acessar Lista Atual"
             handlePrimaryBtn={() => handleOpenList('create')}
@@ -295,6 +293,6 @@ export const MarketControl = () => {
         setIsOpen={setOpenEditModal}
         marketList={selectedList ?? ({} as MarketList)}
       />
-    </div>
+    </SidebarComponent>
   );
 };

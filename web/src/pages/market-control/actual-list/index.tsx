@@ -18,6 +18,7 @@ import { selectMarketListSelected } from '@/reducers/market/selectors';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { deleteProductFromMarketList } from '@/reducers/market/actions';
 import { selectDeleteProductFromMarketListLoading } from '@/reducers/loading/selectors';
+import SidebarComponent from '@/components/generic/sidebar-component';
 
 export const ActualList = () => {
   const dispatch = useAppDispatch();
@@ -126,12 +127,10 @@ export const ActualList = () => {
     return null;
   }
   return (
-    <div className="flex w-full flex-col">
-      <Header />
+    <SidebarComponent>
       <MainContainer>
         <div className="flex flex-col justify-between h-full">
           <MainFilterPage
-            title="Gerenciamento de Lista"
             primaryBtnLabel="Iniciar Compra"
             secondaryBtnLabel="Adicionar Produto"
             handlePrimaryBtn={handleStartShopping}
@@ -168,6 +167,6 @@ export const ActualList = () => {
           isLoading={isDeletingProduct === ActionStatus.LOADING}
         />
       </MainContainer>
-    </div>
+    </SidebarComponent>
   );
 };

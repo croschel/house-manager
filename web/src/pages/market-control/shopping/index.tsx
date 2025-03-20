@@ -2,6 +2,7 @@ import { GenericCheckbox } from '@/components/generic/checkbox';
 import { Header } from '@/components/generic/header';
 import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
+import SidebarComponent from '@/components/generic/sidebar-component';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PageType } from '@/models/enums';
 import { useAppSelector } from '@/reducers';
@@ -20,21 +21,13 @@ export const Shopping = () => {
   }, []);
 
   return (
-    <div className="flex w-full flex-col">
-      <Header />
+    <SidebarComponent>
       <MainContainer>
         <MainFilterPage
-          title="Compra Ativa"
           secondaryBtnLabel="Finalizar Compra"
           primaryBtnVariant="outline"
           secondaryBtnVariant="destructive"
           handleSecondaryBtn={handleCloseList}
-          descriptionElement={
-            <div className="flex text-zinc-400 gap-1">
-              <span>{`23, abr 24 -`}</span>
-              <span className="text-blue-400">Andamento</span>
-            </div>
-          }
         />
         <ScrollArea className="h-[calc(100vh-253px)] mt-6">
           <div className="max-w-[99%]">
@@ -58,6 +51,6 @@ export const Shopping = () => {
           </div>
         </ScrollArea>
       </MainContainer>
-    </div>
+    </SidebarComponent>
   );
 };
