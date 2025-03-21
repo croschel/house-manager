@@ -45,7 +45,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: 'Controle de Despesas',
-            url: '/expense',
+            url: PageType.ExpenseControl,
             isActive:
               location.pathname === PageType.ExpenseControl ||
               location.pathname ===
@@ -54,7 +54,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
           {
             title: 'Controle de Compras',
-            url: '/market',
+            url: PageType.MarketControl,
             isActive:
               location.pathname === PageType.MarketControl ||
               location.pathname ===
