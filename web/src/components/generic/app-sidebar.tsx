@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   Sidebar,
   SidebarContent,
-  SidebarContext,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
