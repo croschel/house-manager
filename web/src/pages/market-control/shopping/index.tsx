@@ -34,9 +34,9 @@ export const Shopping = () => {
             {selectedMarketList?.products.map((product) => (
               <div
                 role="button"
-                className="flex items-center justify-between border-[1px] border-zinc-700 px-4 py-4
+                className="flex items-center justify-between border-[1px] border-zinc-600 px-4 py-4
                   rounded-lg shadow-md shadow-black/30 hover:shadow-black/10 transition-shadow
-                  duration-300 ease-in-out mb-4 text-zinc-400"
+                  duration-300 ease-in-out mb-4 text-zinc-200"
               >
                 <GenericCheckbox
                   label={''}

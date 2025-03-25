@@ -21,6 +21,7 @@ export const GenericCheckbox: FC<Props> = ({
         id={`checkbox-${label.replace(' ', '-').toLowerCase()}`}
         defaultChecked={checked}
         onCheckedChange={(value) => onChange(value as boolean)}
+        className="border-zinc-400"
       />
       <div className="grid gap-1.5 leading-none">
         <label

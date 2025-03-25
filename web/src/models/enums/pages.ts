@@ -14,6 +14,6 @@ export enum PageTitle {
   'expense' = 'Controle de Despesas',
   'list' = 'Listagem de Despesas',
   'market' = 'Controle de Compras',
-  'buy-list' = 'Listagem de Compras',
-  'shopping' = 'Lista de Produtos'
+  'buy-list' = 'Lista de Produtos',
+  'shopping' = 'Carrinho de Compras'
 }

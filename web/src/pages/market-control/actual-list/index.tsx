@@ -137,6 +137,7 @@ export const ActualList = () => {
             primaryBtnVariant="outline"
             secondaryBtnVariant="creation"
             handleSecondaryBtn={handleCreateNewProduct}
+            dynamicFlex
           />
           <DataTable
             columns={columns}
