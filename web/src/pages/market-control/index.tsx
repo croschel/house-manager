@@ -186,7 +186,10 @@ export const MarketControl = () => {
         return (
           <div className="flex gap-6 justify-end">
             <Conditional
-              condition={row.getValue('status') === StatusList.ACTIVE}
+              condition={
+                row.getValue('status') === StatusList.ACTIVE ||
+                row.getValue('status') === StatusList.EXPIRED
+              }
             >
               <Button
                 size="icon"

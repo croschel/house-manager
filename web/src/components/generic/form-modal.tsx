@@ -23,6 +23,7 @@ interface Props {
   form: UseFormReturn<any>;
   onSubmit: (values: any) => void;
   isLoading?: boolean;
+  submitDisabled?: boolean;
 }
 
 export const FormModal: FC<Props> = ({
@@ -34,7 +35,8 @@ export const FormModal: FC<Props> = ({
   buttonLabel,
   form,
   onSubmit,
-  isLoading = false
+  isLoading = false,
+  submitDisabled = false
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal={isOpen}>
@@ -57,7 +59,7 @@ export const FormModal: FC<Props> = ({
               <Button
                 variant="secondary"
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || submitDisabled}
                 className={isLoading ? 'gap-1' : ''}
               >
                 <Conditional condition={isLoading}>

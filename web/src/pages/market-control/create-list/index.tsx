@@ -1,3 +1,4 @@
+import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { DatePicker } from '@/components/generic/date-picker';
 import { FormModal } from '@/components/generic/form-modal';
 import {
@@ -7,12 +8,13 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { errorMessages } from '@/models/constants';
-import { ActionStatus } from '@/models/enums';
+import { ActionStatus, StatusList } from '@/models/enums';
 import { useAppDispatch, useAppSelector } from '@/reducers';
 import { selectCreateMarketListLoading } from '@/reducers/loading/selectors';
 import { createMarketList } from '@/reducers/market/actions';
+import { selectMarketList } from '@/reducers/market/selectors';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 interface Props {
@@ -26,6 +28,7 @@ const formSchema = z.object({
 
 export const CreateList: FC<Props> = ({ isOpen, setIsOpen }) => {
   const dispatch = useAppDispatch();
+  const marketLists = useAppSelector(selectMarketList);
   const isCreatingList = useAppSelector(selectCreateMarketListLoading);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,6 +36,11 @@ export const CreateList: FC<Props> = ({ isOpen, setIsOpen }) => {
       date: new Date().toISOString()
     }
   });
+
+  const hasProgressList = useMemo(
+    () => marketLists.find((list) => list.status === StatusList.PROGRESS),
+    [marketLists]
+  );
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     await dispatch(createMarketList(values.date as unknown as Date));
@@ -44,7 +52,11 @@ export const CreateList: FC<Props> = ({ isOpen, setIsOpen }) => {
       isOpen={isOpen}
       setIsOpen={() => setIsOpen(false)}
       title="Adicionar Lista"
-      description="Adicionar uma nova lista de compras"
+      description={
+        !!hasProgressList
+          ? 'Voce ja possui uma lista em andamento, contudo pode criar uma nova.'
+          : 'Adicionar uma nova lista de compras'
+      }
       buttonLabel="Criar Lista"
       form={form}
       onSubmit={onSubmit}

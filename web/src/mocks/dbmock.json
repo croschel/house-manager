@@ -325,7 +325,8 @@
           "value": 5,
           "createdAt": "2023-01-15T08:00:00Z",
           "updatedAt": "2023-01-15T08:00:00Z",
-          "category": "produce"
+          "category": "produce",
+          "done": false
         }
       ]
     },
@@ -348,6 +349,7 @@
           "value": 15,
           "createdAt": "2023-12-15T08:00:00Z",
           "updatedAt": "2023-12-15T08:00:00Z",
+          "done": false,
           "category": "dairy"
         }
       ]
@@ -371,6 +373,7 @@
           "value": 30,
           "createdAt": "2024-01-20T08:00:00Z",
           "updatedAt": "2024-01-20T08:00:00Z",
+          "done": false,
           "category": "meat_poultry"
         }
       ]
@@ -394,6 +397,7 @@
           "value": 12,
           "createdAt": "2024-02-15T08:00:00Z",
           "updatedAt": "2024-02-15T08:00:00Z",
+          "done": false,
           "category": "dairy"
         }
       ]
@@ -417,6 +421,7 @@
           "value": 9,
           "createdAt": "2024-03-10T08:00:00Z",
           "updatedAt": "2024-03-10T08:00:00Z",
+          "done": false,
           "category": "bakery"
         }
       ]
@@ -440,6 +445,7 @@
           "value": 25,
           "createdAt": "2024-04-10T08:00:00Z",
           "updatedAt": "2024-04-10T08:00:00Z",
+          "done": false,
           "category": "snacks_confectionery"
         }
       ]
@@ -463,6 +469,7 @@
           "value": 84,
           "createdAt": "2024-05-10T08:00:00Z",
           "updatedAt": "2024-05-10T08:00:00Z",
+          "done": false,
           "category": "seafood"
         }
       ]
@@ -486,6 +493,7 @@
           "value": 30,
           "createdAt": "2024-06-10T08:00:00Z",
           "updatedAt": "2024-06-10T08:00:00Z",
+          "done": false,
           "category": "frozen_foods"
         }
       ]
@@ -509,6 +517,7 @@
           "value": 10,
           "createdAt": "2024-07-15T08:00:00Z",
           "updatedAt": "2024-07-15T08:00:00Z",
+          "done": false,
           "category": "pantry_staples"
         }
       ]
@@ -532,6 +541,7 @@
           "value": 18,
           "createdAt": "2024-08-15T08:00:00Z",
           "updatedAt": "2024-08-15T08:00:00Z",
+          "done": false,
           "category": "beverages"
         }
       ]
@@ -555,6 +565,7 @@
           "value": 24,
           "createdAt": "2024-09-15T08:00:00Z",
           "updatedAt": "2024-09-15T08:00:00Z",
+          "done": false,
           "category": "beverages"
         }
       ]
@@ -578,6 +589,7 @@
           "value": 50,
           "createdAt": "2024-10-15T08:00:00Z",
           "updatedAt": "2024-10-15T08:00:00Z",
+          "done": false,
           "category": "health_wellness"
         }
       ]
@@ -601,6 +613,7 @@
           "value": 45,
           "createdAt": "2024-11-15T08:00:00Z",
           "updatedAt": "2024-11-15T08:00:00Z",
+          "done": false,
           "category": "household_items"
         }
       ]
@@ -624,6 +637,7 @@
           "value": 5,
           "createdAt": "2024-12-15T08:00:00Z",
           "updatedAt": "2024-12-15T08:00:00Z",
+          "done": false,
           "category": "personal_care"
         }
       ]
@@ -647,6 +661,7 @@
           "amount": 1,
           "id": "e8a8672d-ebaa-481d-b483-6e3a555ef90a",
           "createdAt": "2025-02-15T01:19:09.733Z",
+          "done": false,
           "updatedAt": ""
         },
         {
@@ -656,6 +671,7 @@
           "amount": 1,
           "id": "9ec14bee-2e4c-4316-a4a9-a330cadfdb63",
           "createdAt": "2025-02-20T00:17:44.006Z",
+          "done": false,
           "updatedAt": ""
         },
         {
@@ -665,6 +681,7 @@
           "amount": 1,
           "id": "17dd0acc-c6bb-4619-99fc-cefc337c5da4",
           "createdAt": "2025-02-20T00:18:02.288Z",
+          "done": false,
           "updatedAt": ""
         },
         {
@@ -674,6 +691,7 @@
           "amount": 1,
           "id": "17dd0acc-c6bb-4619-99fc-ce3c337c5da4",
           "createdAt": "2025-02-20T00:18:02.288Z",
+          "done": false,
           "updatedAt": ""
         },
         {
@@ -683,6 +701,7 @@
           "amount": 1,
           "id": "17dd0acc-c6bb-2619-99fc-cefc337c5da4",
           "createdAt": "2025-02-20T00:18:02.288Z",
+          "done": false,
           "updatedAt": ""
         },
         {
@@ -692,6 +711,7 @@
           "amount": 1,
           "id": "17d30acc-c6bb-4619-99fc-cefc337c5da4",
           "createdAt": "2025-02-20T00:18:02.288Z",
+          "done": false,
           "updatedAt": ""
         },
         {
@@ -701,6 +721,7 @@
           "amount": 1,
           "id": "173ed0acc-c6bb-4619-99fc-cefc337c5da4",
           "createdAt": "2025-02-20T00:18:02.288Z",
+          "done": false,
           "updatedAt": ""
         },
         {
@@ -710,6 +731,7 @@
           "amount": 1,
           "id": "17dd0adc-c6bb-4619-99fc-cefc337c5da4",
           "createdAt": "2025-02-20T00:18:02.288Z",
+          "done": false,
           "updatedAt": ""
         }
       ]
@@ -733,6 +755,7 @@
           "value": 25,
           "createdAt": "2024-12-22T08:00:00Z",
           "updatedAt": "2024-12-22T08:00:00Z",
+          "done": false,
           "category": "pet_supplies"
         }
       ]
@@ -756,6 +779,7 @@
           "value": 85,
           "createdAt": "2024-12-23T08:00:00Z",
           "updatedAt": "2024-12-23T08:00:00Z",
+          "done": false,
           "category": "alcohol_tobacco"
         }
       ]
@@ -779,6 +803,7 @@
           "value": 70,
           "createdAt": "2024-12-01T08:00:00Z",
           "updatedAt": "2024-12-10T08:00:00Z",
+          "done": false,
           "category": "international_foods"
         }
       ]
@@ -802,6 +827,7 @@
           "value": 15,
           "createdAt": "2024-11-05T08:00:00Z",
           "updatedAt": "2024-11-05T08:00:00Z",
+          "done": false,
           "category": "personal_care"
         }
       ]
@@ -825,6 +851,7 @@
           "value": 12.5,
           "createdAt": "2024-10-10T08:00:00Z",
           "updatedAt": "2024-10-10T08:00:00Z",
+          "done": false,
           "category": "alcohol_tobacco"
         }
       ]
@@ -848,6 +875,7 @@
           "value": 25,
           "createdAt": "2024-09-20T08:00:00Z",
           "updatedAt": "2024-09-20T08:00:00Z",
+          "done": false,
           "category": "household_items"
         }
       ]
@@ -871,6 +899,7 @@
           "value": 45,
           "createdAt": "2024-08-25T08:00:00Z",
           "updatedAt": "2024-08-25T08:00:00Z",
+          "done": false,
           "category": "international_foods"
         }
       ]
@@ -894,6 +923,7 @@
           "value": 5,
           "createdAt": "2024-07-05T08:00:00Z",
           "updatedAt": "2024-07-05T08:00:00Z",
+          "done": false,
           "category": "bakery"
         }
       ]
@@ -917,6 +947,7 @@
           "value": 35,
           "createdAt": "2024-06-25T08:00:00Z",
           "updatedAt": "2024-06-25T08:00:00Z",
+          "done": false,
           "category": "frozen_foods"
         }
       ]
@@ -940,6 +971,7 @@
           "value": 110,
           "createdAt": "2024-05-19T08:00:00Z",
           "updatedAt": "2024-05-19T08:00:00Z",
+          "done": false,
           "category": "international_foods"
         }
       ]

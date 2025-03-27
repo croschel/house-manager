@@ -4,7 +4,7 @@ import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { SortElement } from '@/components/generic/sort-element';
 import { Button } from '@/components/ui/button';
-import { ActionStatus, PageType } from '@/models/enums';
+import { ActionStatus, PageType, StatusList } from '@/models/enums';
 import { MarketList, Product } from '@/models/interfaces';
 import { Pencil2Icon } from '@radix-ui/react-icons';
 import { ColumnDef } from '@tanstack/react-table';
@@ -16,7 +16,10 @@ import { EditProductModal } from './edit-product-modal';
 import { useAppDispatch, useAppSelector } from '@/reducers';
 import { selectMarketListSelected } from '@/reducers/market/selectors';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
-import { deleteProductFromMarketList } from '@/reducers/market/actions';
+import {
+  deleteProductFromMarketList,
+  updateMarketList
+} from '@/reducers/market/actions';
 import { selectDeleteProductFromMarketListLoading } from '@/reducers/loading/selectors';
 import SidebarComponent from '@/components/generic/sidebar-component';
 
@@ -35,7 +38,13 @@ export const ActualList = () => {
     product: Product;
     productIndex: number;
   }>({ product: {} as Product, productIndex: 0 });
-  const handleStartShopping = () => {
+  const handleStartShopping = async () => {
+    await dispatch(
+      updateMarketList({
+        ...marketList,
+        status: StatusList.PROGRESS
+      } as MarketList)
+    );
     navigate(`${PageType.Shopping}/${marketList?.id}`);
   };
   const handleCreateNewProduct = () => {
@@ -131,7 +140,11 @@ export const ActualList = () => {
       <MainContainer>
         <div className="flex flex-col justify-between h-full">
           <MainFilterPage
-            primaryBtnLabel="Iniciar Compra"
+            primaryBtnLabel={
+              marketList.status === StatusList.PROGRESS
+                ? 'Continuar Compra'
+                : 'Iniciar Compra'
+            }
             secondaryBtnLabel="Adicionar Produto"
             handlePrimaryBtn={handleStartShopping}
             primaryBtnVariant="outline"

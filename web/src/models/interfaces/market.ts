@@ -8,6 +8,7 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
   category: SupermarketSections;
+  done: boolean;
 }
 
 export interface MarketList {

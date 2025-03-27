@@ -30,6 +30,8 @@ interface Props {
   primaryBtnVariant?: BtnVariant;
   secondaryBtnVariant?: BtnVariant;
   dynamicFlex?: boolean;
+  disablePrimaryBtn?: boolean;
+  disableSecondaryBtn?: boolean;
 }
 
 export const MainFilterPage: FC<Props> = ({
@@ -40,7 +42,9 @@ export const MainFilterPage: FC<Props> = ({
   secondaryBtnLabel,
   primaryBtnVariant,
   secondaryBtnVariant,
-  dynamicFlex = false
+  dynamicFlex = false,
+  disablePrimaryBtn = false,
+  disableSecondaryBtn = false
 }) => {
   const dispatch = useAppDispatch();
   const expenseDateFilter = useAppSelector(selectExpenseDateFilter);
@@ -71,12 +75,20 @@ export const MainFilterPage: FC<Props> = ({
       </div>
       <div className="flex gap-4">
         <Conditional condition={!!primaryBtnLabel}>
-          <Button variant={primaryBtnVariant} onClick={handlePrimaryBtn}>
+          <Button
+            variant={primaryBtnVariant}
+            onClick={handlePrimaryBtn}
+            disabled={disablePrimaryBtn}
+          >
             {primaryBtnLabel}
           </Button>
         </Conditional>
         <Conditional condition={!!secondaryBtnLabel}>
-          <Button variant={secondaryBtnVariant} onClick={handleSecondaryBtn}>
+          <Button
+            variant={secondaryBtnVariant}
+            onClick={handleSecondaryBtn}
+            disabled={disableSecondaryBtn}
+          >
             {secondaryBtnLabel}
           </Button>
         </Conditional>
