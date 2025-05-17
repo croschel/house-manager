@@ -46,10 +46,7 @@ export const createAccount = async (data: CreateAccountParams) => {
 
   // sign access token & refresh token
   const refreshToken = signToken(sessionInfo, refreshTokenOptions);
-  const accessToken = signToken(
-    { ...sessionInfo, userId: user._id },
-    accessTokenOptions
-  );
+  const accessToken = signToken(sessionInfo, accessTokenOptions);
 
   return {
     user: user.omitPassword(),

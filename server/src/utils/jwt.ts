@@ -1,4 +1,4 @@
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt, { SignOptions, VerifyOptions } from "jsonwebtoken";
 import { SessionDocument } from "../models/session.model";
 import { UserDocument } from "../models/user.model";
 import { ENV } from "../constants/environment";
@@ -39,4 +39,24 @@ export const signToken = (
     ...defaults,
     ...rest,
   });
+};
+
+export const verifyToken = <TPayload extends object = AccessTokenPayload>(
+  token: string,
+  options?: VerifyOptions & { secret: string }
+) => {
+  const { secret = ENV.JWT_SECRET, ...rest } = options || {};
+  try {
+    const payload = jwt.verify(token, secret, {
+      ...defaults,
+      ...rest,
+    }) as TPayload;
+    return {
+      payload,
+    };
+  } catch (error: any) {
+    return {
+      error: error.message,
+    };
+  }
 };
