@@ -1,7 +1,6 @@
 import { CREATED, OK } from "../constants/http";
 import { createAccount, loginUser } from "../services/auth.service";
 import catchErrors from "../utils/catchErrors";
-import zod from "zod";
 import { setAuthCookies } from "../utils/cookies";
 import { loginSchema, registerSchema } from "./auth.schemas";
 

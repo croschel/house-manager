@@ -1,4 +1,3 @@
-import { ENV } from "../constants/environment";
 import { CONFLICT, UNAUTHORIZED } from "../constants/http";
 import { VerificationCodeType } from "../constants/verificationCode";
 import SessionModel from "../models/session.model";
@@ -6,7 +5,11 @@ import userModel from "../models/user.model";
 import VerificationCodeModel from "../models/verificationCode.model";
 import appAssert from "../utils/app-assert";
 import { oneYearFromNow } from "../utils/date";
-import jwt from "jsonwebtoken";
+import {
+  accessTokenOptions,
+  refreshTokenOptions,
+  signToken,
+} from "../utils/jwt";
 
 export type CreateAccountParams = {
   email: string;
@@ -39,22 +42,13 @@ export const createAccount = async (data: CreateAccountParams) => {
     userAgent: data.userAgent,
   });
 
+  const sessionInfo = { userId: user._id, sessionId: session._id };
+
   // sign access token & refresh token
-  const refreshToken = jwt.sign(
-    { userId: user._id, sessionId: session._id },
-    ENV.JWT_REFRESH_SECRET,
-    {
-      expiresIn: "30d",
-      audience: ["user"],
-    }
-  );
-  const accessToken = jwt.sign(
-    { userId: user._id, sessionId: session._id },
-    ENV.JWT_SECRET,
-    {
-      expiresIn: "15m",
-      audience: ["user"],
-    }
+  const refreshToken = signToken(sessionInfo, refreshTokenOptions);
+  const accessToken = signToken(
+    { ...sessionInfo, userId: user._id },
+    accessTokenOptions
   );
 
   return {
@@ -83,21 +77,14 @@ export const loginUser = async ({
     userId: user._id,
     userAgent,
   });
-  const refreshToken = jwt.sign(
-    { userId: user._id, sessionId: session._id },
-    ENV.JWT_REFRESH_SECRET,
-    {
-      expiresIn: "30d",
-      audience: ["user"],
-    }
-  );
-  const accessToken = jwt.sign(
-    { userId: user._id, sessionId: session._id },
-    ENV.JWT_SECRET,
-    {
-      expiresIn: "15m",
-      audience: ["user"],
-    }
+
+  const sessionInfo = { userId: user._id, sessionId: session._id };
+
+  // sign access token & refresh token
+  const refreshToken = signToken(sessionInfo, refreshTokenOptions);
+  const accessToken = signToken(
+    { ...sessionInfo, userId: user._id },
+    accessTokenOptions
   );
   return {
     user: user.omitPassword(),
