@@ -1,8 +1,17 @@
-import { CREATED, OK } from "../constants/http";
+import { CREATED, OK, UNAUTHORIZED } from "../constants/http";
 import SessionModel from "../models/session.model";
-import { createAccount, loginUser } from "../services/auth.service";
+import {
+  createAccount,
+  loginUser,
+  refreshUserAccessToken,
+} from "../services/auth.service";
+import appAssert from "../utils/app-assert";
 import catchErrors from "../utils/catchErrors";
-import { clearAuthCookies, setAuthCookies } from "../utils/cookies";
+import {
+  clearAuthCookies,
+  getAccessTokenCookieOptions,
+  setAuthCookies,
+} from "../utils/cookies";
 import { verifyToken } from "../utils/jwt";
 import { loginSchema, registerSchema } from "./auth.schemas";
 
@@ -40,4 +49,23 @@ export const logoutHandler = catchErrors(async (req, res, next) => {
   return clearAuthCookies(res)
     .status(OK)
     .json({ message: "Logout successful" });
+});
+
+export const refreshHandler = catchErrors(async (req, res, next) => {
+  const refreshToken = req.cookies.refreshToken as string | undefined;
+  appAssert(refreshToken, UNAUTHORIZED, "No refresh token provided");
+
+  const { accessToken, newRefreshToken } =
+    await refreshUserAccessToken(refreshToken);
+
+  if (newRefreshToken) {
+    res.cookie("refreshToken", newRefreshToken, getAccessTokenCookieOptions());
+  }
+
+  return res
+    .status(OK)
+    .cookie("accessToken", accessToken, getAccessTokenCookieOptions())
+    .json({
+      message: "Refresh token successfully refreshed",
+    });
 });

@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+export const REFRESH_PATH = "/auth/refresh";
+
 const getEnv = (key: string, defaultValue?: string) => {
   const value = process.env[key] || defaultValue;
   if (value === undefined) {
