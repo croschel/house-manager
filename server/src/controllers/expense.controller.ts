@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import catchErrors from "../utils/catchErrors";
-import { OK } from "../constants/http";
+import { OK, UNAUTHORIZED } from "../constants/http";
 import { createExpense, getExpenseList } from "../services/expense.service";
 import { CreateExpenseRequest } from "../interfaces/requests/expenses";
 import { expenseSchema } from "../schemas/expense.schemas";
-import { verifyTokenWithCookies } from "../utils/jwt";
+import appAssert from "../utils/app-assert";
+import { verifyToken } from "../utils/jwt";
 
 export const getExpensesHandler = catchErrors(
   async (req: Request, res: Response) => {
@@ -20,7 +21,10 @@ export const getExpensesHandler = catchErrors(
 
 export const createExpenseHandler = catchErrors(
   async (req: Request, res: Response) => {
-    verifyTokenWithCookies(req);
+    const accessToken = req.cookies.accessToken;
+    const { payload } = verifyToken(accessToken);
+    appAssert(payload, UNAUTHORIZED, "No AccessToken token provided");
+
     const newExpense: CreateExpenseRequest = req.body;
     expenseSchema.parse(newExpense);
     const expense = await createExpense(newExpense);

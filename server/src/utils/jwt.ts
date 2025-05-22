@@ -63,9 +63,3 @@ export const verifyToken = <TPayload extends object = AccessTokenPayload>(
     };
   }
 };
-
-export const verifyTokenWithCookies = async (req: Request) => {
-  const accessToken = req.cookies.accessToken;
-  const { payload } = verifyToken(accessToken);
-  appAssert(payload, UNAUTHORIZED, "Invalid credentials");
-};
