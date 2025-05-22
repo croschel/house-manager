@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import errorHandler from "./middleware/errorHandler";
 import authRoutes from "./routes/auth.route";
+import expenseRoutes from "./routes/expense.route";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(
 app.use(cookieParser());
 
 app.use("/auth", authRoutes);
+app.use("/expense", expenseRoutes);
 
 app.use(errorHandler);
 

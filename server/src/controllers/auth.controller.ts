@@ -1,5 +1,6 @@
 import { CREATED, OK, UNAUTHORIZED } from "../constants/http";
 import SessionModel from "../models/session.model";
+import { loginSchema, registerSchema } from "../schemas/auth.schemas";
 import {
   createAccount,
   loginUser,
@@ -13,7 +14,6 @@ import {
   setAuthCookies,
 } from "../utils/cookies";
 import { verifyToken } from "../utils/jwt";
-import { loginSchema, registerSchema } from "./auth.schemas";
 
 export const registerHandler = catchErrors(async (req, res, next) => {
   const request = registerSchema.parse({
@@ -57,7 +57,7 @@ export const refreshHandler = catchErrors(async (req, res, next) => {
 
   const { accessToken, newRefreshToken } =
     await refreshUserAccessToken(refreshToken);
-
+  console.log("newRefreshToken", newRefreshToken);
   if (newRefreshToken) {
     res.cookie("refreshToken", newRefreshToken, getAccessTokenCookieOptions());
   }

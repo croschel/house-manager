@@ -1,7 +1,6 @@
 import { request } from '@/lib/request';
 import { CreateFormExpense, ExpenseData } from '@/models/interfaces';
 import { createUrlParams } from '@/utils/generators';
-import { generateUUId } from '@/utils/modifiers';
 
 const fetchExpenseList = async (
   expense: Partial<Omit<ExpenseData, 'id' | 'isFixedExpense'>>
@@ -27,20 +26,14 @@ const updateExpense = async (expense: ExpenseData) => {
 };
 
 const createExpense = async (expense: CreateFormExpense) => {
-  const newExpense: ExpenseData = {
+  const newExpense: Partial<ExpenseData> = {
     ...expense,
     value: Number(expense.value),
     ownerId: 121345, // Change after have login
-    ownerName: 'user', // Change after have login
+    accountId: 'Mocked User', // Implement this once we get login
     isFixedExpense: false, // TODO - pass this logic to backend
     location:
-      expense.location !== undefined && expense.location
-        ? expense.location
-        : '',
-    accountId: 'Mocked User', // Implement this once we get login
-    id: generateUUId(), // TODO - pass this logic to backend
-    createdAt: new Date().toISOString(), // TODO - pass this logic to backend
-    updatedAt: ''
+      expense.location !== undefined && expense.location ? expense.location : ''
   };
   return await request.post<ExpenseData>('/expenses', newExpense);
 };
