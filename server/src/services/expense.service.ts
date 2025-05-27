@@ -3,7 +3,6 @@ import { CreateExpenseRequest } from "../interfaces/requests/expenses";
 import ExpenseModel from "../models/expense.model";
 import userModel from "../models/user.model";
 import appAssert from "../utils/app-assert";
-import { DateRange } from "../utils/date";
 
 export const getExpenseList = async (
   ownerId: string,
