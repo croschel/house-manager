@@ -15,7 +15,6 @@ export const getExpenseList = async (
   // Check if date range is provided
   if (!from && !to) {
     const res = await ExpenseModel.find({ ownerId });
-    console.log("RES :: " + res);
     return res;
   }
   const expenses = await ExpenseModel.find({
