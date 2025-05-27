@@ -10,20 +10,25 @@ export const getExpenseList = async (
   from: Date,
   to?: Date
 ) => {
-  const ownerIdExist = await userModel.exists({ ownerId });
+  const ownerIdExist = await userModel.exists({ _id: ownerId });
   appAssert(ownerIdExist, BAD_REQUEST, "Owner ID does not exist");
 
   // Check if date range is provided
   if (!from && !to) {
-    return await ExpenseModel.find({ ownerId }).populate("ownerId");
+    const res = await ExpenseModel.find({ ownerId });
+    console.log("RES :: " + res);
+    return res;
   }
   const expenses = await ExpenseModel.find({
     ownerId,
     date: {
-      $gte: new Date(from),
-      $lte: new Date(to ?? ""),
+      $gte: new Date(from).toISOString(),
+      $lte:
+        to !== undefined
+          ? new Date(to).toISOString()
+          : new Date().toISOString(),
     },
-  }).populate("ownerId");
+  });
 
   // Check if expenses exist
   if (!expenses) {
@@ -35,4 +40,25 @@ export const getExpenseList = async (
 
 export const createExpense = async (newExpense: CreateExpenseRequest) => {
   return await ExpenseModel.create(newExpense);
+};
+
+export const updateExpense = async (
+  expenseId: string,
+  updatedExpense: CreateExpenseRequest
+) => {
+  const expense = await ExpenseModel.findByIdAndUpdate(
+    expenseId,
+    updatedExpense,
+    { new: true }
+  ).populate("ownerId");
+
+  appAssert(expense, BAD_REQUEST, "Expense not found or update failed");
+  return expense;
+};
+
+export const deleteExpense = async (expenseId: string) => {
+  const expense = await ExpenseModel.findByIdAndDelete(expenseId);
+
+  appAssert(expense, BAD_REQUEST, "Expense not found or delete failed");
+  return expense;
 };

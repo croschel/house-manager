@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
 import catchErrors from "../utils/catchErrors";
 import { OK, UNAUTHORIZED } from "../constants/http";
-import { createExpense, getExpenseList } from "../services/expense.service";
+import {
+  createExpense,
+  deleteExpense,
+  getExpenseList,
+  updateExpense,
+} from "../services/expense.service";
 import { CreateExpenseRequest } from "../interfaces/requests/expenses";
 import { expenseSchema } from "../schemas/expense.schemas";
 import appAssert from "../utils/app-assert";
@@ -9,7 +14,7 @@ import { verifyToken } from "../utils/jwt";
 
 export const getExpensesHandler = catchErrors(
   async (req: Request, res: Response) => {
-    const { ownerId, to, from } = req.params as unknown as {
+    const { ownerId, to, from } = req.query as unknown as {
       ownerId: string;
       from: Date;
       to?: Date | undefined;
@@ -25,9 +30,42 @@ export const createExpenseHandler = catchErrors(
     const { payload } = verifyToken(accessToken);
     appAssert(payload, UNAUTHORIZED, "No AccessToken token provided");
 
-    const newExpense: CreateExpenseRequest = req.body;
+    const newExpense: CreateExpenseRequest = {
+      ...req.body,
+      ownerId: payload.userId,
+      accountId: payload.userId,
+    };
     expenseSchema.parse(newExpense);
+
     const expense = await createExpense(newExpense);
     return res.status(201).json({ expense });
+  }
+);
+
+export const updateExpenseHandler = catchErrors(
+  async (req: Request, res: Response) => {
+    const accessToken = req.cookies.accessToken;
+    const { payload } = verifyToken(accessToken);
+    appAssert(payload, UNAUTHORIZED, "No AccessToken token provided");
+
+    const expenseId = req.params.id;
+    const updatedExpense = req.body;
+    expenseSchema.parse(updatedExpense);
+
+    const expense = await updateExpense(expenseId, updatedExpense);
+    return res.status(OK).json({ expense });
+  }
+);
+
+export const deleteExpenseHandler = catchErrors(
+  async (req: Request, res: Response) => {
+    const accessToken = req.cookies.accessToken;
+    const { payload } = verifyToken(accessToken);
+    appAssert(payload, UNAUTHORIZED, "No AccessToken token provided");
+
+    const expenseId = req.params.id;
+
+    await deleteExpense(expenseId);
+    return res.status(OK).json({ message: "Expense deleted successfully" });
   }
 );
