@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import catchErrors from "../utils/catchErrors";
-import { BAD_REQUEST, OK, UNAUTHORIZED } from "../constants/http";
 import {
   createExpense,
   deleteExpense,
@@ -9,10 +8,8 @@ import {
 } from "../services/expense.service";
 import { CreateExpenseRequest } from "../interfaces/requests/expenses";
 import { expenseSchema } from "../schemas/expense.schemas";
-import appAssert from "../utils/app-assert";
-import { verifyToken } from "../utils/jwt";
 import { SearchRequest } from "../interfaces/requests/general";
-import userModel from "../models/user.model";
+import { OK } from "../constants/http";
 
 export const getExpensesHandler = catchErrors(
   async (req: Request, res: Response) => {
