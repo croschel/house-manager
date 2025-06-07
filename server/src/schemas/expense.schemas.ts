@@ -6,7 +6,7 @@ export const expenseSchema = z.object({
   category: z.string().min(1, errorMessages.requiredField),
   value: z.number().min(1, errorMessages.requiredField),
   date: z.string(),
-  local: z.string(),
+  location: z.string(),
   repeatedExpense: z.boolean(),
   otherCategory: z.string(),
 });

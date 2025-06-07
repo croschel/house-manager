@@ -1,24 +1,20 @@
 import { BAD_REQUEST } from "../constants/http";
 import { CreateExpenseRequest } from "../interfaces/requests/expenses";
 import ExpenseModel from "../models/expense.model";
-import userModel from "../models/user.model";
 import appAssert from "../utils/app-assert";
 
 export const getExpenseList = async (
-  ownerId: string,
+  accountId: string,
   from: Date,
   to?: Date
 ) => {
-  const ownerIdExist = await userModel.exists({ _id: ownerId });
-  appAssert(ownerIdExist, BAD_REQUEST, "Owner ID does not exist");
-
   // Check if date range is provided
   if (!from && !to) {
-    const res = await ExpenseModel.find({ ownerId });
+    const res = await ExpenseModel.find({ accountId });
     return res;
   }
   const expenses = await ExpenseModel.find({
-    ownerId,
+    accountId,
     date: {
       $gte: new Date(from).toISOString(),
       $lte:

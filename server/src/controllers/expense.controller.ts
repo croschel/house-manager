@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import catchErrors from "../utils/catchErrors";
-import { OK, UNAUTHORIZED } from "../constants/http";
+import { BAD_REQUEST, OK, UNAUTHORIZED } from "../constants/http";
 import {
   createExpense,
   deleteExpense,
@@ -11,29 +11,25 @@ import { CreateExpenseRequest } from "../interfaces/requests/expenses";
 import { expenseSchema } from "../schemas/expense.schemas";
 import appAssert from "../utils/app-assert";
 import { verifyToken } from "../utils/jwt";
+import { SearchRequest } from "../interfaces/requests/general";
+import userModel from "../models/user.model";
 
 export const getExpensesHandler = catchErrors(
   async (req: Request, res: Response) => {
-    const { ownerId, to, from } = req.query as unknown as {
-      ownerId: string;
-      from: Date;
-      to?: Date | undefined;
-    };
-    const expenses = await getExpenseList(ownerId, from, to);
+    const { accountId, to, from } = req.query as unknown as SearchRequest;
+    const expenses = await getExpenseList(accountId, from, to);
     return res.status(OK).json({ expenses });
   }
 );
 
 export const createExpenseHandler = catchErrors(
   async (req: Request, res: Response) => {
-    const accessToken = req.cookies.accessToken;
-    const { payload } = verifyToken(accessToken);
-    appAssert(payload, UNAUTHORIZED, "No AccessToken token provided");
+    const user = req.user;
 
     const newExpense: CreateExpenseRequest = {
       ...req.body,
-      ownerId: payload.userId,
-      accountId: payload.userId,
+      ownerId: user.userId,
+      accountId: user.userId,
     };
     expenseSchema.parse(newExpense);
 
@@ -44,10 +40,6 @@ export const createExpenseHandler = catchErrors(
 
 export const updateExpenseHandler = catchErrors(
   async (req: Request, res: Response) => {
-    const accessToken = req.cookies.accessToken;
-    const { payload } = verifyToken(accessToken);
-    appAssert(payload, UNAUTHORIZED, "No AccessToken token provided");
-
     const expenseId = req.params.id;
     const updatedExpense = req.body;
     expenseSchema.parse(updatedExpense);
@@ -59,10 +51,6 @@ export const updateExpenseHandler = catchErrors(
 
 export const deleteExpenseHandler = catchErrors(
   async (req: Request, res: Response) => {
-    const accessToken = req.cookies.accessToken;
-    const { payload } = verifyToken(accessToken);
-    appAssert(payload, UNAUTHORIZED, "No AccessToken token provided");
-
     const expenseId = req.params.id;
 
     await deleteExpense(expenseId);

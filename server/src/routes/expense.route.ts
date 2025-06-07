@@ -5,12 +5,13 @@ import {
   getExpensesHandler,
   updateExpenseHandler,
 } from "../controllers/expense.controller";
+import { authenticate } from "../middleware/authenticate";
 
 const expenseRoutes = Router();
 
-expenseRoutes.get("/list", getExpensesHandler);
-expenseRoutes.post("/create", createExpenseHandler);
-expenseRoutes.put("/update/:id", updateExpenseHandler);
-expenseRoutes.delete("/delete/:id", deleteExpenseHandler);
+expenseRoutes.get("/list", authenticate, getExpensesHandler);
+expenseRoutes.post("/create", authenticate, createExpenseHandler);
+expenseRoutes.put("/update/:id", authenticate, updateExpenseHandler);
+expenseRoutes.delete("/delete/:id", authenticate, deleteExpenseHandler);
 
 export default expenseRoutes;
