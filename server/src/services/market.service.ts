@@ -1,3 +1,4 @@
+import { CreateMarketList } from "../interfaces/requests/market";
 import MarketModel from "../models/market.model";
 
 export const getMarketList = async (
@@ -24,4 +25,8 @@ export const getMarketList = async (
     return [];
   }
   return marketList;
+};
+
+export const createMarketList = async (market: CreateMarketList) => {
+  return await MarketModel.create(market);
 };

@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
-import { getMarketList } from "../services/market.service";
+import { createMarketList, getMarketList } from "../services/market.service";
 import { SearchRequest } from "../interfaces/requests/general";
 import { OK } from "../constants/http";
 import catchErrors from "../utils/catchErrors";
+import { StatusList } from "../enums/market";
+import { getMonth, getYear } from "../utils/date";
+import { marketSchema } from "../schemas/market.schemas";
+import { CreateMarketList } from "../interfaces/requests/market";
 
 export const getMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
@@ -15,7 +19,19 @@ export const getMarketListHandler = catchErrors(
 
 export const createMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
-    return res.status(OK).json({ message: "Not implemented yet" });
+    const user = req.user;
+    const newMarketList: CreateMarketList = {
+      ...req.body,
+      accountId: user.userId,
+      createdAt: new Date().toISOString(),
+      status: StatusList.ACTIVE,
+      effectiveMonth: getMonth(req.body.date) + 1,
+      effectiveYear: getYear(req.body.date),
+      products: [],
+    };
+    marketSchema.parse(newMarketList);
+    const market = await createMarketList(newMarketList);
+    return res.status(201).json({ market });
   }
 );
 

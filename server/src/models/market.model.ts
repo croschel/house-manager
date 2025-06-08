@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { ProductDocument } from "./product.model";
+import { StatusList } from "../enums/market";
 
 export interface MarketDocument extends mongoose.Document {
   id: string;
@@ -7,7 +8,7 @@ export interface MarketDocument extends mongoose.Document {
   totalValue: number;
   date: Date;
   location: string;
-  status: "PENDING" | "COMPLETED" | "CANCELED";
+  status: StatusList;
   effectiveMonth: number;
   effectiveYear: number;
   products: mongoose.Types.Array<ProductDocument>;
@@ -31,11 +32,12 @@ const marketSchema = new mongoose.Schema(
     },
     location: {
       type: String,
-      required: true,
+      default: "",
     },
     status: {
       type: String,
-      enum: ["PENDING", "COMPLETED", "CANCELED"],
+      enum: Object.values(StatusList),
+      required: true,
       default: "PENDING",
     },
     effectiveMonth: {
