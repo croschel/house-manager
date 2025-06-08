@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { createMarketList, getMarketList } from "../services/market.service";
+import {
+  createMarketList,
+  getMarketList,
+  updateMarketList,
+} from "../services/market.service";
 import { SearchRequest } from "../interfaces/requests/general";
 import { OK } from "../constants/http";
 import catchErrors from "../utils/catchErrors";
@@ -10,10 +14,11 @@ import { CreateMarketList } from "../interfaces/requests/market";
 
 export const getMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
-    const { accountId, to, from } = req.query as unknown as SearchRequest;
+    const user = req.user;
+    const { to, from } = req.query as unknown as SearchRequest;
 
-    const marketList = await getMarketList(accountId, from, to);
-    return res.status(OK).json({ marketList });
+    const marketList = await getMarketList(user.userId, from, to);
+    return res.status(OK).json(marketList);
   }
 );
 
@@ -31,13 +36,22 @@ export const createMarketListHandler = catchErrors(
     };
     marketSchema.parse(newMarketList);
     const market = await createMarketList(newMarketList);
-    return res.status(201).json({ market });
+    return res.status(201).json(market);
   }
 );
 
 export const updateMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
-    res.status(OK).json({ message: "Not implemented yet" });
+    const marketId = req.params.id;
+    const updatedMarketList: CreateMarketList = {
+      ...req.body,
+      effectiveMonth: getMonth(req.body.date) + 1,
+      effectiveYear: getYear(req.body.date),
+    };
+    marketSchema.parse(updatedMarketList);
+
+    const market = await updateMarketList(marketId, updatedMarketList);
+    return res.status(OK).json(market);
   }
 );
 

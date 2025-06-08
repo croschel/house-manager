@@ -14,9 +14,9 @@ const marketRoutes = Router();
 
 marketRoutes.get("/list", authenticate, getMarketListHandler);
 marketRoutes.post("/create", authenticate, createMarketListHandler);
-marketRoutes.post("/update/:id", authenticate, updateMarketListHandler);
+marketRoutes.put("/update/:id", authenticate, updateMarketListHandler);
 marketRoutes.delete("/delete/:id", authenticate, deleteMarketListHandler);
-marketRoutes.post(
+marketRoutes.put(
   "/update-product/:id",
   authenticate,
   updateProductFromMarketListHandler

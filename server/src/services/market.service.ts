@@ -1,5 +1,7 @@
+import { BAD_REQUEST } from "../constants/http";
 import { CreateMarketList } from "../interfaces/requests/market";
 import MarketModel from "../models/market.model";
+import appAssert from "../utils/app-assert";
 
 export const getMarketList = async (
   accountId: string,
@@ -29,4 +31,25 @@ export const getMarketList = async (
 
 export const createMarketList = async (market: CreateMarketList) => {
   return await MarketModel.create(market);
+};
+
+export const updateMarketList = async (
+  marketId: string,
+  market: CreateMarketList
+) => {
+  const updateMarketList = await MarketModel.findByIdAndUpdate(
+    marketId,
+    market,
+    {
+      new: true,
+    }
+  );
+  if (!updateMarketList) {
+    appAssert(
+      updateMarketList,
+      BAD_REQUEST,
+      "Market list not found or update failed"
+    );
+  }
+  return updateMarketList;
 };
