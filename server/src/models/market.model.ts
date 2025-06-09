@@ -38,7 +38,7 @@ const marketSchema = new mongoose.Schema(
       type: String,
       enum: Object.values(StatusList),
       required: true,
-      default: "PENDING",
+      default: StatusList.ACTIVE,
     },
     effectiveMonth: {
       type: Number,
@@ -48,12 +48,10 @@ const marketSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    products: [
-      {
-        type: mongoose.Schema.Types.Array,
-        default: [],
-      },
-    ],
+    products: {
+      type: mongoose.Schema.Types.Array,
+      default: [],
+    },
     createdAt: {
       type: Date,
       default: Date.now,

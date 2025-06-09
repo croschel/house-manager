@@ -1,5 +1,5 @@
 import { BAD_REQUEST } from "../constants/http";
-import { CreateMarketList } from "../interfaces/requests/market";
+import { CreateMarketList, Product } from "../interfaces/requests/market";
 import MarketModel from "../models/market.model";
 import appAssert from "../utils/app-assert";
 
@@ -52,4 +52,84 @@ export const updateMarketList = async (
     );
   }
   return updateMarketList;
+};
+
+export const deleteMarketList = async (marketId: string) => {
+  const deletedMarketList = await MarketModel.findByIdAndDelete(marketId);
+  appAssert(
+    deletedMarketList,
+    BAD_REQUEST,
+    "Market list not found or delete failed"
+  );
+  return deletedMarketList;
+};
+
+export const updateProductFromMarketList = async (
+  marketId: string,
+  productId: string,
+  productData: any
+) => {
+  const marketList = await MarketModel.findById(marketId);
+  appAssert(marketList, BAD_REQUEST, "Market list not found");
+  const productIndex = marketList.products.findIndex((product) => {
+    console.log("product", product);
+    console.log("product.id", product.id);
+    console.log("productId", productId);
+    return product.id === productId;
+  });
+  appAssert(
+    productIndex !== -1,
+    BAD_REQUEST,
+    "Product not found in market list"
+  );
+
+  marketList.products[productIndex] = {
+    ...marketList.products[productIndex],
+    ...productData,
+    updatedAt: new Date().toISOString(),
+  };
+
+  await marketList.save();
+  return marketList;
+};
+
+export const createNewProductForMarketList = async (
+  marketId: string,
+  productData: Product
+) => {
+  const marketList = await MarketModel.findById(marketId);
+  appAssert(marketList, BAD_REQUEST, "Market list not found");
+
+  const newProductData = {
+    ...productData,
+    id: (marketList.products.length + 1).toString(),
+    createdAt: new Date().toISOString(),
+    updatedAt: "",
+    done: false,
+  };
+
+  marketList.products.push(newProductData);
+  await marketList.save();
+  return marketList;
+};
+
+export const deleteProductFromMarketList = async (
+  marketId: string,
+  productId: string
+) => {
+  const marketList = await MarketModel.findById(marketId);
+  appAssert(marketList, BAD_REQUEST, "Market list not found");
+
+  const productIndex = marketList.products.findIndex(
+    (product) => product.id === productId
+  );
+  appAssert(
+    productIndex !== -1,
+    BAD_REQUEST,
+    "Product not found in market list"
+  );
+
+  marketList.products.splice(productIndex, 1);
+  await marketList.save();
+  return marketList;
 };

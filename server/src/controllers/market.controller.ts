@@ -1,16 +1,21 @@
 import { Request, Response } from "express";
 import {
   createMarketList,
+  createNewProductForMarketList,
+  deleteMarketList,
+  deleteProductFromMarketList,
   getMarketList,
   updateMarketList,
+  updateProductFromMarketList,
 } from "../services/market.service";
 import { SearchRequest } from "../interfaces/requests/general";
-import { OK } from "../constants/http";
+import { BAD_REQUEST, OK } from "../constants/http";
 import catchErrors from "../utils/catchErrors";
 import { StatusList } from "../enums/market";
 import { getMonth, getYear } from "../utils/date";
 import { marketSchema } from "../schemas/market.schemas";
 import { CreateMarketList } from "../interfaces/requests/market";
+import appAssert from "../utils/app-assert";
 
 export const getMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
@@ -57,24 +62,49 @@ export const updateMarketListHandler = catchErrors(
 
 export const deleteMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
-    res.status(OK).json({ message: "Not implemented yet" });
+    const marketId = req.params.id;
+    const deletedMarketList = await deleteMarketList(marketId);
+    return res.status(OK).json(deletedMarketList);
   }
 );
 
 export const updateProductFromMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
-    res.status(OK).json({ message: "Not implemented yet" });
+    const marketId = req.params.id;
+    const updatedProduct = req.body;
+
+    const market = await updateProductFromMarketList(
+      marketId,
+      updatedProduct.id,
+      updatedProduct
+    );
+    return res.status(OK).json(market);
   }
 );
 
 export const createNewProductForMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
-    res.status(OK).json({ message: "Not implemented yet" });
+    const marketId = req.params.id;
+    const newProduct = req.body;
+
+    const market = await createNewProductForMarketList(marketId, newProduct);
+    return res.status(OK).json(market);
   }
 );
 
 export const deleteProductFromMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
-    res.status(OK).json({ message: "Not implemented yet" });
+    const marketId = req.params.id;
+    const productId = req.query.productId;
+
+    if (!productId) {
+      appAssert(false, BAD_REQUEST, "Product ID is required for deletion");
+    }
+
+    const market = await deleteProductFromMarketList(
+      marketId,
+      productId as string
+    );
+    return res.status(OK).json(market);
   }
 );
