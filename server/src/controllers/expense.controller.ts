@@ -13,7 +13,10 @@ import { OK } from "../constants/http";
 
 export const getExpensesHandler = catchErrors(
   async (req: Request, res: Response) => {
-    const { accountId, to, from } = req.query as unknown as SearchRequest;
+    const { to, from } = req.query as unknown as SearchRequest;
+    const user = req.user;
+
+    const accountId = user.userId; // TODO - should be replaced with actual account ID logic
     const expenses = await getExpenseList(accountId, from, to);
     return res.status(OK).json({ expenses });
   }
