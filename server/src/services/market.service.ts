@@ -100,9 +100,14 @@ export const createNewProductForMarketList = async (
   const marketList = await MarketModel.findById(marketId);
   appAssert(marketList, BAD_REQUEST, "Market list not found");
 
+  const highestId = marketList.products.reduce((max, product) => {
+    const idNum = parseInt(product.id, 10);
+    return isNaN(idNum) ? max : Math.max(max, idNum);
+  }, 0);
+
   const newProductData = {
     ...productData,
-    id: (marketList.products.length + 1).toString(),
+    id: (highestId + 1).toString(),
     createdAt: new Date().toISOString(),
     updatedAt: "",
     done: false,
