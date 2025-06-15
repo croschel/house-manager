@@ -19,18 +19,18 @@ export const getExpenseList = createAsyncThunk<
     expense: Partial<Omit<ExpenseData, 'id' | 'isFixedExpense'>>;
     filter: DateRange | undefined;
   }
->('EXPENSE/FETCH_LIST', async ({ expense, filter }, { dispatch }) => {
+>('EXPENSE/FETCH_LIST', async ({ filter }, { dispatch }) => {
   try {
-    const response = (await ExpenseService.fetchExpenseList(expense)).data;
+    const response = (await ExpenseService.fetchExpenseList(filter)).data;
     let filteredExpenses = [] as ExpenseData[];
-    if (!!filter) {
-      filteredExpenses = getFilteredResultsByRange(
-        filter?.from ?? '',
-        filter?.to ?? '',
-        response,
-        'date'
-      );
-    }
+    // if (!!filter) { // TODO - remove me when backend is ready to handle this
+    //   filteredExpenses = getFilteredResultsByRange(
+    //     filter?.from ?? '',
+    //     filter?.to ?? '',
+    //     response,
+    //     'date'
+    //   );
+    // }
 
     return {
       expenses: response,

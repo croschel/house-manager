@@ -119,7 +119,10 @@ export const ExpenseControl = () => {
     navigate(`${PageType.ExpenseControl}${PageType.ExpenseList}`);
   };
 
-  const handleGetExpenseList = () =>
+  const handleGetExpenseList = () => {
+    const cookies = document.cookie;
+
+    console.log(cookies);
     dispatch(
       getExpenseList({
         expense: {} as unknown as ExpenseData,
@@ -129,7 +132,7 @@ export const ExpenseControl = () => {
         }
       })
     );
-
+  };
   useEffect(() => {
     if (expenseList.length > 0) return;
     handleGetExpenseList();

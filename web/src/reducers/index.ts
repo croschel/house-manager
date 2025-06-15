@@ -5,6 +5,7 @@ import { loadingReducer } from './loading/reducer';
 import { ExpenseReducer } from './expenses/reducer';
 import { NotificationReducer } from './notification/reducer';
 import { MarketReducer } from './market/reducer';
+import { UserReducer } from './user/reducer';
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ export const store = configureStore({
     loading: loadingReducer,
     expense: ExpenseReducer,
     market: MarketReducer,
-    notification: NotificationReducer
+    notification: NotificationReducer,
+    user: UserReducer
   }
 });
 

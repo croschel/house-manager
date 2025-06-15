@@ -1,6 +1,6 @@
-import { API_DEV_URL } from '@/constants';
+import { API_DEV_URL, API_LOCAL_URL } from '@/constants';
 import axios from 'axios';
 
 export const request = axios.create({
-  baseURL: API_DEV_URL
+  baseURL: API_LOCAL_URL
 });

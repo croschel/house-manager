@@ -14,12 +14,15 @@ import { Button } from '@/components/ui/button';
 import { UnloggedWrapper } from '@/components/generic/unlogged-wrapper';
 import { useNavigate } from 'react-router-dom';
 import { PageType } from '@/models/enums/pages';
+import { useAppDispatch } from '@/reducers';
+import { login } from '@/reducers/user/actions';
 
 const formSchema = z.object({
   email: z.string().email('Email não é válido'),
   password: z.string().min(1, 'Password é obrigatório')
 });
 export const Login = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -29,10 +32,11 @@ export const Login = () => {
     }
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    navigate(PageType.ExpenseControl);
+    dispatch(login(values)).then((action) => {
+      if (login.fulfilled.match(action)) {
+        navigate(PageType.ExpenseControl);
+      }
+    });
   };
 
   const handleCreateAccount = () => {
