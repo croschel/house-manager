@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts ./src/types/express/index.d.ts",
     "build": "tsc && cp ./package.json ./dist",
     "start": "node index.js"
   },

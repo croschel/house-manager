@@ -7,6 +7,7 @@ import errorHandler from "./middleware/errorHandler";
 import authRoutes from "./routes/auth.route";
 import expenseRoutes from "./routes/expense.route";
 import marketRoutes from "./routes/market.route";
+import userRoutes from "./routes/user.route";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/expense", expenseRoutes);
 app.use("/market", marketRoutes);
+app.use("/user", userRoutes);
 
 app.use(errorHandler);
 
