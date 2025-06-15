@@ -15,6 +15,7 @@ export const authenticate = async (
 
   const ownerIdExist = await userModel.exists({ _id: payload.userId });
   appAssert(ownerIdExist, BAD_REQUEST, "Owner ID does not exist");
+  // @ts-ignore
   req.user = payload; // Attach payload to req
   next();
 };
