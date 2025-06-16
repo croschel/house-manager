@@ -11,7 +11,6 @@ export const LoggedWrapper = ({ children }: { children: React.ReactNode }) => {
     isLoadingUser === ActionStatus.SUCCESS ||
     isLoadingUser === ActionStatus.FAILED
   ) {
-    // If the user is not logged in and the cookie does not exist, redirect to login
     if (!user) {
       console.log('User not logged in, redirecting to login page');
       return <Navigate to={PageType.Login} replace />;
