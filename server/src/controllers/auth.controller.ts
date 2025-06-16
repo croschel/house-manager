@@ -24,7 +24,7 @@ export const registerHandler = catchErrors(async (req, res, next) => {
 
   return setAuthCookies(res, accessToken, refreshToken)
     .status(CREATED)
-    .json({ user });
+    .json(user);
 });
 
 export const loginHandler = catchErrors(async (req, res, next) => {

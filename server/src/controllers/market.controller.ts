@@ -23,7 +23,7 @@ export const getMarketListHandler = catchErrors(
     const { to, from } = req.query as unknown as SearchRequest;
 
     const marketList = await getMarketList(user.userId, from, to);
-    return res.status(OK).json({ data: marketList });
+    return res.status(OK).json(marketList);
   }
 );
 
@@ -41,7 +41,7 @@ export const createMarketListHandler = catchErrors(
     };
     marketSchema.parse(newMarketList);
     const market = await createMarketList(newMarketList);
-    return res.status(201).json({ data: market });
+    return res.status(201).json(market);
   }
 );
 
@@ -56,7 +56,7 @@ export const updateMarketListHandler = catchErrors(
     marketSchema.parse(updatedMarketList);
 
     const market = await updateMarketList(marketId, updatedMarketList);
-    return res.status(OK).json({ data: market });
+    return res.status(OK).json(market);
   }
 );
 
@@ -64,7 +64,7 @@ export const deleteMarketListHandler = catchErrors(
   async (req: Request, res: Response) => {
     const marketId = req.params.id;
     const deletedMarketList = await deleteMarketList(marketId);
-    return res.status(OK).json({ data: deletedMarketList });
+    return res.status(OK).json(deletedMarketList);
   }
 );
 
@@ -78,7 +78,7 @@ export const updateProductFromMarketListHandler = catchErrors(
       updatedProduct.id,
       updatedProduct
     );
-    return res.status(OK).json({ data: market });
+    return res.status(OK).json(market);
   }
 );
 
@@ -88,7 +88,7 @@ export const createNewProductForMarketListHandler = catchErrors(
     const newProduct = req.body;
 
     const market = await createNewProductForMarketList(marketId, newProduct);
-    return res.status(OK).json({ data: market });
+    return res.status(OK).json(market);
   }
 );
 
@@ -105,6 +105,6 @@ export const deleteProductFromMarketListHandler = catchErrors(
       marketId,
       productId as string
     );
-    return res.status(OK).json({ data: market });
+    return res.status(OK).json(market);
   }
 );

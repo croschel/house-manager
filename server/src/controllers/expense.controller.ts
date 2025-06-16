@@ -18,7 +18,7 @@ export const getExpensesHandler = catchErrors(
 
     const accountId = user.userId; // TODO - should be replaced with actual account ID logic
     const expenses = await getExpenseList(accountId, from, to);
-    return res.status(OK).json({ data: expenses });
+    return res.status(OK).json(expenses);
   }
 );
 
@@ -34,7 +34,7 @@ export const createExpenseHandler = catchErrors(
     expenseSchema.parse(newExpense);
 
     const expense = await createExpense(newExpense);
-    return res.status(201).json({ data: expense });
+    return res.status(201).json(expense);
   }
 );
 
@@ -45,7 +45,7 @@ export const updateExpenseHandler = catchErrors(
     expenseSchema.parse(updatedExpense);
 
     const expense = await updateExpense(expenseId, updatedExpense);
-    return res.status(OK).json({ data: expense });
+    return res.status(OK).json(expense);
   }
 );
 

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { init } from '../app/actions';
+import { login, getUser } from '../user/actions';
 import {
   createExpense,
   getExpense,
@@ -22,6 +23,9 @@ import { ActionStatus } from '@/models/enums';
 // step 1: add state field and value
 interface LoadingState {
   init: ActionStatus;
+  // User
+  login: ActionStatus;
+  getUser: ActionStatus;
   // Expenses
   createExpense: ActionStatus;
   getExpense: ActionStatus;
@@ -41,6 +45,9 @@ interface LoadingState {
 
 const initialState: LoadingState = {
   init: ActionStatus.INITIAL,
+  // User
+  login: ActionStatus.INITIAL,
+  getUser: ActionStatus.INITIAL,
   // Expenses
   createExpense: ActionStatus.INITIAL,
   getExpense: ActionStatus.INITIAL,
@@ -64,6 +71,9 @@ const asyncThunks: Record<
   AsyncThunk<any, any, Record<string, unknown>>
 > = {
   init,
+  // User
+  login,
+  getUser,
   // Expenses
   createExpense,
   getExpense,

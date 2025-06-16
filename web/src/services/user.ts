@@ -9,7 +9,10 @@ const login = async (email: string, password: string) =>
 
 const getUser = async () => await request.get<User>('/user');
 
+const logout = async () => await request.get<string>('/auth/logout');
+
 export const UserService = {
   login,
-  getUser
+  getUser,
+  logout
 };

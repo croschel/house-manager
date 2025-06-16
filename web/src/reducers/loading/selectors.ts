@@ -2,6 +2,10 @@ import { RootState } from '@/reducers';
 
 export const selectInitLoading = (state: RootState) => state.loading.init;
 
+// User
+export const selectLoginLoading = (state: RootState) => state.loading.login;
+export const selectGetUserLoading = (state: RootState) => state.loading.getUser;
+
 // Expenses
 export const selectCreateExpenseLoading = (state: RootState) =>
   state.loading.createExpense;

@@ -1,5 +1,4 @@
 import { DataBox } from '@/components/generic/data-box';
-import { Header } from '@/components/generic/header';
 import { FundModal } from './fund-modal';
 import { ExpenseModal } from './expense-modal';
 import { useEffect, useMemo, useState } from 'react';
@@ -23,6 +22,7 @@ import { ExpenseBarChart } from './expense-bar-chart';
 import { OverviewChart } from './overview-chart';
 import { ExpenseData } from '@/models/interfaces';
 import SidebarComponent from '@/components/generic/sidebar-component';
+import { LoggedWrapper } from '@/components/generic/logged-wrapper';
 
 export const ExpenseControl = () => {
   const dispatch = useAppDispatch();
@@ -120,9 +120,6 @@ export const ExpenseControl = () => {
   };
 
   const handleGetExpenseList = () => {
-    const cookies = document.cookie;
-
-    console.log(cookies);
     dispatch(
       getExpenseList({
         expense: {} as unknown as ExpenseData,
@@ -139,119 +136,123 @@ export const ExpenseControl = () => {
   }, []);
 
   return (
-    <SidebarComponent>
-      <Splash stateList={[isLoadingExpenses]} retry={handleGetExpenseList}>
-        <MainContainer>
-          <MainFilterPage
-            primaryBtnLabel="Adicionar Fundo"
-            secondaryBtnLabel="Adicionar Despesa"
-            handlePrimaryBtn={() => handleOpenExpenseModal('fund')}
-            handleSecondaryBtn={() => handleOpenExpenseModal('expense')}
-            onSubmitFilter={(date) => handleFilter(date)}
-            primaryBtnVariant="creation"
-            secondaryBtnVariant="destructive"
-          />
-          <div className="flex flex-col flex-1">
-            <div className="flex w-full mt-6 gap-4 pb-2 overflow-x-auto">
-              <DataBox
-                title="Saldo Total"
-                mainValue={formatToCurrencyRealWithDollar(counters.totalAmount)}
-                subTitle="Saldo total do filtro de datas"
-                iconName="DollarSign"
-                iconColor="white"
-                iconSize={18}
-                size="medium"
-              />
-              <DataBox
-                title="Maior Gasto"
-                mainValue={formatToCurrencyRealWithDollar(
-                  counters.higherExpense?.value
-                )}
-                subTitle={counters.higherExpense.name}
-                iconName="DollarSign"
-                iconColor="white"
-                iconSize={18}
-                size="medium"
-                category={counters.higherExpense.category}
-              />
-              <DataBox
-                title="Menor Gasto"
-                mainValue={formatToCurrencyRealWithDollar(
-                  counters.lowerExpense.value
-                )}
-                subTitle={counters.higherExpense.name}
-                iconName="DollarSign"
-                iconColor="white"
-                iconSize={18}
-                size="medium"
-                category={counters.higherExpense.category}
-              />
-              <DataBox
-                title="Resumo de Ganhos/Despesas"
-                iconName="ChartColumn"
-                iconColor="white"
-                iconSize={18}
-                className="min-w-[fit-content]"
-                size="medium"
-                customContent={
-                  <ExpenseBarChart
-                    last12MonthsFundsExpenses={
-                      counters.last12MonthsFundsExpenses
-                    }
-                  />
-                }
-              />
+    <LoggedWrapper>
+      <SidebarComponent>
+        <Splash stateList={[isLoadingExpenses]} retry={handleGetExpenseList}>
+          <MainContainer>
+            <MainFilterPage
+              primaryBtnLabel="Adicionar Fundo"
+              secondaryBtnLabel="Adicionar Despesa"
+              handlePrimaryBtn={() => handleOpenExpenseModal('fund')}
+              handleSecondaryBtn={() => handleOpenExpenseModal('expense')}
+              onSubmitFilter={(date) => handleFilter(date)}
+              primaryBtnVariant="creation"
+              secondaryBtnVariant="destructive"
+            />
+            <div className="flex flex-col flex-1">
+              <div className="flex w-full mt-6 gap-4 pb-2 overflow-x-auto">
+                <DataBox
+                  title="Saldo Total"
+                  mainValue={formatToCurrencyRealWithDollar(
+                    counters.totalAmount
+                  )}
+                  subTitle="Saldo total do filtro de datas"
+                  iconName="DollarSign"
+                  iconColor="white"
+                  iconSize={18}
+                  size="medium"
+                />
+                <DataBox
+                  title="Maior Gasto"
+                  mainValue={formatToCurrencyRealWithDollar(
+                    counters.higherExpense?.value
+                  )}
+                  subTitle={counters.higherExpense.name}
+                  iconName="DollarSign"
+                  iconColor="white"
+                  iconSize={18}
+                  size="medium"
+                  category={counters.higherExpense.category}
+                />
+                <DataBox
+                  title="Menor Gasto"
+                  mainValue={formatToCurrencyRealWithDollar(
+                    counters.lowerExpense.value
+                  )}
+                  subTitle={counters.higherExpense.name}
+                  iconName="DollarSign"
+                  iconColor="white"
+                  iconSize={18}
+                  size="medium"
+                  category={counters.higherExpense.category}
+                />
+                <DataBox
+                  title="Resumo de Ganhos/Despesas"
+                  iconName="ChartColumn"
+                  iconColor="white"
+                  iconSize={18}
+                  className="min-w-[fit-content]"
+                  size="medium"
+                  customContent={
+                    <ExpenseBarChart
+                      last12MonthsFundsExpenses={
+                        counters.last12MonthsFundsExpenses
+                      }
+                    />
+                  }
+                />
+              </div>
+              <div className="flex flex-1 w-full mt-6 gap-4">
+                <DataBox
+                  title="Overview de Gastos"
+                  iconName="ChartArea"
+                  iconColor="white"
+                  iconSize={18}
+                  className="h-[100%] min-w-[60%]"
+                  onClick={handleOpenExpenseList}
+                  customContent={
+                    <OverviewChart
+                      expensesPerCategory={counters.expensesPerCategory}
+                    />
+                  }
+                />
+                <DataBox
+                  title="Últimos 7 Gastos"
+                  iconName="List"
+                  iconColor="white"
+                  iconSize={18}
+                  className="h-[100%]"
+                  onClick={handleOpenExpenseList}
+                  customContent={
+                    <ul className="flex flex-col text-zinc-300 w-full h-full justify-start gap-5 mt-9">
+                      {counters.last7Expenses.map((expense) => (
+                        <li
+                          className="flex justify-between items-centerr"
+                          key={expense.id}
+                        >
+                          <div className="flex gap-4 items-center">
+                            {categoriesIcons[expense.category as ExpenseValues]}
+                            <span>{expense.name}</span>
+                          </div>
+                          <span>
+                            {formatToCurrencyRealWithDollar(expense.value)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  }
+                />
+              </div>
             </div>
-            <div className="flex flex-1 w-full mt-6 gap-4">
-              <DataBox
-                title="Overview de Gastos"
-                iconName="ChartArea"
-                iconColor="white"
-                iconSize={18}
-                className="h-[100%] min-w-[60%]"
-                onClick={handleOpenExpenseList}
-                customContent={
-                  <OverviewChart
-                    expensesPerCategory={counters.expensesPerCategory}
-                  />
-                }
-              />
-              <DataBox
-                title="Últimos 7 Gastos"
-                iconName="List"
-                iconColor="white"
-                iconSize={18}
-                className="h-[100%]"
-                onClick={handleOpenExpenseList}
-                customContent={
-                  <ul className="flex flex-col text-zinc-300 w-full h-full justify-start gap-5 mt-9">
-                    {counters.last7Expenses.map((expense) => (
-                      <li
-                        className="flex justify-between items-centerr"
-                        key={expense.id}
-                      >
-                        <div className="flex gap-4 items-center">
-                          {categoriesIcons[expense.category as ExpenseValues]}
-                          <span>{expense.name}</span>
-                        </div>
-                        <span>
-                          {formatToCurrencyRealWithDollar(expense.value)}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                }
-              />
-            </div>
-          </div>
-        </MainContainer>
-      </Splash>
-      <FundModal isOpen={fundModal} setIsOpen={setFundModal} />
-      <ExpenseModal
-        isOpen={expenseModal}
-        setIsOpen={setExpenseModal}
-        type="add"
-      />
-    </SidebarComponent>
+          </MainContainer>
+        </Splash>
+        <FundModal isOpen={fundModal} setIsOpen={setFundModal} />
+        <ExpenseModal
+          isOpen={expenseModal}
+          setIsOpen={setExpenseModal}
+          type="add"
+        />
+      </SidebarComponent>
+    </LoggedWrapper>
   );
 };

@@ -5,11 +5,12 @@ import { buildAppError } from '@/utils/message';
 import { User } from '@/models/interfaces/user';
 
 export const login = createAsyncThunk<
-  { message: string },
+  User,
   { email: string; password: string }
 >('USER/LOGIN', async ({ email, password }, { dispatch }) => {
   try {
-    const response = (await UserService.login(email, password)).data;
+    await UserService.login(email, password);
+    const response = (await UserService.getUser()).data;
     return response;
   } catch (error) {
     throw dispatch(
@@ -28,6 +29,7 @@ export const getUser = createAsyncThunk<User, void>(
   async (_, { dispatch }) => {
     try {
       const response = (await UserService.getUser()).data;
+      console.log('User fetched:', response);
       return response;
     } catch (error) {
       throw dispatch(
