@@ -6,3 +6,10 @@ export interface User {
   updatedAt: string;
   __v: number;
 }
+
+export interface UserCreate {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}

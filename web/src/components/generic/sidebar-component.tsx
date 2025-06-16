@@ -7,8 +7,12 @@ import {
   SidebarTrigger
 } from '@/components/ui/sidebar';
 import { AppSidebar } from './app-sidebar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PageTitle, PageType } from '@/models/enums';
+import { LogOutIcon } from 'lucide-react';
+import { Button } from '../ui/button';
+import { useAppDispatch } from '@/reducers';
+import { logout } from '@/reducers/user/actions';
 
 export default function SidebarComponent({
   children
@@ -16,6 +20,8 @@ export default function SidebarComponent({
   children: React.ReactNode;
 }) {
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleWidth = (context: SidebarContextProps | null) => {
     if (context !== null) {
       if (context?.isMobile) {
@@ -39,6 +45,14 @@ export default function SidebarComponent({
     return PageTitle[path];
   };
 
+  const handleLogout = () => {
+    dispatch(logout()).then((response) => {
+      if (response.meta.requestStatus === 'fulfilled') {
+        navigate(PageType.Login);
+      }
+    });
+  };
+
   return (
     <SidebarProvider className="w-screen">
       <AppSidebar />
@@ -46,10 +60,15 @@ export default function SidebarComponent({
         <header className="flex h-16 shrink-0 items-center gap-2 border-b border-zinc-700 px-4">
           <SidebarTrigger className="-ml-1 bg-zinc-600 text-zinc-100" />
           <Separator orientation="vertical" className="mr-2 h-4 bg-zinc-600" />
-          <h1 className="text-zinc-200 text-lg">
-            {/* @ts-ignore */}
-            {getPageName()}
-          </h1>
+          <div className="flex items-center justify-between w-full">
+            <h1 className="text-zinc-200 text-lg">
+              {/* @ts-ignore */}
+              {getPageName()}
+            </h1>
+            <Button onClick={handleLogout}>
+              <LogOutIcon color="white" />
+            </Button>
+          </div>
         </header>
         {
           <SidebarContext.Consumer>

@@ -23,5 +23,9 @@ export const UserReducer = createReducer(initialState, (user) => {
         ...state,
         user: payload
       })
-    );
+    )
+    .addCase(userActions.logout.fulfilled, (state: UserState) => ({
+      ...state,
+      user: undefined
+    }));
 });

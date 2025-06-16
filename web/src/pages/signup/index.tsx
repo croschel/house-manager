@@ -1,3 +1,4 @@
+import { LoadingSpinner } from '@/components/generic/spinner';
 import { UnloggedWrapper } from '@/components/generic/unlogged-wrapper';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,6 +10,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ActionStatus } from '@/models/enums';
+import { useAppDispatch, useAppSelector } from '@/reducers';
+import { selectCreateUserLoading } from '@/reducers/loading/selectors';
+import { createUser } from '@/reducers/user/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +27,9 @@ const formSchema = z.object({
 });
 
 export const SignUp = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isCreatingUser = useAppSelector(selectCreateUserLoading);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,10 +40,12 @@ export const SignUp = () => {
     }
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    alert('Conta criada com sucesso');
+    dispatch(createUser(values)).then((response) => {
+      if (response.meta.requestStatus === 'fulfilled') {
+        navigate('/login');
+        form.reset();
+      }
+    });
   };
 
   const handleMoveBack = () => {
@@ -48,90 +57,95 @@ export const SignUp = () => {
       title="Criar Conta"
       description="Preencha os campos abaixo com os seus dados de acesso"
     >
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-4"
-        >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input placeholder="Digite seu nome" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input placeholder="Digite seu email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Digite sua senha"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Confirme sua senha"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button className="w-full mt-2" variant="secondary" type="submit">
-            Criar Conta
-          </Button>
-        </form>
-      </Form>
+      {isCreatingUser ? (
+        <LoadingSpinner size={60} />
+      ) : (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Digite seu nome" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Digite seu email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Digite sua senha"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Confirme sua senha"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button className="w-full mt-2" variant="secondary" type="submit">
+              Criar Conta
+            </Button>
+          </form>
+        </Form>
+      )}
       <Button
         className="w-full mt-2"
         variant="default"
         type="submit"
         onClick={handleMoveBack}
+        disabled={isCreatingUser === ActionStatus.LOADING}
       >
         Já possuo uma conta
       </Button>
-      <div className="w-full flex align-center my-8">
+      {/* <div className="w-full flex align-center my-8">
         <div className="flex flex-1 border border-1 h-0 mt-2" />
         <Label className="flex flex-1 text-nowrap text-[12px] text-zinc-200 px-2">
           OU CONTINUE COM
         </Label>
         <div className="flex flex-1 border border-1 h-0 mt-2" />
-      </div>
-      <Button className="w-full" variant="outline" type="submit">
+      </div> */}
+      {/* <Button className="w-full" variant="outline" type="submit">
         Google
-      </Button>
+      </Button> */}
     </UnloggedWrapper>
   );
 };

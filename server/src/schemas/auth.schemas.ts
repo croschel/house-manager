@@ -18,6 +18,7 @@ export const loginSchema = zod.object({
 
 export const registerSchema = loginSchema
   .extend({
+    name: zod.string().min(1, "Name is required").max(255, "Name is too long"),
     confirmPassword: zod
       .string()
       .min(6, "Password is required")

@@ -14,6 +14,7 @@ import {
 } from "../utils/jwt";
 
 export type CreateAccountParams = {
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -27,6 +28,7 @@ export const createAccount = async (data: CreateAccountParams) => {
 
   // create user
   const user = await userModel.create({
+    name: data.name,
     email: data.email,
     password: data.password,
   });

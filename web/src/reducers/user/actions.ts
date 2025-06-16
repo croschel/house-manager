@@ -1,8 +1,8 @@
 import { UserService } from '@/services/user';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { addNotificationAction } from '../notification/actions';
-import { buildAppError } from '@/utils/message';
-import { User } from '@/models/interfaces/user';
+import { buildAppError, buildAppSuccess } from '@/utils/message';
+import { User, UserCreate } from '@/models/interfaces/user';
 
 export const login = createAsyncThunk<
   User,
@@ -17,7 +17,7 @@ export const login = createAsyncThunk<
       addNotificationAction(
         buildAppError({
           type: 'Create',
-          description: 'Failed to login. Please check your credentials.'
+          description: 'Falha ao fazer login. Verifique suas credenciais.'
         })
       )
     );
@@ -26,17 +26,58 @@ export const login = createAsyncThunk<
 
 export const getUser = createAsyncThunk<User, void>(
   'USER/GET_USER',
-  async (_, { dispatch }) => {
+  async () => {
     try {
       const response = (await UserService.getUser()).data;
       console.log('User fetched:', response);
       return response;
     } catch (error) {
+      throw new Error('Failed to fetch user. Please try again later.');
+    }
+  }
+);
+
+export const logout = createAsyncThunk<string, void>(
+  'USER/LOGOUT',
+  async (_, { dispatch }) => {
+    try {
+      const response = (await UserService.logout()).data;
+      return response;
+    } catch (error) {
       throw dispatch(
         addNotificationAction(
           buildAppError({
-            type: 'Fetch',
-            description: 'Logout foi feito. Por favor, faça login novamente.'
+            type: 'Update',
+            description: 'Falha ao fazer logout. Por favor, tente novamente.'
+          })
+        )
+      );
+    }
+  }
+);
+
+export const createUser = createAsyncThunk<User, UserCreate>(
+  'USER/CREATE_USER',
+  async (newUser, { dispatch }) => {
+    try {
+      const response = (await UserService.createUser(newUser)).data;
+      dispatch(
+        addNotificationAction(
+          buildAppSuccess({
+            type: 'Create',
+            description: 'Usuário criado com sucesso!'
+          })
+        )
+      );
+      return response;
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw dispatch(
+        addNotificationAction(
+          buildAppError({
+            type: 'Create',
+            description:
+              'Falha ao criar usuário. Verifique os dados informados.'
           })
         )
       );

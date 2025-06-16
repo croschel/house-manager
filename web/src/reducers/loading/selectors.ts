@@ -5,6 +5,9 @@ export const selectInitLoading = (state: RootState) => state.loading.init;
 // User
 export const selectLoginLoading = (state: RootState) => state.loading.login;
 export const selectGetUserLoading = (state: RootState) => state.loading.getUser;
+export const selectLogoutLoading = (state: RootState) => state.loading.logout;
+export const selectCreateUserLoading = (state: RootState) =>
+  state.loading.createUser;
 
 // Expenses
 export const selectCreateExpenseLoading = (state: RootState) =>

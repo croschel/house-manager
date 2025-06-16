@@ -9,7 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { PageType } from '@/models/enums/pages';
 import { useAppDispatch, useAppSelector } from '@/reducers';
 import { getExpenseList } from '@/reducers/expenses/actions';
-import { selectGetExpenseListLoading } from '@/reducers/loading/selectors';
+import {
+  selectGetExpenseListLoading,
+  selectGetUserLoading
+} from '@/reducers/loading/selectors';
 import { Splash } from '@/components/generic/splash';
 import { selectFilteredExpenses } from '@/reducers/expenses/selectors';
 import { compareDatesForSort, getLast12monthsWithYear } from '@/utils/date';
@@ -29,6 +32,7 @@ export const ExpenseControl = () => {
   const navigate = useNavigate();
   const expenseList = useAppSelector(selectFilteredExpenses);
   const isLoadingExpenses = useAppSelector(selectGetExpenseListLoading);
+  const isLoadingUser = useAppSelector(selectGetUserLoading);
   const [fundModal, setFundModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
 
@@ -138,7 +142,10 @@ export const ExpenseControl = () => {
   return (
     <LoggedWrapper>
       <SidebarComponent>
-        <Splash stateList={[isLoadingExpenses]} retry={handleGetExpenseList}>
+        <Splash
+          stateList={[isLoadingExpenses, isLoadingUser]}
+          retry={handleGetExpenseList}
+        >
           <MainContainer>
             <MainFilterPage
               primaryBtnLabel="Adicionar Fundo"

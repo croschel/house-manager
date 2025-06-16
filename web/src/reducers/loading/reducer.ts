@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { init } from '../app/actions';
-import { login, getUser } from '../user/actions';
+import { login, getUser, createUser, logout } from '../user/actions';
 import {
   createExpense,
   getExpense,
@@ -26,6 +26,8 @@ interface LoadingState {
   // User
   login: ActionStatus;
   getUser: ActionStatus;
+  logout: ActionStatus;
+  createUser: ActionStatus;
   // Expenses
   createExpense: ActionStatus;
   getExpense: ActionStatus;
@@ -48,6 +50,8 @@ const initialState: LoadingState = {
   // User
   login: ActionStatus.INITIAL,
   getUser: ActionStatus.INITIAL,
+  logout: ActionStatus.INITIAL,
+  createUser: ActionStatus.INITIAL,
   // Expenses
   createExpense: ActionStatus.INITIAL,
   getExpense: ActionStatus.INITIAL,
@@ -70,10 +74,13 @@ const asyncThunks: Record<
   keyof LoadingState,
   AsyncThunk<any, any, Record<string, unknown>>
 > = {
+  // step 3: add action to object
   init,
   // User
   login,
   getUser,
+  logout,
+  createUser,
   // Expenses
   createExpense,
   getExpense,
