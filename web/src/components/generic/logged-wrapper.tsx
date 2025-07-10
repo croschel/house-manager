@@ -2,20 +2,15 @@ import { ActionStatus, PageType } from '@/models/enums';
 import { useAppSelector } from '@/reducers';
 import { selectGetUserLoading } from '@/reducers/loading/selectors';
 import { selectLoggedUser } from '@/reducers/user/selectors';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { Splash } from './splash';
 
-export const LoggedWrapper = ({ children }: { children: React.ReactNode }) => {
+export const LoggedWrapper = () => {
   const user = useAppSelector(selectLoggedUser);
-  const isLoadingUser = useAppSelector(selectGetUserLoading);
-  if (
-    isLoadingUser === ActionStatus.SUCCESS ||
-    isLoadingUser === ActionStatus.FAILED
-  ) {
-    if (!user) {
-      console.log('User not logged in, redirecting to login page');
-      return <Navigate to={PageType.Login} replace />;
-    }
-  }
+  const loadingUserAction = useAppSelector(selectGetUserLoading);
 
-  return children;
+  if (loadingUserAction === ActionStatus.LOADING) {
+    return <Splash stateList={[loadingUserAction]} />;
+  }
+  return !!user ? <Outlet /> : <Navigate to={PageType.Login} replace />;
 };

@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { PageType } from '@/models/enums/pages';
 import { useAppDispatch } from '@/reducers';
 import { login } from '@/reducers/user/actions';
+import { resetAllActionStatus } from '@/reducers/loading/actions';
 
 const formSchema = z.object({
   email: z.string().email('Email não é válido'),
@@ -34,6 +35,7 @@ export const Login = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     dispatch(login(values)).then((action) => {
       if (login.fulfilled.match(action)) {
+        dispatch(resetAllActionStatus());
         navigate(PageType.ExpenseControl);
       }
     });

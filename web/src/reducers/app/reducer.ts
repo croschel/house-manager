@@ -1,7 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import * as AppActions from './actions';
-
 interface AppState {
   appVersion: string;
   counter: number;

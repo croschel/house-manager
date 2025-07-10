@@ -1,10 +1,10 @@
-import { request } from '@/lib/request';
+import request from '@/lib/request';
 import { CreateFormExpense, ExpenseData } from '@/models/interfaces';
 import { createUrlParams } from '@/utils/generators';
 import { DateRange } from 'react-day-picker';
 
 const fetchExpenseList = async (filter: DateRange | undefined) => {
-  let query = createUrlParams({ ...filter });
+  const query = createUrlParams({ ...filter });
   return await request.get<ExpenseData[]>(`/expense/list${query}`);
 };
 

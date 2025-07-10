@@ -1,4 +1,3 @@
-import { Header } from '@/components/generic/header';
 import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { useState } from 'react';

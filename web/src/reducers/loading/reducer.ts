@@ -2,6 +2,7 @@
 import { AsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { init } from '../app/actions';
 import { login, getUser, createUser, logout } from '../user/actions';
+import { resetAllActionStatus } from '../loading/actions';
 import {
   createExpense,
   getExpense,
@@ -101,6 +102,9 @@ const asyncThunks: Record<
 export const loadingReducer = createReducer<LoadingState>(
   initialState,
   (loading) => {
+    loading.addCase(resetAllActionStatus, () => ({
+      ...initialState
+    }));
     for (const [stateKey, thunk] of Object.entries(asyncThunks) as [
       keyof LoadingState,
       AsyncThunk<any, any, Record<string, unknown>>

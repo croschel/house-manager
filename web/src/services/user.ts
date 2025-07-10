@@ -1,4 +1,4 @@
-import { request } from '@/lib/request';
+import request from '@/lib/request';
 import { User, UserCreate } from '@/models/interfaces/user';
 
 const login = async (email: string, password: string) =>
@@ -6,6 +6,9 @@ const login = async (email: string, password: string) =>
     email,
     password
   });
+
+const refreshToken = async () =>
+  await request.get<{ message: string }>('/auth/refresh');
 
 const getUser = async () => await request.get<User>('/user');
 
@@ -16,6 +19,7 @@ const createUser = async (newUser: UserCreate) =>
 
 export const UserService = {
   login,
+  refreshToken,
   getUser,
   logout,
   createUser

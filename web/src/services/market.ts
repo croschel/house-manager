@@ -1,4 +1,4 @@
-import { request } from '@/lib/request';
+import request from '@/lib/request';
 import { StatusList } from '@/models/enums';
 import { MarketList, Product } from '@/models/interfaces';
 import { createUrlParams } from '@/utils/generators';
