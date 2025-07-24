@@ -6,6 +6,7 @@ import {
   getMonth,
   format
 } from 'date-fns';
+import { DateRange } from 'react-day-picker';
 
 /**
  * Checks if the first date is after the second date.
@@ -79,4 +80,27 @@ export const getFilteredResultsByRange = (
     const eventDate = new Date(item[filterKey]);
     return eventDate >= from && eventDate <= to;
   });
+};
+
+/**
+ * Checks if a given date is within a specified DateRange.
+ *
+ * @param date - The date to check, as a Date object or ISO 8601 string.
+ * @param range - The DateRange object with `from` and optional `to` dates.
+ * @returns A boolean indicating if the date is within the range.
+ */
+export const isDateInRange = (
+  date: Date | string,
+  range: DateRange
+): boolean => {
+  const parsedDate = typeof date === 'string' ? parseISO(date) : date;
+
+  if (!range.from) {
+    return false; // If no start date is provided, return false.
+  }
+
+  const fromDate = range.from;
+  const toDate = range.to || new Date(); // Default to current date if `to` is undefined.
+
+  return parsedDate >= fromDate && parsedDate <= toDate;
 };

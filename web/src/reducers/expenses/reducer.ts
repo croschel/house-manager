@@ -1,19 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit';
-
 import * as ExpenseActions from './actions';
 import { ExpenseData } from '@/models/interfaces';
 import { DateRange } from 'react-day-picker';
 import { subDays } from 'date-fns';
+import { isDateInRange } from '@/utils/date';
 
 interface ExpenseState {
   expenseList: ExpenseData[];
-  filteredExpenses: ExpenseData[];
   expenseDateFilter: DateRange;
 }
 
 const initialState: ExpenseState = {
   expenseList: [],
-  filteredExpenses: [],
   expenseDateFilter: {
     from: subDays(new Date(), 30),
     to: new Date()
@@ -46,12 +44,6 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
             return payload;
           }
           return expense;
-        }),
-        filteredExpenses: state.filteredExpenses.map((expense) => {
-          if (expense._id === payload?._id) {
-            return payload;
-          }
-          return expense;
         })
       })
     )
@@ -64,37 +56,30 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
             return payload;
           }
           return expense;
-        }),
-        filteredExpenses: state.filteredExpenses.map((expense) => {
-          if (expense._id === payload?._id) {
-            return payload;
-          }
-          return expense;
         })
       })
     )
     .addCase(
       ExpenseActions.createExpense.fulfilled,
-      (state: ExpenseState, { payload }) => ({
-        ...state,
-        expenseList:
-          payload !== undefined
-            ? [...state.expenseList, payload]
-            : state.expenseList,
-        filteredExpenses:
-          payload !== undefined
-            ? [...state.filteredExpenses, payload]
-            : state.filteredExpenses
-      })
+      (state: ExpenseState, { payload }) => {
+        const conditionToIncludeExpense = isDateInRange(
+          payload?.date ?? '',
+          state.expenseDateFilter
+        );
+        return {
+          ...state,
+          expenseList:
+            payload !== undefined && conditionToIncludeExpense
+              ? [...state.expenseList, payload]
+              : state.expenseList
+        };
+      }
     )
     .addCase(
       ExpenseActions.deleteExpense.fulfilled,
       (state: ExpenseState, { payload }) => ({
         ...state,
         expenseList: state.expenseList.filter(
-          (expense) => expense._id !== payload?._id
-        ),
-        filteredExpenses: state.filteredExpenses.filter(
           (expense) => expense._id !== payload?._id
         )
       })
