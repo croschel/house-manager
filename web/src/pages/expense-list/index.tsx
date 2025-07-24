@@ -1,6 +1,6 @@
 import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { ExpenseModal } from '../expense-control/expense-modal';
 import { DataTable } from '@/components/generic/base-table';
@@ -13,7 +13,7 @@ import { SortElement } from '@/components/generic/sort-element';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { useAppDispatch, useAppSelector } from '@/reducers';
 import { selectFilteredExpenses } from '@/reducers/expenses/selectors';
-import { deleteExpense } from '@/reducers/expenses/actions';
+import { deleteExpense, getExpenseList } from '@/reducers/expenses/actions';
 import { expenseLabels, fundLabels } from '@/utils/options';
 import { ActionStatus, ExpenseValues, FundValues } from '@/models/enums';
 import { selectDeleteExpenseLoading } from '@/reducers/loading/selectors';
@@ -115,8 +115,26 @@ export const ExpenseList = () => {
   ];
 
   const handleFilter = (date: DateRange | undefined) => {
-    // TODO - add filter to expense list action
+    dispatch(
+      getExpenseList({
+        expense: {} as unknown as ExpenseData,
+        filter: date
+      })
+    );
   };
+
+  useEffect(() => {
+    if (expenseList.length > 0) return;
+    dispatch(
+      getExpenseList({
+        expense: {} as unknown as ExpenseData,
+        filter: {
+          from: new Date(new Date().setDate(new Date().getDate() - 30)),
+          to: new Date()
+        }
+      })
+    );
+  }, []);
 
   return (
     <SidebarComponent>

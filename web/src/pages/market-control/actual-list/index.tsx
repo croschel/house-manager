@@ -1,5 +1,4 @@
 import { DataTable } from '@/components/generic/base-table';
-import { Header } from '@/components/generic/header';
 import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { SortElement } from '@/components/generic/sort-element';

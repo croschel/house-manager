@@ -10,4 +10,4 @@ const initialState: AppState = {
   counter: 0
 };
 
-export const AppReducer = createReducer(initialState, (app) => {});
+export const AppReducer = createReducer(initialState, (_) => {});

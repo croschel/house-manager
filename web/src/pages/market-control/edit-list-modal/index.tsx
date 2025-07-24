@@ -10,10 +10,7 @@ import {
 import { ActionStatus, StatusList } from '@/models/enums';
 import { MarketList } from '@/models/interfaces';
 import { useAppDispatch, useAppSelector } from '@/reducers';
-import {
-  selectCreateExpenseLoading,
-  selectUpdateMarketListLoading
-} from '@/reducers/loading/selectors';
+import { selectUpdateMarketListLoading } from '@/reducers/loading/selectors';
 import { updateMarketList } from '@/reducers/market/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';

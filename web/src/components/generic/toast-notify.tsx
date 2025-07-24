@@ -77,16 +77,10 @@ export const ToastNotify: FC<Props> = ({ autoClose = 5000 }) => {
         displayToastWarning();
         break;
     }
-
-    // if (notification !== undefined) {
-    //   setTimeout(() => {
-    //     dispatch(addNotificationAction(undefined));
-    //   }, 5000);
-    // }
   }, [notification]);
   return (
     <ToastContainer
-      // autoClose={autoClose}
+      autoClose={autoClose}
       limit={1}
       draggable={false}
       closeButton={closeButton}

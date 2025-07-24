@@ -1,5 +1,4 @@
 import { DataBox } from '@/components/generic/data-box';
-import { Header } from '@/components/generic/header';
 import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { PageType } from '@/models/enums/pages';
