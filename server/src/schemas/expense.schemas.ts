@@ -7,6 +7,6 @@ export const expenseSchema = z.object({
   value: z.number().min(1, errorMessages.requiredField),
   date: z.string(),
   location: z.string(),
-  repeatedExpense: z.boolean(),
-  otherCategory: z.string(),
+  isFixedExpense: z.boolean().optional(),
+  otherCategory: z.string().optional(),
 });

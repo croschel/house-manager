@@ -39,7 +39,7 @@ const formSchema = z.object({
   value: z.string().min(1, errorMessages.requiredField),
   date: z.string(),
   local: z.string(),
-  repeatedExpense: z.boolean(),
+  isFixedExpense: z.boolean(),
   otherCategory: z.string()
 });
 
@@ -59,7 +59,7 @@ export const ExpenseModal: FC<Props> = ({
     value: isEditing ? expense?.value.toString() : '',
     date: isEditing ? expense?.date : new Date().toISOString(),
     local: isEditing ? expense?.location : '',
-    repeatedExpense: isEditing ? expense?.isFixedExpense : false,
+    isFixedExpense: isEditing ? expense?.isFixedExpense : false,
     otherCategory: isEditing ? (expense?.otherCategory ?? '') : ''
   };
   const form = useForm<z.infer<typeof formSchema>>({
@@ -72,7 +72,7 @@ export const ExpenseModal: FC<Props> = ({
       value: String(expense?.value ?? ''),
       date: expense?.date ?? new Date().toISOString(),
       local: expense?.location ?? '',
-      repeatedExpense: expense?.isFixedExpense ?? false,
+      isFixedExpense: expense?.isFixedExpense ?? false,
       otherCategory: expense?.otherCategory ?? ''
     }
   });
@@ -242,7 +242,7 @@ export const ExpenseModal: FC<Props> = ({
         <div className="flex w-[40%]">
           <FormField
             control={form.control}
-            name="repeatedExpense"
+            name="isFixedExpense"
             render={({ field }) => (
               <FormItem className="w-full self-center">
                 <FormControl>

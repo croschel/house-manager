@@ -7,6 +7,6 @@ export interface CreateExpenseRequest {
   value: number;
   date?: Date;
   local?: string;
-  repeatedExpense?: boolean;
+  isFixedExpense?: boolean;
   otherCategory?: string;
 }

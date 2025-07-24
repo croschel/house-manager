@@ -40,6 +40,7 @@ const expenseSchema = new mongoose.Schema({
   },
   otherCategory: {
     type: String,
+    default: "",
   },
   ownerId: {
     type: String,
