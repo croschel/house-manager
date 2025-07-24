@@ -1,7 +1,7 @@
 import { DataBox } from '@/components/generic/data-box';
 import { FundModal } from './fund-modal';
 import { ExpenseModal } from './expense-modal';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { DateRange } from 'react-day-picker';
 import { MainContainer } from '@/components/generic/main-container';
@@ -14,13 +14,14 @@ import {
   selectGetUserLoading
 } from '@/reducers/loading/selectors';
 import { Splash } from '@/components/generic/splash';
-import { selectFilteredExpenses } from '@/reducers/expenses/selectors';
-import { compareDatesForSort, getLast12monthsWithYear } from '@/utils/date';
+import {
+  selectExpenseControlCounters,
+  selectFilteredExpenses
+} from '@/reducers/expenses/selectors';
 import { formatToCurrencyRealWithDollar } from '@/utils/modifiers';
 import { categoriesIcons } from '@/models/constants/categories-icons';
-import { ExpenseColors, ExpenseValues, Month } from '@/models/enums';
-import { getMonth, getYear, subDays } from 'date-fns';
-import { expenseLabels } from '@/utils/options';
+import { ExpenseValues } from '@/models/enums';
+import { subDays } from 'date-fns';
 import { ExpenseBarChart } from './expense-bar-chart';
 import { OverviewChart } from './overview-chart';
 import { ExpenseData } from '@/models/interfaces';
@@ -31,76 +32,10 @@ export const ExpenseControl = () => {
   const navigate = useNavigate();
   const expenseList = useAppSelector(selectFilteredExpenses);
   const isLoadingExpenses = useAppSelector(selectGetExpenseListLoading);
+  const counters = useAppSelector(selectExpenseControlCounters);
   const isLoadingUser = useAppSelector(selectGetUserLoading);
   const [fundModal, setFundModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
-
-  const counters = useMemo(() => {
-    const funds = expenseList.filter((expense) => expense.type === 'fund');
-    const expenses = expenseList.filter(
-      (expense) => expense.type === 'expense'
-    );
-    const totalFunds = funds.reduce(
-      (total, expense) => total + expense.value,
-      0
-    );
-    const totalExpenses = expenses.reduce(
-      (total, expense) => total + expense.value,
-      0
-    );
-    let last12MonthsFundsExpenses: any = [];
-    getLast12monthsWithYear().forEach((item) => {
-      const fundsMonth = funds.filter(
-        (fund) =>
-          getMonth(fund.date) === item.month && getYear(fund.date) === item.year
-      );
-      const expensesMonth = expenses.filter(
-        (expense) =>
-          getMonth(expense.date) === item.month &&
-          getYear(expense.date) === item.year
-      );
-      last12MonthsFundsExpenses.push({
-        // @ts-ignore
-        month: Month[`OPTION_${item.month}`],
-        year: item.year,
-        funds: fundsMonth.reduce((total, expense) => total + expense.value, 0),
-        expenses: expensesMonth.reduce(
-          (total, expense) => total + expense.value,
-          0
-        )
-      });
-    });
-    const expensesPerCategory = expenses
-      .reduce(
-        (acc, expense) => {
-          return acc.map((item) => ({
-            ...item,
-            value:
-              item.category.toLowerCase() === expense.category
-                ? item.value + Number(expense.value)
-                : item.value
-          }));
-        },
-        Object.values(ExpenseValues).map((key) => ({
-          name: expenseLabels[key],
-          category: key[0].toUpperCase() + key.slice(1),
-          value: 0,
-          fill: ExpenseColors[key]
-        }))
-      )
-      .filter((item) => item.value > 0)
-      .sort((a, b) => b.value - a.value);
-    return {
-      totalAmount: totalFunds - totalExpenses,
-      higherExpense: expenses.sort((a, b) => b.value - a.value)[0] ?? {},
-      lowerExpense: expenses.sort((a, b) => a.value - b.value)[0] ?? {},
-      last7Expenses: expenses
-        .sort((a, b) => compareDatesForSort(b.date, a.date))
-        .slice(0, 7),
-      last12MonthsFundsExpenses,
-      expensesPerCategory
-    };
-  }, [expenseList]);
 
   const handleOpenExpenseModal = (type: 'expense' | 'fund') => {
     if (type === 'fund') {
