@@ -28,7 +28,7 @@ const updateExpense = async (expense: ExpenseData) => {
     ...expense
   };
   return await request.put<ExpenseData>(
-    `/expense/update/${newExpense.id}`,
+    `/expense/update/${newExpense._id}`,
     newExpense
   );
 };

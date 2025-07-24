@@ -42,13 +42,13 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
       (state: ExpenseState, { payload }) => ({
         ...state,
         expenseList: state.expenseList.map((expense) => {
-          if (expense.id === payload?.id) {
+          if (expense._id === payload?._id) {
             return payload;
           }
           return expense;
         }),
         filteredExpenses: state.filteredExpenses.map((expense) => {
-          if (expense.id === payload?.id) {
+          if (expense._id === payload?._id) {
             return payload;
           }
           return expense;
@@ -60,13 +60,13 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
       (state: ExpenseState, { payload }) => ({
         ...state,
         expenseList: state.expenseList.map((expense) => {
-          if (expense.id === payload?.id) {
+          if (expense._id === payload?._id) {
             return payload;
           }
           return expense;
         }),
         filteredExpenses: state.filteredExpenses.map((expense) => {
-          if (expense.id === payload?.id) {
+          if (expense._id === payload?._id) {
             return payload;
           }
           return expense;
@@ -92,10 +92,10 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
       (state: ExpenseState, { payload }) => ({
         ...state,
         expenseList: state.expenseList.filter(
-          (expense) => expense.id !== payload?.id
+          (expense) => expense._id !== payload?._id
         ),
         filteredExpenses: state.filteredExpenses.filter(
-          (expense) => expense.id !== payload?.id
+          (expense) => expense._id !== payload?._id
         )
       })
     );

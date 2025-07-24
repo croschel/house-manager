@@ -36,10 +36,13 @@ export const ExpenseControl = () => {
   const [expenseModal, setExpenseModal] = useState(false);
 
   const counters = useMemo(() => {
+    console.log('expenseList', expenseList);
     const funds = expenseList.filter((expense) => expense.type === 'fund');
     const expenses = expenseList.filter(
       (expense) => expense.type === 'expense'
     );
+    console.log('funds', funds);
+    console.log('expenses', expenses);
     const totalFunds = funds.reduce(
       (total, expense) => total + expense.value,
       0
@@ -101,6 +104,8 @@ export const ExpenseControl = () => {
       expensesPerCategory
     };
   }, [expenseList]);
+
+  console.log(counters);
 
   const handleOpenExpenseModal = (type: 'expense' | 'fund') => {
     if (type === 'fund') {
@@ -231,7 +236,7 @@ export const ExpenseControl = () => {
                     {counters.last7Expenses.map((expense) => (
                       <li
                         className="flex justify-between items-centerr"
-                        key={expense.id}
+                        key={expense._id}
                       >
                         <div className="flex gap-4 items-center">
                           {categoriesIcons[expense.category as ExpenseValues]}

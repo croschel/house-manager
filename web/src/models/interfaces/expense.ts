@@ -3,7 +3,7 @@ import { ExpenseValues, FundValues } from '../enums';
 export type ExpenseCategory = FundValues & ExpenseValues;
 
 export interface ExpenseData {
-  id: string;
+  _id: string;
   type: 'expense' | 'fund';
   accountId: string;
   name: string;

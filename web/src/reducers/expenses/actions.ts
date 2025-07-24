@@ -4,7 +4,6 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { addNotificationAction } from '../notification/actions';
 import { buildAppError, buildAppSuccess } from '@/utils/message';
 import { DateRange } from 'react-day-picker';
-import { getFilteredResultsByRange } from '@/utils/date';
 
 export const setExpenseDateFilter = createAction<DateRange>(
   'EXPENSE/FILTER_DATE'
@@ -23,15 +22,6 @@ export const getExpenseList = createAsyncThunk<
   try {
     const response = (await ExpenseService.fetchExpenseList(filter)).data;
     let filteredExpenses = [] as ExpenseData[];
-    // if (!!filter) { // TODO - remove me when backend is ready to handle this
-    //   filteredExpenses = getFilteredResultsByRange(
-    //     filter?.from ?? '',
-    //     filter?.to ?? '',
-    //     response,
-    //     'date'
-    //   );
-    // }
-
     return {
       expenses: response,
       filteredExpenses
@@ -119,7 +109,7 @@ export const deleteExpense = createAsyncThunk<
   { expense: ExpenseData }
 >('EXPENSE/DELETE', async ({ expense }, { dispatch }) => {
   try {
-    (await ExpenseService.deleteExpense(expense.id)).data;
+    (await ExpenseService.deleteExpense(expense._id)).data;
     dispatch(
       addNotificationAction(
         buildAppSuccess({

@@ -12,7 +12,7 @@ import { ExpenseData } from '@/models/interfaces';
 import { SortElement } from '@/components/generic/sort-element';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { useAppDispatch, useAppSelector } from '@/reducers';
-import { selectExpenseList } from '@/reducers/expenses/selectors';
+import { selectFilteredExpenses } from '@/reducers/expenses/selectors';
 import { deleteExpense } from '@/reducers/expenses/actions';
 import { expenseLabels, fundLabels } from '@/utils/options';
 import { ActionStatus, ExpenseValues, FundValues } from '@/models/enums';
@@ -21,7 +21,7 @@ import SidebarComponent from '@/components/generic/sidebar-component';
 
 export const ExpenseList = () => {
   const dispatch = useAppDispatch();
-  const expenseList = useAppSelector(selectExpenseList);
+  const expenseList = useAppSelector(selectFilteredExpenses);
   const isDeletingExpense = useAppSelector(selectDeleteExpenseLoading);
   const [expenseModal, setExpenseModal] = useState(false);
   const [editExpenseModal, setEditExpenseModal] = useState(false);
