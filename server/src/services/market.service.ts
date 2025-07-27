@@ -72,9 +72,6 @@ export const updateProductFromMarketList = async (
   const marketList = await MarketModel.findById(marketId);
   appAssert(marketList, BAD_REQUEST, "Market list not found");
   const productIndex = marketList.products.findIndex((product) => {
-    console.log("product", product);
-    console.log("product.id", product.id);
-    console.log("productId", productId);
     return product.id === productId;
   });
   appAssert(

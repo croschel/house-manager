@@ -37,6 +37,8 @@ export const createMarketListHandler = catchErrors(
       status: StatusList.ACTIVE,
       effectiveMonth: getMonth(req.body.date) + 1,
       effectiveYear: getYear(req.body.date),
+      totalValue: 0,
+      location: "",
       products: [],
     };
     marketSchema.parse(newMarketList);
@@ -52,6 +54,7 @@ export const updateMarketListHandler = catchErrors(
       ...req.body,
       effectiveMonth: getMonth(req.body.date) + 1,
       effectiveYear: getYear(req.body.date),
+      updatedAt: new Date().toISOString(),
     };
     marketSchema.parse(updatedMarketList);
 
