@@ -2,7 +2,7 @@ import { DataBox } from '@/components/generic/data-box';
 import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { PageType } from '@/models/enums/pages';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { useNavigate } from 'react-router-dom';
 import { DataTable } from '@/components/generic/base-table';
@@ -24,62 +24,29 @@ import {
   selectDeleteMarketListLoading,
   selectFetchAllMarketListLoading
 } from '@/reducers/loading/selectors';
-import { selectFilteredMarketList } from '@/reducers/market/selectors';
 import { Splash } from '@/components/generic/splash';
 import { ConfirmationModal } from '@/components/generic/confirmation-modal';
 import { EditListModal } from './edit-list-modal';
 import { Conditional } from '@/components/generic/conditional';
 import { CreateList } from './create-list';
 import SidebarComponent from '@/components/generic/sidebar-component';
+import {
+  selectMarketInfo,
+  selectMarketList
+} from '@/reducers/market/selectors';
 
 export const MarketControl = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [expenseModal, setOpenCreateList] = useState(false);
   const isLoadingMarketList = useAppSelector(selectFetchAllMarketListLoading);
-  const filteredMarketList = useAppSelector(selectFilteredMarketList);
+  const filteredMarketList = useAppSelector(selectMarketList);
   const isDeletingList = useAppSelector(selectDeleteMarketListLoading);
   const [selectedList, setSelectedList] = useState<MarketList | undefined>();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
 
-  const marketInfo = useMemo(() => {
-    let lastTotalPaid = '$0.00';
-    let lastLocation = '';
-    let lastCheaperProduct = {
-      name: '',
-      value: '$0.00'
-    };
-    let lastExpensiveProduct = {
-      name: '',
-      value: '$0.00'
-    };
-
-    if (filteredMarketList.length > 0) {
-      const sortedMarketList = [...filteredMarketList].sort((a, b) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-      });
-      const lastProduct = [...sortedMarketList[0].products].sort((a, b) => {
-        return b.value - a.value;
-      });
-      lastTotalPaid = `$${sortedMarketList[0].totalValue.toFixed(2) ?? '0.00'}`;
-      lastLocation = sortedMarketList[0].location ?? '';
-      lastCheaperProduct = {
-        name: lastProduct[0].name,
-        value: `$${lastProduct[0].value.toFixed(2) ?? '0.00'}`
-      };
-      lastExpensiveProduct = {
-        name: lastProduct[lastProduct.length - 1].name,
-        value: `$${lastProduct[lastProduct.length - 1].value.toFixed(2) ?? '0.00'}`
-      };
-    }
-    return {
-      lastTotalPaid,
-      lastLocation,
-      lastCheaperProduct,
-      lastExpensiveProduct
-    };
-  }, [filteredMarketList]);
+  const marketInfo = useAppSelector(selectMarketInfo);
 
   const handleOpenList = (type: 'actual' | 'create') => {
     if (type === 'actual') {
@@ -109,12 +76,11 @@ export const MarketControl = () => {
   };
 
   const handleDeleteList = async () => {
-    await dispatch(deleteMarketList(selectedList?.id!));
+    await dispatch(deleteMarketList(selectedList?._id!));
   };
   const handleFilter = (date: DateRange | undefined) => {
     dispatch(
       fetchAllMarketList({
-        marketList: {} as unknown as MarketList,
         filter: date
       })
     );
@@ -123,7 +89,6 @@ export const MarketControl = () => {
   const handleFetchMarketList = () =>
     dispatch(
       fetchAllMarketList({
-        marketList: {} as unknown as MarketList,
         filter: {
           from: subDays(new Date(), 30),
           to: new Date()
@@ -187,7 +152,8 @@ export const MarketControl = () => {
             <Conditional
               condition={
                 row.getValue('status') === StatusList.ACTIVE ||
-                row.getValue('status') === StatusList.EXPIRED
+                row.getValue('status') === StatusList.EXPIRED ||
+                row.getValue('status') === StatusList.PROGRESS
               }
             >
               <Button
@@ -219,7 +185,7 @@ export const MarketControl = () => {
   ];
 
   useEffect(() => {
-    if (filteredMarketList.length > 0) return;
+    if (filteredMarketList?.length > 0) return;
     handleFetchMarketList();
   }, []);
 

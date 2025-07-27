@@ -42,6 +42,7 @@ export const EditListModal: FC<Props> = ({ isOpen, setIsOpen, marketList }) => {
     }
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log('values', values);
     await dispatch(
       updateMarketList({
         ...marketList,

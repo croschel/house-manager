@@ -48,7 +48,7 @@ export const MarketReducer = createReducer(initialState, (market) => {
       (state: MarketState, { payload }) => ({
         ...state,
         allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
+          if (list._id === payload?._id) {
             return payload;
           }
           return list;
@@ -69,7 +69,9 @@ export const MarketReducer = createReducer(initialState, (market) => {
       MarketActions.deleteMarketList.fulfilled,
       (state: MarketState, { payload }) => ({
         ...state,
-        allMarketList: state.allMarketList.filter((list) => list.id !== payload)
+        allMarketList: state.allMarketList.filter(
+          (list) => list._id !== payload
+        )
       })
     )
     .addCase(
@@ -78,7 +80,7 @@ export const MarketReducer = createReducer(initialState, (market) => {
         ...state,
         selectedMarketList: payload,
         allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
+          if (list._id === payload?._id) {
             return payload;
           }
           return list;
@@ -91,7 +93,7 @@ export const MarketReducer = createReducer(initialState, (market) => {
         ...state,
         selectedMarketList: payload,
         allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
+          if (list._id === payload?._id) {
             return payload;
           }
           return list;
@@ -104,7 +106,7 @@ export const MarketReducer = createReducer(initialState, (market) => {
         ...state,
         selectedMarketList: payload,
         allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
+          if (list._id === payload?._id) {
             return payload;
           }
           return list;

@@ -13,7 +13,7 @@ const updateMarketList = async (market: MarketList) => {
   const newMarketList: MarketList = {
     ...market
   };
-  return await request.put(`/market/update/${market.id}`, newMarketList);
+  return await request.put(`/market/update/${market._id}`, newMarketList);
 };
 
 const createMarketList = async (date: Date) => {
@@ -30,12 +30,12 @@ const deleteMarketList = async (id: string) =>
 const updateProductFromMarketList = async (
   marketList: MarketList,
   newProduct: Product
-) => await request.put(`/market/update-product/${marketList.id}`, newProduct);
+) => await request.put(`/market/update-product/${marketList._id}`, newProduct);
 
 const createNewProductForMarketList = async (
   marketList: MarketList,
   product: Partial<Product>
-) => await request.post(`/market/create-product/${marketList.id}`, product);
+) => await request.post(`/market/create-product/${marketList._id}`, product);
 
 const deleteProductFromMarketList = async (
   marketList: MarketList,
@@ -43,7 +43,7 @@ const deleteProductFromMarketList = async (
 ) => {
   const query = createUrlParams({ productId });
   return await request.delete(
-    `/market/delete-product/${marketList.id}${query}`
+    `/market/delete-product/${marketList._id}${query}`
   );
 };
 

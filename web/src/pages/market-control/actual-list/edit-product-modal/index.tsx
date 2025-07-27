@@ -50,10 +50,10 @@ export const EditProductModal: FC<Props> = ({
   const isEditing = type === 'edit';
   const product = marketList?.products?.[productIndex];
   const defaultValues = {
-    name: isEditing ? product.name : '',
-    category: isEditing ? product.category : '',
-    value: isEditing ? String(product.value) : '',
-    amount: isEditing ? String(product.amount) : ''
+    name: isEditing ? product?.name : '',
+    category: isEditing ? product?.category : '',
+    value: isEditing ? String(product?.value || 0) : '',
+    amount: isEditing ? String(product?.amount || 0) : ''
   };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

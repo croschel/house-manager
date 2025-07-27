@@ -22,8 +22,9 @@ export const Shopping = () => {
   );
 
   const handleProducts = (index: number, value: boolean) => {
-    let newProductList = products;
-    newProductList[index].done = value;
+    const newProductList = products.map((product, i) =>
+      i === index ? { ...product, done: value } : product
+    );
     setProducts(newProductList);
   };
 
@@ -48,7 +49,7 @@ export const Shopping = () => {
   };
 
   useEffect(() => {
-    if (!params.listId || selectedMarketList?.id !== params.listId)
+    if (!params.listId || selectedMarketList?._id !== params.listId)
       navigate(PageType.MarketControl);
   }, []);
 

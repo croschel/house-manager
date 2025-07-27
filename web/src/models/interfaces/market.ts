@@ -12,7 +12,7 @@ export interface Product {
 }
 
 export interface MarketList {
-  id: string;
+  _id: string;
   accountId: string;
   totalValue: number;
   createdAt: string;

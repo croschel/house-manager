@@ -44,7 +44,7 @@ export const ActualList = () => {
         status: StatusList.PROGRESS
       } as MarketList)
     );
-    navigate(`${PageType.Shopping}/${marketList?.id}`);
+    navigate(`${PageType.Shopping}/${marketList?._id}`);
   };
   const handleCreateNewProduct = () => {
     setOpenAddModal(true);
@@ -149,7 +149,6 @@ export const ActualList = () => {
             primaryBtnVariant="outline"
             secondaryBtnVariant="creation"
             handleSecondaryBtn={handleCreateNewProduct}
-            dynamicFlex
           />
           <DataTable
             columns={columns}
