@@ -4,7 +4,6 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { addNotificationAction } from '../notification/actions';
 import { buildAppError, buildAppSuccess } from '@/utils/message';
 import { DateRange } from 'react-day-picker';
-import { getFilteredResultsByRange } from '@/utils/date';
 
 export const setMarketDateFilter =
   createAction<DateRange>('MARKET/FILTER_DATE');
@@ -14,51 +13,14 @@ export const setMarketListSelected = createAction<MarketList | undefined>(
 );
 
 export const fetchAllMarketList = createAsyncThunk<
+  MarketList[],
   {
-    allMarketList: MarketList[] | undefined;
-    filteredMarketList: MarketList[] | undefined;
-  },
-  {
-    marketList: Partial<Omit<MarketList, 'id' | 'products'>>;
     filter: DateRange | undefined;
   }
->('MARKET/FETCH_LIST', async ({ marketList, filter }, { dispatch }) => {
+>('MARKET/FETCH_LIST', async ({ filter }, { dispatch }) => {
   try {
-    const response = (await MarketService.fetchAllMarketList(marketList)).data;
-    let filteredMarketList = [] as MarketList[];
-    if (!!filter) {
-      filteredMarketList = getFilteredResultsByRange(
-        filter?.from ?? '',
-        filter?.to ?? '',
-        response,
-        'date'
-      );
-    }
-
-    return {
-      allMarketList: response,
-      filteredMarketList
-    };
-  } catch (e) {
-    throw dispatch(
-      addNotificationAction(
-        buildAppError({
-          type: 'Fetch'
-        })
-      )
-    );
-  }
-});
-
-export const fetchMarketById = createAsyncThunk<
-  MarketList | undefined,
-  {
-    id: string;
-  }
->('MARKET/FETCH_BY_ID', async ({ id }, { dispatch }) => {
-  try {
-    const response = (await MarketService.fetchMarketById(id)).data;
-    return response;
+    const response = await MarketService.fetchAllMarketList(filter);
+    return response.data;
   } catch (e) {
     throw dispatch(
       addNotificationAction(
@@ -189,10 +151,10 @@ export const deleteProductFromMarketList = createAsyncThunk<
   { marketList: MarketList; productId: string }
 >('MARKET/DELETE_PRODUCT', async ({ marketList, productId }, { dispatch }) => {
   try {
-    return await MarketService.deleteProductFromMarketList(
-      marketList,
-      productId
-    );
+    const response = (
+      await MarketService.deleteProductFromMarketList(marketList, productId)
+    ).data;
+    return response;
   } catch (e) {
     throw dispatch(
       addNotificationAction(

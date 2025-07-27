@@ -2,17 +2,12 @@ import request from '@/lib/request';
 import { MarketList, Product } from '@/models/interfaces';
 import { createUrlParams } from '@/utils/generators';
 import { formatISO } from 'date-fns';
+import { DateRange } from 'react-day-picker';
 
-const fetchAllMarketList = async (
-  market: Partial<Omit<MarketList, 'id' | 'products'>>
-) => {
-  const query = createUrlParams({ ...market });
+const fetchAllMarketList = async (filter?: DateRange) => {
+  const query = createUrlParams({ ...filter });
   return await request.get<MarketList[]>(`/market/list${query}`);
 };
-
-const fetchMarketById = async (id: string) => {
-  return await request.get<MarketList>(`/market-list/${id}`);
-}; // TODO - Remove me
 
 const updateMarketList = async (market: MarketList) => {
   const newMarketList: MarketList = {
@@ -54,7 +49,6 @@ const deleteProductFromMarketList = async (
 
 export const MarketService = {
   fetchAllMarketList,
-  fetchMarketById,
   updateMarketList,
   createMarketList,
   deleteMarketList,

@@ -12,7 +12,6 @@ import {
 } from '../expenses/actions';
 import {
   fetchAllMarketList,
-  fetchMarketById,
   updateMarketList,
   createMarketList,
   deleteMarketList,
@@ -37,7 +36,6 @@ interface LoadingState {
   deleteExpense: ActionStatus;
   // Market
   fetchAllMarketList: ActionStatus;
-  fetchMarketById: ActionStatus;
   updateMarketList: ActionStatus;
   createMarketList: ActionStatus;
   deleteMarketList: ActionStatus;
@@ -61,7 +59,6 @@ const initialState: LoadingState = {
   deleteExpense: ActionStatus.INITIAL,
   // Market
   fetchAllMarketList: ActionStatus.INITIAL,
-  fetchMarketById: ActionStatus.INITIAL,
   updateMarketList: ActionStatus.INITIAL,
   createMarketList: ActionStatus.INITIAL,
   deleteMarketList: ActionStatus.INITIAL,
@@ -90,7 +87,6 @@ const asyncThunks: Record<
   deleteExpense,
   // Market
   fetchAllMarketList,
-  fetchMarketById,
   updateMarketList,
   createMarketList,
   deleteMarketList,

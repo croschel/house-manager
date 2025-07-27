@@ -24,8 +24,6 @@ export const selectDeleteExpenseLoading = (state: RootState) =>
 // Market
 export const selectFetchAllMarketListLoading = (state: RootState) =>
   state.loading.fetchAllMarketList;
-export const selectFetchMarketByIdLoading = (state: RootState) =>
-  state.loading.fetchMarketById;
 export const selectUpdateMarketListLoading = (state: RootState) =>
   state.loading.updateMarketList;
 export const selectCreateMarketListLoading = (state: RootState) =>

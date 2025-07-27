@@ -7,14 +7,12 @@ import { subDays } from 'date-fns';
 
 interface MarketState {
   allMarketList: MarketList[];
-  filteredMarketList: MarketList[];
   marketDateFilter: DateRange | undefined;
   selectedMarketList: MarketList | undefined;
 }
 
 const initialState: MarketState = {
   allMarketList: [],
-  filteredMarketList: [],
   selectedMarketList: undefined,
   marketDateFilter: {
     from: subDays(new Date(), 30),
@@ -42,26 +40,7 @@ export const MarketReducer = createReducer(initialState, (market) => {
       MarketActions.fetchAllMarketList.fulfilled,
       (state: MarketState, { payload }) => ({
         ...state,
-        allMarketList: payload.allMarketList ?? [],
-        filteredMarketList: payload.filteredMarketList ?? []
-      })
-    )
-    .addCase(
-      MarketActions.fetchMarketById.fulfilled,
-      (state: MarketState, { payload }) => ({
-        ...state,
-        allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
-            return payload;
-          }
-          return list;
-        }),
-        filteredMarketList: state.filteredMarketList.map((list) => {
-          if (list.id === payload?.id) {
-            return payload;
-          }
-          return list;
-        })
+        allMarketList: payload ?? []
       })
     )
     .addCase(
@@ -69,12 +48,6 @@ export const MarketReducer = createReducer(initialState, (market) => {
       (state: MarketState, { payload }) => ({
         ...state,
         allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
-            return payload;
-          }
-          return list;
-        }),
-        filteredMarketList: state.filteredMarketList.map((list) => {
           if (list.id === payload?.id) {
             return payload;
           }
@@ -89,23 +62,14 @@ export const MarketReducer = createReducer(initialState, (market) => {
         allMarketList:
           payload !== undefined
             ? [...state.allMarketList, payload]
-            : state.allMarketList,
-        filteredMarketList:
-          payload !== undefined
-            ? [...state.filteredMarketList, payload]
-            : state.filteredMarketList
+            : state.allMarketList
       })
     )
     .addCase(
       MarketActions.deleteMarketList.fulfilled,
       (state: MarketState, { payload }) => ({
         ...state,
-        allMarketList: state.allMarketList.filter(
-          (list) => list.id !== payload
-        ),
-        filteredMarketList: state.filteredMarketList.filter(
-          (list) => list.id !== payload
-        )
+        allMarketList: state.allMarketList.filter((list) => list.id !== payload)
       })
     )
     .addCase(
@@ -114,12 +78,6 @@ export const MarketReducer = createReducer(initialState, (market) => {
         ...state,
         selectedMarketList: payload,
         allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
-            return payload;
-          }
-          return list;
-        }),
-        filteredMarketList: state.filteredMarketList.map((list) => {
           if (list.id === payload?.id) {
             return payload;
           }
@@ -137,12 +95,6 @@ export const MarketReducer = createReducer(initialState, (market) => {
             return payload;
           }
           return list;
-        }),
-        filteredMarketList: state.filteredMarketList.map((list) => {
-          if (list.id === payload?.id) {
-            return payload;
-          }
-          return list;
         })
       })
     )
@@ -152,12 +104,6 @@ export const MarketReducer = createReducer(initialState, (market) => {
         ...state,
         selectedMarketList: payload,
         allMarketList: state.allMarketList.map((list) => {
-          if (list.id === payload?.id) {
-            return payload;
-          }
-          return list;
-        }),
-        filteredMarketList: state.filteredMarketList.map((list) => {
           if (list.id === payload?.id) {
             return payload;
           }
