@@ -31,6 +31,7 @@ interface Props {
   dynamicFlex?: boolean;
   disablePrimaryBtn?: boolean;
   disableSecondaryBtn?: boolean;
+  topLabelComponent?: JSX.Element;
 }
 
 export const MainFilterPage: FC<Props> = ({
@@ -43,7 +44,8 @@ export const MainFilterPage: FC<Props> = ({
   secondaryBtnVariant,
   dynamicFlex = false,
   disablePrimaryBtn = false,
-  disableSecondaryBtn = false
+  disableSecondaryBtn = false,
+  topLabelComponent = <></>
 }) => {
   const dispatch = useAppDispatch();
   const expenseDateFilter = useAppSelector(selectExpenseDateFilter);
@@ -61,6 +63,9 @@ export const MainFilterPage: FC<Props> = ({
       className={`flex justify-between items-start ${dynamicFlex && 'flex-1 h-full'}`}
     >
       <div className="flex items-center">
+        <Conditional condition={!!topLabelComponent}>
+          {topLabelComponent}
+        </Conditional>
         <Conditional condition={!!onSubmitFilter}>
           <DatePickerRange date={date} onChange={setDate} />
           <Button

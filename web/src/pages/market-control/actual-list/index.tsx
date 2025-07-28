@@ -7,7 +7,7 @@ import { ActionStatus, PageType, StatusList } from '@/models/enums';
 import { MarketList, Product } from '@/models/interfaces';
 import { Pencil2Icon } from '@radix-ui/react-icons';
 import { ColumnDef } from '@tanstack/react-table';
-import { format } from 'date-fns';
+import { format, formatDate } from 'date-fns';
 import { TrashIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,7 @@ import {
 } from '@/reducers/market/actions';
 import { selectDeleteProductFromMarketListLoading } from '@/reducers/loading/selectors';
 import SidebarComponent from '@/components/generic/sidebar-component';
+import { StatusListLabels } from '@/utils/options/market';
 
 export const ActualList = () => {
   const dispatch = useAppDispatch();
@@ -125,6 +126,22 @@ export const ActualList = () => {
     }
   ];
 
+  const getStatusColor = (status: StatusList): string => {
+    switch (status) {
+      case StatusList.ACTIVE:
+        return 'text-yellow-500'; // Yellow for in-progress
+      case StatusList.DONE:
+        return 'text-green-500'; // Green for completed
+      case StatusList.PROGRESS:
+        return 'text-blue-500'; // Blue for pending
+      case StatusList.EXPIRED:
+      case StatusList.CLOSED:
+        return 'text-red-500'; // Red for canceled
+      default:
+        return 'text-gray-500'; // Gray for unknown status
+    }
+  };
+
   useEffect(() => {
     if (!marketList) {
       navigate(PageType.MarketControl);
@@ -149,6 +166,16 @@ export const ActualList = () => {
             primaryBtnVariant="outline"
             secondaryBtnVariant="creation"
             handleSecondaryBtn={handleCreateNewProduct}
+            topLabelComponent={
+              <div className="text-zinc-200 text-xl">
+                <span>{formatDate(marketList.date, 'dd/MM/yyyy')}</span> |{' '}
+                <span
+                  className={`font-semibold ${getStatusColor(marketList.status)}`}
+                >
+                  {StatusListLabels[marketList.status]}
+                </span>
+              </div>
+            }
           />
           <DataTable
             columns={columns}
