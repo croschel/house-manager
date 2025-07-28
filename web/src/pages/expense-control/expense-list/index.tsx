@@ -29,6 +29,10 @@ export const ExpenseList = () => {
     ExpenseData | undefined
   >();
   const [deleteExpenseModal, setDeleteExpenseModal] = useState(false);
+  const sedondaryFilterOpt = [
+    { label: 'Receita', value: 'fund' },
+    { label: 'Despesa', value: 'expense' }
+  ];
 
   const handleOpenExpenseModal = () => {
     setExpenseModal(true);
@@ -49,12 +53,12 @@ export const ExpenseList = () => {
   const columns: ColumnDef<any>[] = [
     {
       accessorKey: 'name',
-      header: ({ column }) => <SortElement column={column} headerLabel="Name" />
+      header: ({ column }) => <SortElement column={column} headerLabel="Nome" />
     },
     {
       accessorKey: 'category',
       header: ({ column }) => (
-        <SortElement column={column} headerLabel="Category" />
+        <SortElement column={column} headerLabel="Categoria" />
       ),
       cell: ({ row }) =>
         row.getValue('type') === 'expense'
@@ -62,7 +66,14 @@ export const ExpenseList = () => {
           : fundLabels[row.getValue('category') as FundValues]
     },
     {
-      accessorKey: 'type'
+      header: ({ column }) => (
+        <SortElement column={column} headerLabel="Tipo" />
+      ),
+      accessorKey: 'type',
+      cell: ({ row }) => {
+        const type = row.getValue('type');
+        return type === 'expense' ? 'Despesa' : 'Receita';
+      }
     },
     {
       accessorKey: 'value',
@@ -150,7 +161,10 @@ export const ExpenseList = () => {
             columns={columns}
             data={expenseList}
             primaryFilter="name"
-            secondaryFilter="category"
+            secondaryFilterField="type"
+            primaryFilterLabel="nome"
+            secondaryFilterLabel="Tipo"
+            secondaryFilterOpt={sedondaryFilterOpt}
           />
         </div>
       </MainContainer>

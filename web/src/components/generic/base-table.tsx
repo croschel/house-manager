@@ -30,8 +30,9 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   primaryFilter?: string;
   primaryFilterLabel?: string;
-  secondaryFilter?: string;
+  secondaryFilterField?: string;
   secondaryFilterLabel?: string;
+  secondaryFilterOpt?: { label: string; value: string }[];
 }
 
 export function DataTable<TData, TValue>({
@@ -39,8 +40,9 @@ export function DataTable<TData, TValue>({
   data,
   primaryFilter,
   primaryFilterLabel,
-  secondaryFilter,
-  secondaryFilterLabel
+  secondaryFilterField,
+  secondaryFilterLabel,
+  secondaryFilterOpt = []
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -62,7 +64,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className={cn('flex flex-1 flex-col gap-6 h-full')}>
       <div>
-        <Conditional condition={!!primaryFilter || !!secondaryFilter}>
+        <Conditional condition={!!primaryFilter || !!secondaryFilterField}>
           <div className="flex items-center justify-between py-4">
             <Conditional condition={!!primaryFilter}>
               <Input
@@ -80,24 +82,21 @@ export function DataTable<TData, TValue>({
                 className="max-w-[300px]"
               />
             </Conditional>
-            <Conditional condition={!!secondaryFilter}>
+            <Conditional condition={!!secondaryFilterField}>
               <Dropdown
-                id={secondaryFilter as string}
+                id={secondaryFilterField as string}
                 placeholder={`Filtrar por ${secondaryFilterLabel ?? ''}...`}
                 value={
                   (table
-                    .getColumn(secondaryFilter as string)
+                    .getColumn(secondaryFilterField as string)
                     ?.getFilterValue() as string) ?? ''
                 }
                 onChange={(value) =>
                   table
-                    .getColumn(secondaryFilter as string)
+                    .getColumn(secondaryFilterField as string)
                     ?.setFilterValue(value)
                 }
-                options={[
-                  { label: 'Receita', value: '1' },
-                  { label: 'Despesa', value: '2' }
-                ]}
+                options={secondaryFilterOpt}
                 boxStyles="max-w-[300px]"
               />
             </Conditional>
