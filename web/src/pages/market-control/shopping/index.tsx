@@ -71,23 +71,66 @@ export const Shopping = () => {
         <ScrollArea className="h-[calc(100vh-253px)] mt-6">
           <Conditional condition={products.length > 0}>
             <div className="max-w-[99%]">
-              {products.map((product, index) => (
-                <div
-                  role="button"
-                  className="flex items-center justify-between border-[1px] border-zinc-600 px-4 py-4
-                    rounded-lg shadow-md shadow-black/30 hover:shadow-black/10 transition-shadow
-                    duration-300 ease-in-out mb-4 text-zinc-200"
-                >
-                  <GenericCheckbox
-                    label={''}
-                    checked={product.done}
-                    onChange={(value) => handleProducts(index, value)}
-                  />
-                  <span>{product.name}</span>
-                  <span>{product.amount}</span>
-                  <span>{product.value}</span>
-                </div>
-              ))}
+              <table
+                className="w-full border-separate"
+                style={{ borderSpacing: '0 16px' }}
+              >
+                <thead>
+                  <tr>
+                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
+                      Comprado
+                    </th>
+                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
+                      Produto
+                    </th>
+                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
+                      Qnt
+                    </th>
+                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
+                      Valor
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product, index) => (
+                    <tr
+                      key={index}
+                      className={`border-[1px] border-zinc-600 px-4 py-4 rounded-lg shadow-md shadow-black/90
+                      hover:shadow-black/10 transition-shadow duration-300 ease-in-out mb-0
+                      text-zinc-200 ${product.done ? 'bg-zinc-800' : ''}`}
+                      style={{
+                        borderRadius: '0.5rem',
+                        boxShadow:
+                          '0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.1)',
+                        background: product.done ? '#27272a' : 'inherit'
+                      }}
+                    >
+                      <td className="px-4 py-5">
+                        <GenericCheckbox
+                          label={''}
+                          checked={product.done}
+                          onChange={(value) => handleProducts(index, value)}
+                        />
+                      </td>
+                      <td className="px-2 py-5">
+                        <span className={product.done ? 'line-through' : ''}>
+                          {product.name}
+                        </span>
+                      </td>
+                      <td className="px-2 py-5">
+                        <span className={product.done ? 'line-through' : ''}>
+                          {product.amount}
+                        </span>
+                      </td>
+                      <td className="px-2 py-5">
+                        <span className={product.done ? 'line-through' : ''}>
+                          {product.value}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </Conditional>
           <Conditional condition={products.length === 0}>
