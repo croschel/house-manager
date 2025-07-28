@@ -1,4 +1,4 @@
-import { SupermarketSections } from '@/models/enums';
+import { StatusList, SupermarketSections } from '@/models/enums';
 
 export const SupermarketOptLabels: Record<SupermarketSections, string> = {
   [SupermarketSections.PRODUCE]: 'Hortifruti',
@@ -17,4 +17,12 @@ export const SupermarketOptLabels: Record<SupermarketSections, string> = {
   [SupermarketSections.PET_SUPPLIES]: 'Pets',
   [SupermarketSections.INTERNATIONAL_FOODS]: 'Importados',
   [SupermarketSections.ALCOHOL_TOBACCO]: 'Álcool e Tabaco'
+};
+
+export const StatusListLabels: Record<StatusList, string> = {
+  [StatusList.ACTIVE]: 'Ativo',
+  [StatusList.PROGRESS]: 'Em Progresso',
+  [StatusList.EXPIRED]: 'Expirado',
+  [StatusList.CLOSED]: 'Fechado',
+  [StatusList.DONE]: 'Concluído'
 };

@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button';
 import { Pencil2Icon, RocketIcon, TrashIcon } from '@radix-ui/react-icons';
 import { MarketList, Product } from '@/models/interfaces/market';
 import { format, subDays } from 'date-fns';
-import { capitalizeFirstLetter } from '@/utils/modifiers';
 import { ActionStatus, Month, StatusList } from '@/models/enums';
 import {
   fetchAllMarketList,
@@ -34,6 +33,7 @@ import {
   selectMarketInfo,
   selectMarketList
 } from '@/reducers/market/selectors';
+import { StatusListLabels } from '@/utils/options/market';
 
 export const MarketControl = () => {
   const dispatch = useAppDispatch();
@@ -124,7 +124,7 @@ export const MarketControl = () => {
       accessorKey: 'status',
       cell: ({ row }) => {
         const status = row.getValue('status');
-        return capitalizeFirstLetter(status as string);
+        return StatusListLabels[status as unknown as StatusList];
       }
     },
     {
