@@ -75,33 +75,27 @@ export const Shopping = () => {
                 className="w-full border-separate"
                 style={{ borderSpacing: '0 16px' }}
               >
-                <thead>
+                <thead className="text-zinc-400">
                   <tr>
-                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
+                    <th className="px-2 py-0 text-left font-semibold">
                       Comprado
                     </th>
-                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
+                    <th className="px-2 py-0 text-left font-semibold">
                       Produto
                     </th>
-                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
-                      Qnt
-                    </th>
-                    <th className="px-2 py-0 text-left text-zinc-400 font-semibold">
-                      Valor
-                    </th>
+                    <th className="px-2 py-0 text-left font-semibold">Qnt</th>
+                    <th className="px-2 py-0 text-left font-semibold">Valor</th>
                   </tr>
                 </thead>
                 <tbody>
                   {products.map((product, index) => (
                     <tr
                       key={index}
-                      className={`border-[1px] border-zinc-600 px-4 py-4 rounded-lg shadow-md shadow-black/90
-                      hover:shadow-black/10 transition-shadow duration-300 ease-in-out mb-0
-                      text-zinc-200 ${product.done ? 'bg-zinc-800' : ''}`}
+                      className={'text-zinc-200'}
                       style={{
                         borderRadius: '0.5rem',
                         boxShadow:
-                          '0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.1)',
+                          '0 4px 6px 1px rgba(0,0,0,0.4), 0 1px 2px -2px rgba(0,0,0,0.1)',
                         background: product.done ? '#27272a' : 'inherit'
                       }}
                     >
