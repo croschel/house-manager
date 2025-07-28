@@ -9,10 +9,12 @@ import {
 import { AppSidebar } from './app-sidebar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PageTitle, PageType } from '@/models/enums';
-import { LogOutIcon } from 'lucide-react';
+import { ArrowLeftCircleIcon, LogOutIcon } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useAppDispatch } from '@/reducers';
 import { logout } from '@/reducers/user/actions';
+import { Conditional } from './conditional';
+import { navigateToPreviousPage } from '@/utils/navigation';
 
 export default function SidebarComponent({
   children
@@ -61,10 +63,23 @@ export default function SidebarComponent({
           <SidebarTrigger className="-ml-1 bg-zinc-600 text-zinc-100" />
           <Separator orientation="vertical" className="mr-2 h-4 bg-zinc-600" />
           <div className="flex items-center justify-between w-full">
-            <h1 className="text-zinc-200 text-lg">
-              {/* @ts-ignore */}
-              {getPageName()}
-            </h1>
+            <div className="flex items-center gap-2">
+              <Conditional
+                condition={
+                  location.pathname !== PageType.ExpenseControl &&
+                  location.pathname !== PageType.MarketControl
+                }
+              >
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => navigateToPreviousPage(location, navigate)}
+                >
+                  <ArrowLeftCircleIcon color="white" />
+                </Button>
+              </Conditional>
+              <h1 className="text-zinc-200 text-lg">{getPageName()}</h1>
+            </div>
             <Button onClick={handleLogout}>
               <LogOutIcon color="white" />
             </Button>
