@@ -43,8 +43,7 @@ export default function SidebarComponent({
     if (location.pathname.includes(PageType.Shopping)) {
       return PageTitle.shopping;
     }
-    // @ts-ignore
-    return PageTitle[path];
+    return PageTitle[path as keyof typeof PageTitle] || 'Unknown Page';
   };
 
   const handleLogout = () => {
