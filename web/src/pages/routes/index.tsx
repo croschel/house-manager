@@ -3,12 +3,12 @@ import { Login } from '../login';
 import { SignUp } from '../signup';
 import { ExpenseControl } from '../expense-control';
 import { PageType } from '@/models/enums/pages';
-import { ExpenseList } from '../expense-list';
 import { MarketControl } from '../market-control';
 import { ActualList } from '../market-control/actual-list';
 import { Shopping } from '../market-control/shopping';
 import { LoggedWrapper } from '@/components/generic/logged-wrapper';
 import { setNavigate } from '@/lib/navigate';
+import { ExpenseList } from '../expense-control/expense-list';
 
 export const RoutesComponent = () => {
   const navigate = useNavigate();

@@ -2,7 +2,6 @@ import { MainContainer } from '@/components/generic/main-container';
 import { MainFilterPage } from '@/components/generic/main-filter-page';
 import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
-import { ExpenseModal } from '../expense-control/expense-modal';
 import { DataTable } from '@/components/generic/base-table';
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
@@ -18,6 +17,7 @@ import { expenseLabels, fundLabels } from '@/utils/options';
 import { ActionStatus, ExpenseValues, FundValues } from '@/models/enums';
 import { selectDeleteExpenseLoading } from '@/reducers/loading/selectors';
 import SidebarComponent from '@/components/generic/sidebar-component';
+import { ExpenseModal } from '../expense-modal';
 
 export const ExpenseList = () => {
   const dispatch = useAppDispatch();
@@ -139,13 +139,12 @@ export const ExpenseList = () => {
   return (
     <SidebarComponent>
       <MainContainer>
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col justify-between gap-8 h-full">
           <MainFilterPage
             primaryBtnLabel="Adicionar Despesa"
             handlePrimaryBtn={() => handleOpenExpenseModal()}
             onSubmitFilter={(date) => handleFilter(date)}
             primaryBtnVariant="destructive"
-            dynamicFlex
           />
           <DataTable
             columns={columns}
