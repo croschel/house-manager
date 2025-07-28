@@ -36,7 +36,15 @@ export const Shopping = () => {
         status: StatusList.DONE,
         products: newProductList
       } as MarketList)
-    );
+    ).then((res) => {
+      if (res.meta.requestStatus === 'fulfilled') {
+        navigate(PageType.MarketControl, {
+          replace: true
+        });
+      }
+    });
+    // Reset the products state to an empty array after finishing the list
+    setProducts([]);
   };
 
   const handleSaveProductList = async () => {
