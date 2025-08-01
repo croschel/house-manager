@@ -60,7 +60,8 @@ export const MainFilterPage: FC<Props> = ({
   };
   return (
     <div
-      className={`flex justify-between items-start ${dynamicFlex && 'flex-1 h-full'}`}
+      className={`flex justify-between items-start ${dynamicFlex && 'flex-1 h-full'} flex-col
+        md:flex-row md:gap-0 gap-4`}
     >
       <div className="flex items-center">
         <Conditional condition={!!topLabelComponent}>
@@ -77,7 +78,7 @@ export const MainFilterPage: FC<Props> = ({
           </Button>
         </Conditional>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 justify-between sm:justify-end w-full">
         <Conditional condition={!!primaryBtnLabel}>
           <Button
             variant={primaryBtnVariant}

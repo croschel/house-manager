@@ -140,13 +140,13 @@ export const ExpenseControl = () => {
                 }
               />
             </div>
-            <div className="flex flex-1 w-full mt-6 gap-4">
+            <div className="flex flex-1 w-full mt-6 gap-4 overflow-x-auto sm:overflow-x-unset">
               <DataBox
                 title="Overview de Gastos"
                 iconName="ChartArea"
                 iconColor="white"
                 iconSize={18}
-                className="h-[100%] min-w-[60%]"
+                className="h-[100%] min-w-[100%] md:min-w-[60%]"
                 onClick={handleOpenExpenseList}
                 customContent={
                   <OverviewChart

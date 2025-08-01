@@ -236,14 +236,12 @@ export const MarketControl = () => {
                 iconSize={18}
               />
             </div>
-            <div className="flex min-h-[70px] max-h-[70px]">
-              <DataTable
-                columns={columns}
-                data={filteredMarketList}
-                primaryFilter="date"
-                primaryFilterLabel="Data de Criação"
-              />
-            </div>
+            <DataTable
+              columns={columns}
+              data={filteredMarketList}
+              primaryFilter="date"
+              primaryFilterLabel="Data de Criação"
+            />
           </div>
         </MainContainer>
       </Splash>
