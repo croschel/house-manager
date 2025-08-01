@@ -1,4 +1,3 @@
-import { Label } from '@/components/ui/label';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -96,7 +95,7 @@ export const Login = () => {
       >
         Criar minha conta
       </Button>
-      <div className="w-full flex align-center my-8">
+      {/* <div className="w-full flex align-center my-8"> // FUTURE FEATURE: Google Login
         <div className="flex flex-1 border border-1 h-0 mt-2" />
         <Label className="flex flex-1 text-nowrap text-[12px] text-zinc-200 px-2">
           OU CONTINUE COM
@@ -105,7 +104,7 @@ export const Login = () => {
       </div>
       <Button className="w-full" variant="outline" type="submit">
         Google
-      </Button>
+      </Button> */}
     </UnloggedWrapper>
   );
 };

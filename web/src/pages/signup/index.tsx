@@ -48,7 +48,7 @@ export const SignUp = () => {
   };
 
   const handleMoveBack = () => {
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -56,7 +56,7 @@ export const SignUp = () => {
       title="Criar Conta"
       description="Preencha os campos abaixo com os seus dados de acesso"
     >
-      {isCreatingUser ? (
+      {isCreatingUser === ActionStatus.LOADING ? (
         <LoadingSpinner size={60} />
       ) : (
         <Form {...form}>
