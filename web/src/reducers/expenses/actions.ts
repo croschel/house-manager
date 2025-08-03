@@ -37,23 +37,6 @@ export const getExpenseList = createAsyncThunk<
   }
 });
 
-export const getExpense = createAsyncThunk<ExpenseData | undefined, string>(
-  'EXPENSE/FETCH',
-  async (id, { dispatch }) => {
-    try {
-      return (await ExpenseService.fetchExpense(id)).data;
-    } catch (e) {
-      throw dispatch(
-        addNotificationAction(
-          buildAppError({
-            type: 'Fetch'
-          })
-        )
-      );
-    }
-  }
-);
-
 export const updateExpense = createAsyncThunk<
   ExpenseData | undefined,
   ExpenseData

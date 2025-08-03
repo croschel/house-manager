@@ -8,10 +8,6 @@ const fetchExpenseList = async (filter: DateRange | undefined) => {
   return await request.get<ExpenseData[]>(`/expense/list${query}`);
 };
 
-const fetchExpense = async (id: string) => {
-  return await request.get<ExpenseData>(`/expense/${id}`);
-};
-
 const createExpense = async (expense: CreateFormExpense) => {
   const newExpense: Partial<ExpenseData> = {
     ...expense,
@@ -39,7 +35,6 @@ const deleteExpense = async (id: string) => {
 
 export const ExpenseService = {
   fetchExpenseList,
-  fetchExpense,
   updateExpense,
   createExpense,
   deleteExpense

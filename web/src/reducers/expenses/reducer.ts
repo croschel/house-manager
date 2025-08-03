@@ -36,18 +36,6 @@ export const ExpenseReducer = createReducer(initialState, (expense) => {
       })
     )
     .addCase(
-      ExpenseActions.getExpense.fulfilled,
-      (state: ExpenseState, { payload }) => ({
-        ...state,
-        expenseList: state.expenseList.map((expense) => {
-          if (expense._id === payload?._id) {
-            return payload;
-          }
-          return expense;
-        })
-      })
-    )
-    .addCase(
       ExpenseActions.updateExpense.fulfilled,
       (state: ExpenseState, { payload }) => ({
         ...state,

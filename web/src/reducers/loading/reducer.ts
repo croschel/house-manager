@@ -5,7 +5,6 @@ import { login, getUser, createUser, logout } from '../user/actions';
 import { resetAllActionStatus } from '../loading/actions';
 import {
   createExpense,
-  getExpense,
   getExpenseList,
   updateExpense,
   deleteExpense
@@ -30,7 +29,6 @@ interface LoadingState {
   createUser: ActionStatus;
   // Expenses
   createExpense: ActionStatus;
-  getExpense: ActionStatus;
   getExpenseList: ActionStatus;
   updateExpense: ActionStatus;
   deleteExpense: ActionStatus;
@@ -53,7 +51,6 @@ const initialState: LoadingState = {
   createUser: ActionStatus.INITIAL,
   // Expenses
   createExpense: ActionStatus.INITIAL,
-  getExpense: ActionStatus.INITIAL,
   getExpenseList: ActionStatus.INITIAL,
   updateExpense: ActionStatus.INITIAL,
   deleteExpense: ActionStatus.INITIAL,
@@ -81,7 +78,6 @@ const asyncThunks: Record<
   createUser,
   // Expenses
   createExpense,
-  getExpense,
   getExpenseList,
   updateExpense,
   deleteExpense,
