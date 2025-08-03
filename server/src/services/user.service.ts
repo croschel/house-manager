@@ -23,11 +23,7 @@ export const updatePassword = async (
   const user = await userModel.findById(userId);
   appAssert(user, BAD_REQUEST, "User not found");
   const isPasswordCorrect = await user.comparePassword(currentPassword);
-  await appAssert(
-    isPasswordCorrect,
-    BAD_REQUEST,
-    "Current password is incorrect"
-  );
+  appAssert(isPasswordCorrect, BAD_REQUEST, "Current password is incorrect");
 
   user.password = newPassword;
   await user.save();

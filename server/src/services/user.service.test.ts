@@ -87,8 +87,8 @@ describe("User Service", () => {
 
     it("should throw if current password is incorrect", async () => {
       (appAssert as jest.Mock)
-        .mockImplementationOnce(async () => {}) // user exists, do nothing
-        .mockImplementationOnce(async (value) => {
+        .mockImplementationOnce(() => {}) // user exists, do nothing
+        .mockImplementationOnce((value) => {
           if (!value) throw new Error("Current password is incorrect");
         });
       const user = {
