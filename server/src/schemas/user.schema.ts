@@ -8,3 +8,8 @@ export const updateUserSchema = z.object({
     .min(1, errorMessages.requiredField)
     .email(errorMessages.invalidEmail),
 });
+
+export const updatePasswordSchema = z.object({
+  currentPassword: z.string().min(1, errorMessages.requiredField),
+  newPassword: z.string().min(1, errorMessages.requiredField),
+});

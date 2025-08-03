@@ -14,3 +14,22 @@ export const updateUserProfile = async (
   appAssert(user, BAD_REQUEST, "User not found or update failed");
   return user;
 };
+
+export const updatePassword = async (
+  userId: string,
+  currentPassword: string,
+  newPassword: string
+) => {
+  const user = await userModel.findById(userId);
+  appAssert(user, BAD_REQUEST, "User not found");
+  appAssert(
+    user.comparePassword(currentPassword),
+    BAD_REQUEST,
+    "Current password is incorrect"
+  );
+
+  user.password = newPassword;
+  await user.save();
+
+  return user;
+};

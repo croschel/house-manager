@@ -1,8 +1,8 @@
 import { NOT_FOUND } from "../constants/http";
 import { CreateUserRequest } from "../interfaces/requests/user";
 import userModel from "../models/user.model";
-import { updateUserSchema } from "../schemas/user.schema";
-import { updateUserProfile } from "../services/user.service";
+import { updatePasswordSchema, updateUserSchema } from "../schemas/user.schema";
+import { updatePassword, updateUserProfile } from "../services/user.service";
 import appAssert from "../utils/app-assert";
 import catchErrors from "../utils/catchErrors";
 
@@ -20,6 +20,20 @@ export const updateUserHandler = catchErrors(async (req, res) => {
   updateUserSchema.parse(updateUser);
 
   const response = await updateUserProfile(userId, updateUser);
+
+  return res.status(200).json(response.omitPassword());
+});
+
+export const updatePasswordHandler = catchErrors(async (req, res) => {
+  const { userId } = req.user;
+  const { currentPassword, newPassword } = req.body;
+
+  updatePasswordSchema.parse({
+    currentPassword,
+    newPassword,
+  });
+
+  const response = await updatePassword(userId, currentPassword, newPassword);
 
   return res.status(200).json(response.omitPassword());
 });
