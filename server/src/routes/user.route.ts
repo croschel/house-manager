@@ -1,9 +1,13 @@
 import { Router } from "express";
 import { authenticate } from "../middleware/authenticate";
-import { getUserHandler } from "../controllers/user.controller";
+import {
+  getUserHandler,
+  updateUserHandler,
+} from "../controllers/user.controller";
 
 const userRoutes = Router();
 
 userRoutes.get("/", authenticate, getUserHandler);
+userRoutes.put("/", authenticate, updateUserHandler);
 
 export default userRoutes;

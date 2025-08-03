@@ -7,7 +7,7 @@ import { clearAuthCookies } from "../utils/cookies";
 
 const handleZodError = (res: Response, error: z.ZodError) => {
   const errors = error.issues.map((err) => ({
-    path: err.path.join("."),
+    field: err.path.join("."),
     message: err.message,
   }));
   return res.status(BAD_REQUEST).json({
