@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  server:
+    build: ./server
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URL=mongodb://mongo:27017/house-manager
+    depends_on:
+      - mongo
+    # Remove or comment out the volumes line for production!
+    # volumes:
+    #   - ./server:/app
+  web:
+    build: ./web
+    ports:
+      - "4173:4173"
+    depends_on:
+      - server
+    # Remove or comment out the volumes line for production!
+    # volumes:
+    #   - ./web:/app
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
