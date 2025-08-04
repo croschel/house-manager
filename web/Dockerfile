@@ -5,6 +5,6 @@ RUN yarn install --production=false
 RUN ls -l node_modules/.bin
 COPY . .
 ENV PATH="./node_modules/.bin:$PATH"
-RUN yarn build
-EXPOSE 4173
-CMD ["yarn", "preview"]
+EXPOSE 5173
+RUN yarn install
+CMD ["yarn", "dev"]

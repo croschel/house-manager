@@ -5,22 +5,41 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - MONGO_URL=mongodb://mongo:27017/house-manager
     depends_on:
       - mongo
-    # Remove or comment out the volumes line for production!
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    command: yarn dev
+    # --- Production config ---
+    # environment:
+    #   - NODE_ENV=production
+    #   - MONGO_URL=mongodb://mongo:27017/house-manager
     # volumes:
-    #   - ./server:/app
+    #   # Remove volumes for production to avoid overwriting built files
+    #   # - ./server:/app
+    #   # - /app/node_modules
+    # command: yarn prod
   web:
     build: ./web
     ports:
-      - "4173:4173"
+      - "5173:5173"
     depends_on:
       - server
-    # Remove or comment out the volumes line for production!
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    command: yarn dev
+    # --- Production config ---
+    # environment:
+    #   - NODE_ENV=production
     # volumes:
-    #   - ./web:/app
+    #   # Remove volumes for production to avoid overwriting built files
+    #   # - ./web:/app
+    #   # - /app/node_modules
+    # command: yarn build && yarn preview
   mongo:
     image: mongo:7
     ports:
