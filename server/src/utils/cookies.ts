@@ -3,9 +3,9 @@ import { fifteenMinutesFromNow, thirtyDaysFromNow } from "./date";
 import { REFRESH_PATH } from "../constants/environment";
 
 const defaults: CookieOptions = {
-  sameSite: "strict",
+  sameSite: "none",
   httpOnly: true,
-  secure: false,
+  secure: process.env.NODE_ENV !== "development",
 };
 
 export const getAccessTokenCookieOptions = (): CookieOptions => ({
