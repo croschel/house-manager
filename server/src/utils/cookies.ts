@@ -5,7 +5,7 @@ import { REFRESH_PATH } from "../constants/environment";
 const defaults: CookieOptions = {
   sameSite: "strict",
   httpOnly: true,
-  secure: process.env.NODE_ENV !== "development",
+  secure: false,
 };
 
 export const getAccessTokenCookieOptions = (): CookieOptions => ({
