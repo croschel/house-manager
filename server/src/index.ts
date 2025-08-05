@@ -28,7 +28,7 @@ app.use("/user", userRoutes);
 
 app.use(errorHandler);
 
-app.listen(4000, async () => {
+app.listen(ENV.PORT, async () => {
   console.log(`Server Running on ${ENV.PORT} in ${ENV.NODE_ENV} mode`);
   await DB.connect();
 });
