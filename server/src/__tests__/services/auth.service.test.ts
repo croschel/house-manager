@@ -1,17 +1,17 @@
-import SessionModel from "../models/session.model";
-import userModel from "../models/user.model";
-import VerificationCodeModel from "../models/verificationCode.model";
-import * as authService from "../services/auth.service";
-import appAssert from "../utils/app-assert";
-import { signToken, verifyToken } from "../utils/jwt";
-import { oneYearFromNow, thirtyDaysFromNow } from "../utils/date";
+import SessionModel from "../../models/session.model";
+import userModel from "../../models/user.model";
+import VerificationCodeModel from "../../models/verificationCode.model";
+import * as authService from "../../services/auth.service";
+import appAssert from "../../utils/app-assert";
+import { signToken, verifyToken } from "../../utils/jwt";
+import { oneYearFromNow, thirtyDaysFromNow } from "../../utils/date";
 
-jest.mock("../models/user.model");
-jest.mock("../models/session.model");
-jest.mock("../models/verificationCode.model");
-jest.mock("../utils/app-assert");
-jest.mock("../utils/jwt");
-jest.mock("../utils/date");
+jest.mock("../../models/user.model");
+jest.mock("../../models/session.model");
+jest.mock("../../models/verificationCode.model");
+jest.mock("../../utils/app-assert");
+jest.mock("../../utils/jwt");
+jest.mock("../../utils/date");
 
 describe("Auth Service", () => {
   afterEach(() => {

@@ -1,9 +1,9 @@
-import userModel from "../models/user.model";
-import * as userService from "../services/user.service";
-import appAssert from "../utils/app-assert";
+import userModel from "../../models/user.model";
+import * as userService from "../../services/user.service";
+import appAssert from "../../utils/app-assert";
 
-jest.mock("../models/user.model");
-jest.mock("../utils/app-assert");
+jest.mock("../../models/user.model");
+jest.mock("../../utils/app-assert");
 
 describe("User Service", () => {
   afterEach(() => {

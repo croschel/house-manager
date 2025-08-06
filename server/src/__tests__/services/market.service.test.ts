@@ -1,11 +1,11 @@
-import MarketModel from "../models/market.model";
-import * as marketService from "../services/market.service";
-import appAssert from "../utils/app-assert";
-import { CreateMarketList, Product } from "../interfaces/requests/market";
-import { SupermarketSections } from "../enums/market";
+import MarketModel from "../../models/market.model";
+import * as marketService from "../../services/market.service";
+import appAssert from "../../utils/app-assert";
+import { CreateMarketList, Product } from "../../interfaces/requests/market";
+import { SupermarketSections } from "../../enums/market";
 
-jest.mock("../models/market.model");
-jest.mock("../utils/app-assert");
+jest.mock("../../models/market.model");
+jest.mock("../../utils/app-assert");
 
 describe("Market Service", () => {
   afterEach(() => {

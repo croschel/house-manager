@@ -1,10 +1,10 @@
-import ExpenseModel from "../models/expense.model";
-import * as expenseService from "../services/expense.service";
-import appAssert from "../utils/app-assert";
-import { CreateExpenseRequest } from "../interfaces/requests/expenses";
+import ExpenseModel from "../../models/expense.model";
+import * as expenseService from "../../services/expense.service";
+import appAssert from "../../utils/app-assert";
+import { CreateExpenseRequest } from "../../interfaces/requests/expenses";
 
-jest.mock("../models/expense.model");
-jest.mock("../utils/app-assert");
+jest.mock("../../models/expense.model");
+jest.mock("../../utils/app-assert");
 
 describe("Expense Service", () => {
   afterEach(() => {
