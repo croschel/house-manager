@@ -30,13 +30,11 @@ describe("Auth Service", () => {
 
       const mockUser = {
         _id: "user123",
-        omitPassword: jest
-          .fn()
-          .mockReturnValue({
-            _id: "user123",
-            name: "Test User",
-            email: "test@example.com",
-          }),
+        omitPassword: jest.fn().mockReturnValue({
+          _id: "user123",
+          name: "Test User",
+          email: "test@example.com",
+        }),
       };
       const mockSession = { _id: "session123" };
       const mockVerificationCode = { _id: "code123" };
@@ -58,7 +56,7 @@ describe("Auth Service", () => {
         email: accountData.email,
       });
       expect(appAssert).toHaveBeenCalledWith(
-        null,
+        true,
         expect.anything(),
         "User already exists"
       );
@@ -92,7 +90,7 @@ describe("Auth Service", () => {
       });
       (appAssert as jest.Mock).mockImplementationOnce(
         (value, status, message) => {
-          if (value) throw new Error(message);
+          if (!value) throw new Error(message);
         }
       );
 
