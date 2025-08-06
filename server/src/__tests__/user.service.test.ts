@@ -1,5 +1,5 @@
 import userModel from "../models/user.model";
-import * as userService from "./user.service";
+import * as userService from "../services/user.service";
 import appAssert from "../utils/app-assert";
 
 jest.mock("../models/user.model");
